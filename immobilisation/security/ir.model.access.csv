@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_immo_financiere,immo_financiere,model_immo_financiere,base.group_user,1,1,1,1
+access_immo_financiere_line,immo_financiere_line,model_immo_financiere_line,base.group_user,1,1,1,1
+
+access_immo_amortissements,immo_amortissements,model_immo_amortissements,base.group_user,1,1,1,1
+access_immo_amortissements_line,immo_amortissements_line,model_immo_amortissements_line,base.group_user,1,1,1,1
+
+access_immo_dotation,immo_dotation,model_immo_dotation,base.group_user,1,1,1,1
+access_immo_dotation_line,immo_dotation_line,model_immo_dotation_line,base.group_user,1,1,1,1
+
+access_immo_immobilisation,immo_immobilisation,model_immo_immobilisation,base.group_user,1,1,1,1
+access_immo_immobilisation_line,immo_immobilisation_line,model_immo_immobilisation_line,base.group_user,1,1,1,1
+
+access_immo_wizard,immo_wizard,model_immo_wizard,base.group_user,1,1,1,1

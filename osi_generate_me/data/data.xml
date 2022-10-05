@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  
+    <data>
+
+        <record id="liass_fiscal" model="liass.fiscal">
+          <field name="name">Liass Fiscal Maroccain</field>
+        </record>
+
+        <record id="bilan_active_data" model="liass.fiscal.line">
+          <field name="name">T-1 A</field>
+          <field name="model">bilan.active</field>
+          <field name="sequence">0</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="bilan_passif_data" model="liass.fiscal.line">
+          <field name="name">T-1 B</field>
+          <field name="model">bilan.passive</field>
+          <field name="sequence">1</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="cpc_data" model="liass.fiscal.line">
+          <field name="name">T-2 A</field>
+          <field name="model">charge.profit</field>
+          <field name="sequence">3</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="charge_loss_data" model="liass.fiscal.line">
+          <field name="name">T-2 B</field>
+          <field name="model">charge.loss</field>
+          <field name="sequence">4</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="liasse_passage_data" model="liass.fiscal.line">
+          <field name="name">T-3</field>
+          <field name="model">liasse.passage</field>
+          <field name="sequence">5</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="immo_financiere_data" model="liass.fiscal.line">
+          <field name="name">T-4</field>
+          <field name="model">immo.financiere</field>
+          <field name="sequence">6</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="esg_tfr_data" model="liass.fiscal.line">
+          <field name="name">T-5 A</field>
+          <field name="model">esg.tfr</field>
+          <field name="sequence">7</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="esg_caf_data" model="liass.fiscal.line">
+          <field name="name">T-5 B</field>
+          <field name="model">esg.caf</field>
+          <field name="sequence">8</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="detail_cpc_data" model="liass.fiscal.line">
+          <field name="name">T-6</field>
+          <field name="model">detail.cpc</field>
+          <field name="sequence">9</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="credit_bail_data" model="liass.fiscal.line">
+          <field name="name">T-7</field>
+          <field name="model">credit.bail</field>
+          <field name="sequence">10</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="immo_amortissements_data" model="liass.fiscal.line">
+          <field name="name">T-8</field>
+          <field name="model">immo.amortissements</field>
+          <field name="sequence">11</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="provisions_data" model="liass.fiscal.line">
+          <field name="name">T-9</field>
+          <field name="model">provisions</field>
+          <field name="sequence">12</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="immo_immobilisation_data" model="liass.fiscal.line">
+          <field name="name">T-10</field>
+          <field name="model">immo.immobilisation</field>
+          <field name="sequence">13</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="titre_participation_data" model="liass.fiscal.line">
+          <field name="name">T-11</field>
+          <field name="model">titre.participation</field>
+          <field name="sequence">14</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="tva_data" model="liass.fiscal.line">
+          <field name="name">T-12</field>
+          <field name="model">osi.tva</field>
+          <field name="sequence">15</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="social_data" model="liass.fiscal.line">
+          <field name="name">T-13</field>
+          <field name="model">repartition.capital.social</field>
+          <field name="sequence">16</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="affectation_resultats_intervenue_data" model="liass.fiscal.line">
+          <field name="name">T-14</field>
+          <field name="model">affectation.resultats.intervenue</field>
+          <field name="sequence">17</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="imput_data" model="liass.fiscal.line">
+          <field name="name">T-15</field>
+          <field name="model">calcul.impot</field>
+          <field name="sequence">18</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="dotation_data" model="liass.fiscal.line">
+          <field name="name">T-16</field>
+          <field name="model">immo.dotation</field>
+          <field name="sequence">19</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="fusion_data" model="liass.fiscal.line">
+          <field name="name">T-17</field>
+          <field name="model">plus.values.fusion</field>
+          <field name="sequence">20</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="nterets_emprunts_data" model="liass.fiscal.line">
+          <field name="name">T-18</field>
+          <field name="model">interets.emprunts</field>
+          <field name="sequence">21</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="location_data" model="liass.fiscal.line">
+          <field name="name">T-19</field>
+          <field name="model">locations.baux</field>
+          <field name="sequence">22</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="detail_stock_data" model="liass.fiscal.line">
+          <field name="name">T-20</field>
+          <field name="model">detail.stock</field>
+          <field name="sequence">23</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="financement_1_data" model="liass.fiscal.line">
+          <field name="name">T-21</field>
+          <field name="model">finance.first</field>
+          <field name="sequence">24</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        <record id="financement_2_data" model="liass.fiscal.line">
+          <field name="name">T-22</field>
+          <field name="model">finance.second</field>
+          <field name="sequence">25</field>
+          <field name="group_id" ref='liass_fiscal'/>
+        </record>
+
+        
+
+    </data>
+</odoo>

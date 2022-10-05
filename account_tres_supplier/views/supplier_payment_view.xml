@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+		<!-- Paiement Record Search View -->
+
+	 	<record id="supplier_payment_search_view" model="ir.ui.view">
+            <field name="name">supplier.payment.select</field>
+            <field name="model">supplier.payment</field>
+            <field name="arch" type="xml">
+                <search string="Règlement fournisseur">
+	                <field name="name"/>
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <field name="demandeur_interne_id"/>
+                    <newline/>
+                    <field name="state"/>
+                    <field name="period_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Fournisseur" name="partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Demandeur" name="demandeur" domain="[]" context="{'group_by':'demandeur_interne_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Etat" name="state" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Période" name="period" domain="[]" context="{'group_by':'period_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Type de réglement" name="reglement" domain="[]" context="{'group_by':'type_reglement'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+		<!-- Paiement Record form View -->
+
+        <record id="view_supplier_payment_form" model="ir.ui.view">
+            <field name="name">supplier.payment.form</field>
+            <field name="model">supplier.payment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Règlement Fournisseur">
+                    <header>
+                    	<button name="action_valide" string="Valider" states="draft" type="object" class="oe_highlight" />
+						<button name="action_cancel" string="Annuler" states="draft" type="object" />
+                        <button name="action_done" string="Envoyer" states="valide" type="object" class="oe_highlight" />
+                        <button name="action_draft" string="Brouillon" states="done" type="object" class="oe_highlight"
+                                groups="account_tres_supplier.account_tres_supplier_cancel"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,valide,done,cancel"/>
+                    </header>
+                    <sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="date"/>
+								<field name="partner_id" domain="[('supplier_rank','>',0)]"/>
+								<field name="demandeur_interne_id"/>
+								<field name="type_reglement" required="1"/>
+                                <field name="journal_id" invisible="1"/>
+							</group>
+							<group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+								<field name="period_id" />
+								<field name="total_amount" />
+								<field name="motif"/>
+							</group>
+						</group>
+						<notebook>
+	                        <page string="Lignes de règlement">
+	                            <field colspan="4" name="supplier_payment_line_ids" nolabel="1">
+		                            <tree editable="bottom">
+		                            	<field name="type"/>
+                                        <field name="journal_id"/>
+                                        <field name="montant" sum="Total"/>
+										<field name="montant_devise" sum="Total"/>
+                                        <field name="paiement_ref" required="1"/>
+                                        <field name="due_date" attrs="{'required':[('type','!=','cash')],'invisible':[('type','=','cash')]}"/>
+									</tree>
+	                             </field>
+							</page>
+	                        <page string="Pièces Comptables">
+	                            <separator string="Chèques" colspan="4"/>
+	                            <field colspan="4" name="cheque_lines" nolabel="1"/>
+	                            <separator string="Effets" colspan="4"/>
+	                            <field colspan="4" name="effet_lines" nolabel="1"/>
+	                            <separator string="OV" colspan="4"/>
+	                            <field colspan="4" name="ov_lines" nolabel="1"/>
+	                            <separator string="Espèces" colspan="4"/>
+	                            <field colspan="4" name="cash_lines" nolabel="1"/>
+	                        </page>
+							<page string="Factures">
+								<field name="invoice_ids" nolabel="1" domain="[('move_type','=','in_invoice'),('state','=','open'),('partner_id','child_of',partner_id)]"/>
+	                        </page>
+						</notebook>
+                    </sheet>
+		            <div class="oe_chatter">
+		              <field name="message_follower_ids" widget="mail_followers"/>
+		              <field name="message_ids" widget="mail_thread"/>
+		            </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_supplier_payment_tree" model="ir.ui.view">
+            <field name="name">supplier.payment.tree</field>
+            <field name="model">supplier.payment</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Règlement Fournisseur">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <field name="total_amount"/>
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_supplier_payment" model="ir.actions.act_window">
+            <field name="name">Règlements Fournisseur</field>
+            <field name="res_model">supplier.payment</field>
+            <field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="supplier_payment_search_view"/>
+        </record>
+
+		<menuitem id="supplier_payment_menu_root" name="Règlements Fournisseur" parent="account.menu_finance" sequence="4"/>
+		<menuitem action="action_supplier_payment" id="supplier_payment_menu_id" parent="supplier_payment_menu_root" sequence="1"/>
+
+    </data>
+</odoo>

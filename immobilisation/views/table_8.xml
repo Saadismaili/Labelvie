@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_immo_amortissements_form" model="ir.ui.view">
+	    <field name="name">view.immo.amortissements.form</field>
+	    <field name="model">immo.amortissements</field>
+	    <field name="arch" type="xml">
+	        <form string="AMORTISSEMENTS">
+				<header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+                </header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]" />
+					<field name="company_id" invisible="1"/>
+
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" create="false" delete="false" colspan="4">
+								<tree editable="bottom" create="false">
+									<field name="code" invisible="1"/>
+									<field name="name"/>
+									<field name="debut_exercice"/>
+									<field name="dotation_exercice"/>
+									<field name="amortissement_sortie"/>
+									<field name="cumule_amortissement"/>
+									<field name="edi_debut_exercice" invisible="1"/>
+									<field name="edi_dotation_exercice" invisible="1"/>
+									<field name="edi_amortissement_sortie" invisible="1"/>
+									<field name="edi_cumule_amortissement" invisible="1"/>
+									<field name="immo_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_immo_amortissements_tree" model="ir.ui.view">
+	    <field name="name">view.immo.financiere.tree</field>
+	    <field name="model">immo.amortissements</field>
+	    <field name="arch" type="xml">
+	        <tree string="AMORTISSEMENTS">
+				<field name="name"/>
+				<field name="fy_n_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+				<field name="company_id" />
+
+			</tree>
+		</field>
+	</record>
+
+	<!-- Ruuules -->
+	<record id="immo_amortissements_comp_rule" model="ir.rule">
+		<field name="name">immo amortissements multi-company</field>
+		<field name="model_id" ref="model_immo_amortissements" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<record id="immo_amortissements_line_comp_rule" model="ir.rule">
+		<field name="name">immo amortissements LINES multi-company</field>
+		<field name="model_id" ref="model_immo_amortissements_line" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<!-- ___________ -->
+
+	<!-- PDF report -->
+	<record id="action_report_immo_amortissements" model="ir.actions.report">
+        <field name="name">AMORTISSEMENTS</field>
+        <field name="model">immo.amortissements</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">immobilisation.repport_report_immo_amortissements</field>
+        <field name="report_file">immobilisation.repport_report_immo_amortissements</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_immo_amortissements"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_immo_amortissements">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°8
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>TABLEAU DES AMORTISSEMENTS</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<h1></h1>
+					<table class="small">
+					<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+					<thead style="display: table-row-group">
+						<tr>
+							<!-- <th></th> -->
+							<th style="border: 1px solid;text-align: center;" name="th_name" >Nature</th>
+							<th style="border: 1px solid;text-align: center;" name="debut_exercice" >DEBUT EXERCICE</th>
+							<th style="border: 1px solid;text-align: center;" name="dotation_exercice" >Dotation Exercice</th>
+							<th style="border: 1px solid;text-align: center;" name="amortissement_sortie">Amortissements sur immobilis-sorties</th>
+							<th style="border: 1px solid;text-align: center;" name="cumule_amortissement">Cumul d'amortissement fin exercice</th>
+						</tr>
+					</thead>
+					<tbody class="sale_tbody">
+						<t t-foreach="obj.line_ids" t-as="line">
+							<tr>
+								<td style="height: 50px;border: 1px solid" name="td_name">
+									<span t-field="line.name"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="debut_exercice">
+									<span t-field="line.debut_exercice"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="dotation_exercice">
+									<span t-field="line.dotation_exercice"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="amortissement_sortie">
+									<span t-field="line.amortissement_sortie"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="cumule_amortissement">
+									<span t-field="line.cumule_amortissement"/>
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

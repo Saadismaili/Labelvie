@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- QWeb Reports -->
+
+        <report
+            id="account_tres_supplier.report_ordre_paiement"
+            string="Ordre de paiement"
+            model="supplier.payment"
+            report_type="qweb-pdf"
+            file="account_tres_supplier.supplier_payment_report"
+            name="account_tres_supplier.report_supplier_payment_document"
+            menu="True"
+        />
+        </data>
+</odoo>

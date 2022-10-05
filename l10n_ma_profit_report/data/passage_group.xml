@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="passage.group" id="passage_10">
+        <field name="name">I . RESULTAT NET COMPTABLE</field>
+        <field name="sequence">10</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_20">
+        <field name="name">II . REINTEGRATIONS FISCALES</field>
+        <field name="sequence">20</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+         <field name="summation_domain">["|",["sequence","=",30],["sequence","=",40]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+    </record>
+
+    <record model="passage.group" id="passage_30">
+        <field name="name">1. Courantes</field>
+        <field name="sequence">30</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_40">
+        <field name="name">2. Non courantes</field>
+        <field name="sequence">40</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_50">
+        <field name="name">III . DEDUCTIONS FISCALES</field>
+        <field name="sequence">50</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+         <field name="summation_domain">["|",["sequence","=",60],["sequence","=",70]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+    </record>
+
+    <record model="passage.group" id="passage_60">
+        <field name="name">1. Courantes</field>
+        <field name="sequence">60</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_70">
+        <field name="name">2. Non courantes</field>
+        <field name="sequence">70</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_80">
+        <field name="name">TOTAL</field>
+        <field name="sequence">80</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+         <field name="summation_domain">["|","|","|","|",["sequence","=",10],["sequence","=",30],["sequence","=",40],["sequence","=",60],["sequence","=",70]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+    </record>
+
+    <record model="passage.group" id="passage_90">
+        <field name="name"> IV . RESULTAT BRUT FISCAL</field>
+        <field name="sequence">90</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_100">
+        <field name="name">V . REPORT DEFICITAIRE IMPUTES (C)</field>
+        <field name="sequence">100</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_110">
+        <field name="name">VI . RESULTAT NET FISCAL</field>
+        <field name="sequence">110</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+    <record model="passage.group" id="passage_120">
+        <field name="name">VII . CUMUL DES AMORTISSEMENTS DIFFERES</field>
+        <field name="sequence">120</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="previous_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts2_domain">[["code","=like","619%"]]</field>
+    </record>
+
+    <record model="passage.group" id="passage_130">
+        <field name="name">VIII . CUMUL DES DEFICITES FISCAUX A REPORTER</field>
+        <field name="sequence">130</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+
+</odoo>

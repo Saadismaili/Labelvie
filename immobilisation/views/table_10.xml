@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="action_import" model="ir.actions.server">
+        <field name="name">Importer</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="immobilisation.model_immo_immobilisation"/>
+        <field name="binding_model_id" ref="immobilisation.model_immo_immobilisation"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_import()</field>
+    </record>
+
+	<record id="view_immo_immobilisation_form" model="ir.ui.view">
+	    <field name="name">view.immo.immobilisation.form</field>
+	    <field name="model">immo.immobilisation</field>
+	    <field name="arch" type="xml">
+	        <form string="PLUS OU MOINS VALUES SUR CESSIONS OU RETRAITS D'IMMOBILISATIONS">
+                <header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+                </header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]" />
+					<field name="company_id" invisible="1"/>
+					<field name="check_line" invisible="1"/>
+					<!-- Code Edi  -->
+					<field name="edi_date_in" invisible="1"/>
+					<field name="edi_code" invisible="1"/>
+					<field name="edi_montant_brut" invisible="1"/>
+					<field name="edi_amortissement_cumul" invisible="1"/>
+					<field name="edi_amortissement_net" invisible="1"/>
+					<field name="edi_amortissement_net" invisible="1"/>
+					<field name="edi_cession" invisible="1"/>
+					<field name="edi_plus_value" invisible="1"/>
+					<field name="edi_minece_value" invisible="1"/>
+
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" create="false"  delete="false" colspan="4">
+								<tree editable="bottom" create="false">
+									<field name="date_in"/>
+									<field name="code"/>
+									<field name="montant_brut"/>
+									<field name="amortissement_cumul"/>
+									<field name="amortissement_net"/>
+									<field name="cession"/>
+									<field name="plus_value"/>
+									<field name="minece_value"/>
+									<field name="immo_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_immo_immobilisation_tree" model="ir.ui.view">
+	    <field name="name">view.immo.immobilisation.tree</field>
+	    <field name="model">immo.immobilisation</field>
+	    <field name="arch" type="xml">
+	        <tree string="PLUS OU MOINS VALUES SUR CESSIONS OU RETRAITS D'IMMOBILISATIONS">
+				<field name="name"/>
+				<field name="fy_n_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+				<field name="company_id" />
+
+			</tree>
+		</field>
+	</record>
+
+	<!-- Ruuules -->
+	<record id="immo_immobilisation_comp_rule" model="ir.rule">
+		<field name="name">immo immobilisation multi-company</field>
+		<field name="model_id" ref="model_immo_immobilisation" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<record id="immo_immobilisation_line_comp_rule" model="ir.rule">
+		<field name="name">immo immobilisation LINES multi-company</field>
+		<field name="model_id" ref="model_immo_immobilisation_line" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<!-- ___________ -->
+
+	<!-- PDF report -->
+	<record id="action_report_immo_immobilisation" model="ir.actions.report">
+        <field name="name">PLUS OU MOINS VALUES SUR CESSIONS OU RETRAITS D'IMMOBILISATIONS</field>
+        <field name="model">immo.immobilisation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">immobilisation.repport_report_immo_immobilisation</field>
+        <field name="report_file">immobilisation.repport_report_immo_immobilisation</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_immo_immobilisation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_immo_immobilisation">
+		<t t-foreach="docs" t-as="doc">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°10
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>TABLEAU DES PLUS OU MOINS VALUES SUR CESSIONS OU RETRAITS D'IMMOBILISATIONS</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 11px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+						<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="date_in" >Date de cession</th>
+								<th style="border: 1px solid;text-align: center;" name="code" >Compte principal</th>
+								<th style="border: 1px solid;text-align: center;" name="montant_brut">Montant brut</th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_cumul">Amortissements Cumulés</th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_net">Valeur nette d'amortissements</th>
+								<th style="border: 1px solid;text-align: center;" name="th_cession" >Produit de cession</th>
+								<th style="border: 1px solid;text-align: center;" name="plus_value">Plus value</th>
+								<th style="border: 1px solid;text-align: center;" name="minece_value">Moins value</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-if="doc.check_line == True">
+								<t t-foreach="doc.line_ids" t-as="line">
+									<tr>
+										
+										<td style="border: 1px solid;" name="date_in">
+											<span t-field="line.date_in"/>
+										</td>
+										<td style="text-align: right;" name="code">
+											<span t-field="line.code"/>
+										</td>
+										<td style="text-align: right;" name="montant_brut">
+											<span t-field="line.montant_brut"/>
+										</td>
+										<td style="text-align: right;" name="amortissement_cumul">
+											<span t-field="line.amortissement_cumul"/>
+										</td>
+										<td style="text-align: right;" name="amortissement_net">
+											<span t-field="line.amortissement_net"/>
+										</td>
+										<td style="text-align: right;" name="td_cession">
+											<span t-field="line.cession"/>
+										</td>
+										<td style="text-align: right;" name="plus_value">
+											<span t-field="line.plus_value"/>
+										</td>
+										<td style="text-align: right;" name="minece_value">
+											<span t-field="line.minece_value"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+							<t t-else="doc.check_line == False">
+								<tr>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

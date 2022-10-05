@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_derogation_form" model="ir.ui.view">
+	    <field name="name">view.derogation.form</field>
+	    <field name="model">derogation</field>
+	    <field name="arch" type="xml">
+	        <form string="Derogation">
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+						<field name="company_id" invisible="1"/>
+					</group>
+					<notebook colspan="4">
+						<page string="Dérogation aux principes comptables fondamentaux">
+							<field name="line_1_ids" >
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="justification"/>
+                                    <field name="influence"/>
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+                        <page string="Dérogations aux méthodes d'évaluation">
+							<field name="line_2_ids" >
+								<tree editable="bottom" >
+									<field name="name"/>
+									<field name="justification"/>
+                                    <field name="influence"/>
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+                        <page string="Dérogations aux règles d'établissement et de présentation des états de synthèse">
+							<field name="line_3_ids" >
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="justification"/>
+                                    <field name="influence"/>
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_derogation_tree" model="ir.ui.view">
+	    <field name="name">view.derogation.tree</field>
+	    <field name="model">derogation</field>
+	    <field name="arch" type="xml">
+	        <tree string="derogation">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id"  />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_derogation" model="ir.actions.act_window">
+	    <field name="name">ETAT A2 : ETAT DE DEROGATION</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">derogation</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB ETAT DE DEROGATION" id="menu_derogation_id" parent="menu_tables_root_comptable" action="action_derogation" 
+	sequence="70"/>
+
+	<!-- Ruuules -->
+	<record id="derogation_comp_rule" model="ir.rule">
+        <field name="name">derogation multi-company</field>
+        <field name="model_id" ref="model_derogation" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="derogation_line1_comp_rule" model="ir.rule">
+        <field name="name">derogation LINES 1 multi-company</field>
+        <field name="model_id" ref="model_derogation_line1" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="derogation_line2_comp_rule" model="ir.rule">
+        <field name="name">derogation LINES 2 multi-company</field>
+        <field name="model_id" ref="model_derogation_line2" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="derogation_line3_comp_rule" model="ir.rule">
+        <field name="name">derogation LINES 3 multi-company</field>
+        <field name="model_id" ref="model_derogation_line3" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+
+	<!-- pdf report -->
+	<!-- <record id="action_report_finance_first" model="ir.actions.report">
+        <field name="name">Financement synhèse</field>
+        <field name="model">finance.first</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_finance_first</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_finance_first</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_finance_first"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_finance_first">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                <div class="page">
+                <div class="oe_structure"/>
+                <div>
+                    <h3 style="text-align: center;">Tableau  : Financement synhèse</h3>                 
+                    <h6 style="text-align: center;">Exercice : <span t-field="doc.fy_n_id.name"/></h6>
+                </div>
+                <div class="wrap">
+				<table class="table table-sm o_main_table">
+					<thead style="display: table-row-group">
+						<tr>
+							<th style="border: 1px solid;text-align: center;" name="th_name" >I- SYNTHESE DES MASSES DU BILAN</th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_debut" >EXERCICE (a) </th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_fin" >EXERCICE PRECEDENT (b) </th>
+							<th style="border: 1px solid;text-align: center;" name="th_p_debit_fin">VARIATION (a - b) EMPLOIS (C) </th>
+							<th style="border: 1px solid;text-align: center;" name="n_debit_fin">VARIATION (a - b) RESSOURCES (D) </th>
+						</tr>
+					</thead>
+					<tbody class="sale_tbody">
+						<t t-foreach="doc.line_ids" t-as="line">
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span t-field="line.name"/>
+								</td>
+								<td style="border: 1px solid;" name="td_montant_debut">
+									<span t-field="line.montant_debut"/>
+								</td>
+								<td style="border: 1px solid;" name="td_montant_fin">
+									<span t-field="line.montant_fin"/>
+								</td>
+								<td style="border: 1px solid;" name="td_p_debit_fin">
+									<span t-field="line.p_debit_fin"/>
+								</td>
+								<td style="border: 1px solid;" name="td_n_debit_fin">
+									<span t-field="line.n_debit_fin"/>
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+            	</div>
+            </div>
+        </t>
+        </t>
+        </t>
+    </template> -->
+</odoo>

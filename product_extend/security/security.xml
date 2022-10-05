@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="stock_groups" model="ir.module.category">
+            <field name="name">Stock Groups</field>
+            <field name="sequence" eval="10" />
+        </record>
+        <record id="group_stock_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <!-- <field name="comment">Comment</field> -->
+        <field name="category_id" ref="stock_groups"/>
+        </record>
+
+        <record id="group_stock_user" model="res.groups">
+            <field name="name">Visualiseur</field>
+            <!-- <field name="comment">Comment</field> -->
+            <field name="category_id" ref="stock_groups"/>
+            <!-- <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(5, ref('base.user_root'))]" /> -->
+        </record>
+    </data>
+</odoo>

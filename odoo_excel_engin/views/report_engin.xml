@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="report_engin_xlsx"
+                model="report.engin"
+                string="Imprimer rapport Excel"
+                report_type="xlsx"
+                name="report.engin.xlsx"
+                file="report.engin.xlsx"
+                attachment_use="False"
+        />
+
+        <!-- report edi python -->
+
+        <record id="view_report_pyhton_edi_form" model="ir.ui.view">
+            <field name="name">report.report.pyhton.edi</field>
+            <field name="model">report.pyhton.edi</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Code python">
+                    <group>
+                        <field name="name" widget="ace" options="{'mode': 'python'}"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- report group form -->
+
+        <record id="view_report_group_form" model="ir.ui.view">
+            <field name="name">report.group_form</field>
+            <field name="model">report.group</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Rapport">
+                    <header>
+                        <button name="report_print" string="Imprimer" type="object" class="oe_highlight"/>
+                    </header>
+                    <group>
+                        <field name="name"/>
+                        <!--<field name="company_id" groups="base.group_multi_company"/>-->
+                        <field name="code_edi"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Feuilles">
+                            <field name="rapport_ids" nolabel="1" colspan="4">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="report_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <!-- report engin form -->
+
+        <record id="view_report_engin_form" model="ir.ui.view">
+            <field name="name">report_engin_form</field>
+            <field name="model">report.engin</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Rapport">
+                    <header>
+                        <button name="report_print" string="Imprimer" type="object" class="oe_highlight"/>
+                        <button name="print_values" string="Imprimer valeurs" type="object" class="oe_highlight"/>
+                    </header>
+                    <group>
+                        <field name="name"/>
+                        <!--<field name="company_id" groups="base.group_multi_company"/>-->
+                        <field name="code_edi"/>
+                        <field name="code_python"/>
+                        <field widget="ace" options="{'mode': 'python'}" name="python"
+                               attrs="{'invisible':[('code_python','=',False)], 'required':[('code_python','=',True)]}"
+                               help="Variable disponibles: cr,uid,env,domain,ex_n,ex_n_1"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Python Edi">
+                            <group>
+                                <field name="edi_python"/>
+                            </group>
+                        </page>
+                        <page string="Ligne" attrs="{'invisible':[('code_python','!=',False)]}">
+                            <field name="line_ids" nolabel="1" colspan="4">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="cell"/>
+                                    <field name="col"/>
+                                    <field name="row"/>
+                                    <field name="value"/>
+                                    <field name="format"/>
+                                    <field name="computation_mode"/>
+                                    <field name="code_edi"/>
+                                    <field name="is_extra_field"/>
+                                    <button name="print_value" string="Imprimer valeur" type="object"
+                                            class="oe_highlight"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field widget="radio" name="computation_mode" required="True"/>
+                                        <field name="is_matrix"
+                                               attrs="{'invisible':[('computation_mode','not in',('compute'))]}"/>
+                                        <field name="cell"/>
+                                        <field name="format"/>
+                                        <field name="code_edi" attrs="{'invisible':[('is_matrix','=',True)]}"/>
+                                        <field name="is_extra_field" attrs="{'invisible':[('is_matrix','=',True)]}"/>
+                                        <field name="value"
+                                               attrs="{'invisible':[('computation_mode','not in',('manual'))], 'required':[('computation_mode','in',('manual'))]}"/>
+                                        <field widget="ace" options="{'mode': 'python'}" name="python"
+                                               attrs="{'invisible':[('computation_mode','not in',('python'))], 'required':[('computation_mode','in',('python'))]}"
+                                               help="Variable disponibles: cr,uid,env,domain,ex_n,ex_n_1"/>
+                                    </group>
+                                    <notebook>
+                                        <page string="Formules"
+                                              attrs="{'invisible':[('computation_mode','not in',('compute'))], 'required':[('computation_mode','in',('compute'))]}">
+                                            <field name="formulas_ids" nolabel="1" colspan="4">
+                                                <tree>
+                                                    <field name="formula_id"/>
+                                                    <field name="domain"/>
+                                                    <field name="op"/>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <field name="formula_id"/>
+                                                        <field name="domain"/>
+                                                        <field name="op"/>
+                                                    </group>
+                                                </form>
+                                            </field>
+                                        </page>
+                                        <page string="Code edi tableau" attrs="{'invisible':[('is_matrix','=',False)]}">
+                                            <field name="code_edi_ids" nolabel="1" colspan="4">
+                                                <tree>
+                                                    <field name="sequence" widget="handle"/>
+                                                    <field name="field"/>
+                                                    <field name="code_edi"/>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <field name="field"/>
+                                                        <field name="code_edi"/>
+                                                        <field name="secend_code_edi"/>
+                                                    </group>
+                                                </form>
+                                            </field>
+                                        </page>
+                                        <page string="Tableau (totaux)" attrs="{'invisible':[('is_matrix','=',False)]}">
+                                            <field name="sum_ids" nolabel="1" colspan="4">
+                                                <tree>
+                                                    <field name="sequence" widget="handle"/>
+                                                    <field name="type"/>
+                                                    <field name="code_edi"/>
+                                                    <field name="position"/>
+                                                    <field name="value"/>
+                                                    <field name="row"/>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <field name="type"/>
+                                                        <field name="code_edi"/>
+                                                        <field name="position"/>
+                                                        <field name="value"/>
+                                                        <field name="row"/>
+                                                        <field name="format"/>
+                                                    </group>
+                                                </form>
+                                            </field>
+                                        </page>
+                                        <page string="Formule Excel (cellues)">
+                                            <field name="excel_formula_cells_ids" nolabel="1" colspan="4">
+                                                <tree>
+                                                    <field name="report_id"/>
+                                                    <field name="cell"/>
+                                                    <field name="op"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Taille lignes / Colonnes" attrs="{'invisible':[('code_python','!=',False)]}">
+                            <field name="row_col_ids" nolabel="1" colspan="4">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="position"/>
+                                    <field name="row_value"/>
+                                    <field name="col_value"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="position"/>
+                                        <field name="row_value"/>
+                                        <field name="col_value"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="report_engin_action" model="ir.actions.act_window">
+            <field name="name">Rapport</field>
+            <field name="res_model">report.engin</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="report_engin_line_action" model="ir.actions.act_window">
+            <field name="name">Lignes de rapport</field>
+            <field name="res_model">report.engin.line</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="report_group_action" model="ir.actions.act_window">
+            <field name="name">Liasses</field>
+            <field name="res_model">report.group</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="report_engin_menu_root" parent="account.menu_finance_configuration" name="Configuration liasses" sequence="33"/>
+        <menuitem name="Liasses" id="report_group_menu_id" parent="odoo_excel_engin.report_engin_menu_root" action="report_group_action" sequence="15"/>
+        <menuitem name="Rapport" id="report_engin_menu_id" parent="odoo_excel_engin.report_engin_menu_root" action="report_engin_action" sequence="2"/>
+        <menuitem name="Lignes de rapport" id="report_engin_line_menu_id" parent="odoo_excel_engin.report_engin_menu_root" action="report_engin_line_action"
+                  sequence="3"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="passage.line" id="passage_10">
+        <field name="name">* BÈnÈfice net</field>
+        <field name="sequence">10</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_10"/>
+        <field name="specific_line_type" >benifice</field>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">[["id","=",0]]</field>
+        <field name="subtraction_accounts_domain">[["id","=",0]]</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_20">
+        <field name="name">*  Perte netts</field>
+        <field name="sequence">20</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_10"/>
+        <field name="specific_line_type" >perte</field>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <!-- __________________ -->
+
+    <record model="passage.line" id="passage_3120">
+        <field name="name">- Achats, Travaux et prestations de service non justifiés par une pièce probante</field>
+        <field name="sequence">30</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >011</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_4440">
+        <field name="name">- Achats, Travaux et prestations de service sur exercices antérieurs (omissions)</field>
+        <field name="sequence">31</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|","|","|",["code","=like","6118%"],["code","=like","6128%"],["code","=like","6148%"],["code","=like","6168%"],["code","=like","6178%"],["code","=like","6188%"],["code","=like","6198%"],["code","=like","6318%"],["code","=like","6338%"],["code","=like","6388%"],["code","=like","6398%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_4330">
+        <field name="name">- Charges n'incombant pas à la société.</field>
+        <field name="sequence">32</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >100</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_4220">
+        <field name="name">- Cadeaux publicitaires dépassant la valeur unitaire 100 dh TTC et/ou ne portant pas la raison sociale</field>
+        <field name="sequence">33</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >101</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_4110">
+        <field name="name">Excédent non déductible sur les intérêts des comptes courants d'associés.</field>
+        <field name="sequence">34</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >110</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_430">
+        <field name="name">- Limite de (10.000) DH par jour et sans dépasser 100.000 DH par mois par fournisseur.</field>
+        <field name="sequence">35</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >111</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_420">
+        <field name="name">- Dotations aux amortissements/ immobilisations dont le prix d’acquisition dépasse 10.000 DH</field>
+        <field name="sequence">36</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >002</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_410">
+        <field name="name">- Excédent d'amortissement courant (Taux excessifs)</field>
+        <field name="sequence">37</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >020</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_490">
+        <field name="name">- Excédent d'amortissement / Redevances crédit bail (voitures de tourisme)</field>
+        <field name="sequence">38</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >022</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_480">
+        <field name="name">- Amortissement des exercices antérieurs (omissions)</field>
+        <field name="sequence">39</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >200</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_470">
+        <field name="name">- Provisions courantes non déductibles.</field>
+        <field name="sequence">40</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >202</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_460">
+        <field name="name">- Dons courants non déductibles</field>
+        <field name="sequence">41</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >220</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+    
+    <record model="passage.line" id="passage_460">
+        <field name="name">- Profit latent de change (Ecarts de conversion) solde au 31-12-N (Comptes : 17 et 47)</field>
+        <field name="sequence">42</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >222</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_450">
+        <field name="name">- Indemnités de retard Comptabilisées non encaissées au 31/12/N-1 (compte 73811)</field>
+        <field name="sequence">43</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >003</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_440">
+        <field name="name">- Indemnités de retard Comptabilisées non payées au 31/12/N (compte 63118)</field>
+        <field name="sequence">44</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_30"/>
+        <field name="period_fiscal_year" >030</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+    
+    <!-- non courant -->
+    <record model="passage.line" id="passage_50">
+        <field name="name">- VNA des immobilisations cédées sur exercices antérieurs</field>
+        <field name="sequence">50</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_40"/>
+        <field name="period_fiscal_year" >033</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_51">
+        <field name="name">- Autres charges non courantes et/ou sur exercices antérieurs</field>
+        <field name="sequence">51</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_40"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">["|","|","|",["code","=like","6518%"],["code","=like","6568%"],["code","=like","6588%"],["code","=like","6598%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_52">
+        <field name="name">- Dotations non courantes des exercices antérieurs</field>
+        <field name="sequence">52</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_40"/>
+        <field name="period_fiscal_year" >300</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_53">
+        <field name="name">- Impôts sur les résultats</field>
+        <field name="sequence">53</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_40"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_54">
+        <field name="name">- Amendes et intérêts de retard afférents aux impôts</field>
+        <field name="sequence">54</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_40"/>
+        <field name="period_fiscal_year" >303</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_55">
+        <field name="name">- Amendes pénalités et majorations de toutes natures et majoration non déductibles</field>
+        <field name="sequence">54</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_40"/>
+        <field name="period_fiscal_year" >330</field>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","1%"],["code","=like","2%"],["code","=like","3%"],["code","=like","4%"],["code","=like","5%"],["code","=like","6%"],["code","=like","7%"],["code","=like","8%"],["code","=like","9%"]]</field>
+    </record>
+    <!-- courant deduction fiscal -->
+    <record model="passage.line" id="passage_000">
+        <field name="name">- Revenu des titres de participation compte 7321 si exonérés, (art. 6 du CGI).</field>
+        <field name="sequence">55</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_60"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7321%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_010">
+        <field name="name">- Revenu des titres immobilisés Compte 7325 si exonérés, (art. 6 du CGI).</field>
+        <field name="sequence">56</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_60"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7325%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_030">
+        <field name="name">- Profit latent de change (Ecarts de conversion) solde au 31-12-N-1 (Comptes : 17 et 47)</field>
+        <field name="sequence">57</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_60"/>
+        <field name="accounts_domain">["|",["code","=like","17%"],["code","=like","47%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_040">
+        <field name="name">- Indemnités de retard Comptabilisées non encaissées au 31/12/N (compte 73811)</field>
+        <field name="sequence">58</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_60"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","73811%"]]</field>
+    </record>
+    
+    <record model="passage.line" id="passage_050">
+        <field name="name">- Indemnités de retard Comptabilisées non payées au 31/12/N-1 (compte 63118)</field>
+        <field name="sequence">59</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_60"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","63118%"]]</field>
+    </record>
+
+    <!-- _____________________________ -->
+    <record model="passage.line" id="passage_60">
+        <field name="name">* BÈnÈfice brut Si T1 > T2 (A)</field>
+        <field name="sequence">60</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_90"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="period_fiscal_year" ></field>
+        <field name="specific_line_type" >benifice_brut</field>
+        <field name="accounts_domain">[["id","=",0]]</field>
+        <field name="subtraction_accounts_domain">[["id","=",0]]</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_70">
+        <field name="name">* DÈficit brut fiscal Si T2 > T1 (B)</field>
+        <field name="sequence">70</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_90"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="period_fiscal_year" ></field>
+        <field name="accounts_domain">[["id","=",0]]</field>
+        <field name="subtraction_accounts_domain">[["id","=",0]]</field>
+        <field name="specific_line_type" >perte_brut</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_75">
+        <field name="name">CUMUL DES DEFICITES FISCAUX A REPORTER</field>
+        <field name="sequence">75</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_100"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="accounts_domain">[["id","=",0]]</field>
+        <field name="subtraction_accounts_domain">[["id","=",0]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_80">
+        <field name="name">* Exercice N-4</field>
+        <field name="sequence">80</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_100"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="rapport_specific_year" >4</field>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_90">
+        <field name="name">* Exercice N-3</field>
+        <field name="sequence">90</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_100"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="rapport_specific_year" >3</field>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_100">
+        <field name="name">* Exercice N-2</field>
+        <field name="sequence">100</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_100"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="rapport_specific_year" >2</field>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>    
+    </record>
+
+    <record model="passage.line" id="passage_110">
+        <field name="name">* Exercice N-1</field>
+        <field name="sequence">110</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_100"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="rapport_specific_year" >1</field>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+    
+    <record model="passage.line" id="passage_120">
+        <field name="name">BÈnÈfice net fiscal ( A - C )</field>
+        <field name="sequence">120</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_110"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="period_fiscal_year" ></field>
+        <field name="accounts_domain">[["id","=",0]]</field>
+        <field name="subtraction_accounts_domain">[["id","=",0]]</field>
+        <field name="specific_line_type" >benifice_net</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_130">
+        <field name="name">ou DÈficit net fiscal (B)</field>
+        <field name="sequence">130</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_110"/>
+        <field name="period_fiscal_year_year" eval="True"/>
+        <field name="period_fiscal_year" ></field>
+        <field name="accounts_domain">[["id","=",0]]</field>
+        <field name="subtraction_accounts_domain">[["id","=",0]]</field>
+        <field name="specific_line_type" >perte_net</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_140">
+        <field name="name">* Exercice N-4</field>
+        <field name="sequence">140</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_130"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="specific_year" >4</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_150">
+        <field name="name">* Exercice N-3</field>
+        <field name="sequence">150</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_130"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="specific_year" >3</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_160">
+        <field name="name">* Exercice N-2</field>
+        <field name="sequence">160</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="passage_130"/>
+        <field name="period_fiscal_year" >666</field>
+        <field name="specific_year" >2</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+    <record model="passage.line" id="passage_170">
+        <field name="name">* Exercice N-1</field>
+        <field name="sequence">170</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" >666</field>
+        <field name="group_id" ref="passage_130"/>
+        <field name="specific_year" >1</field>
+        <field name="accounts2_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts2_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+
+</odoo>

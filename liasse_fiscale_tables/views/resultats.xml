@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_resultats_form" model="ir.ui.view">
+	    <field name="name">view.resultats.form</field>
+	    <field name="model">resultats</field>
+	    <field name="arch" type="xml">
+	        <form string="RESULTATS ET AUTRES ELEMENTS CARACTERISTIQUES DE L\'ENTREPRISE AU COURS DES TROIS DERNIERS EXERCICES">
+				<header>
+                        <button name="get_lines" type="object" string="Mise à jour des données"/>
+				</header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom" create="false">
+									<field name="name"/>
+									<field name="amount_n_2"/>
+									<field name="amount_n_1" />
+                                    <field name="amount_n"/>
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_resultats_tree" model="ir.ui.view">
+	    <field name="name">view.resultats.tree</field>
+	    <field name="model">resultats</field>
+	    <field name="arch" type="xml">
+	        <tree string="Financement synhèse">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_resultats" model="ir.actions.act_window">
+	    <field name="name">RESULTATS ET AUTRES ELEMENTS CARACTERISTIQUES</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">resultats</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB RESULTATS ET AUTRES ELEMENTS CARACTERISTIQUES" id="menu_resultats_id" parent="menu_tables_root_comptable" action="action_resultats" 
+	sequence="80"/>
+
+	<!-- Ruuules -->
+	<record id="resultats_comp_rule" model="ir.rule">
+        <field name="name">RESULTATS ET AUTRES ELEMENTS CARACTERISTIQUES multi-company</field>
+        <field name="model_id" ref="model_resultats" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="resultats_line_comp_rule" model="ir.rule">
+        <field name="name">RESULTATS ET AUTRES ELEMENTS CARACTERISTIQUES LINES multi-company</field>
+        <field name="model_id" ref="model_resultats_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+
+
+	<!-- pdf report -->
+	<record id="action_report_resultats" model="ir.actions.report">
+        <field name="name">RESULTATS ET AUTRES ELEMENTS CARACTERISTIQUES</field>
+        <field name="model">resultats</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_resultats</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_resultats</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_resultats"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_resultats">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                <div class="page">
+                <div class="oe_structure"/>
+                <div>
+                    <h3 style="text-align: center;">ETAT C3 : <span t-field="doc.name"/></h3>                 
+                    <h6 style="text-align: center;">Exercice : <span t-field="doc.fy_n_id.name"/></h6>
+                </div>
+                <div class="wrap">
+				<table class="table table-sm o_main_table">
+					<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+					<thead style="display: table-row-group">
+						<tr>
+							<!-- <th></th> -->
+							<th style="border: 1px solid;text-align: center;" name="th_name" >NATURES DES INDICATIONS</th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_debut" >EXCERCICE N-2</th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_fin" >EXCERCICE N-1</th>
+							<th style="border: 1px solid;text-align: center;" name="th_p_debit_fin">EXCERCICE N</th>
+						</tr>
+					</thead>
+					<tbody class="sale_tbody">
+						<t t-foreach="doc.line_ids" t-as="line">
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span t-field="line.name"/>
+								</td>
+								<td style="border: 1px solid;" name="td_amount_n_2">
+									<span t-field="line.amount_n_2"/>
+								</td>
+								<td style="border: 1px solid;" name="td_amount_n_1">
+									<span t-field="line.amount_n_1"/>
+								</td>
+								<td style="border: 1px solid;" name="td_amount_n">
+									<span t-field="line.amount_n"/>
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+            	</div>
+            </div>
+        </t>
+        </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_finance_second_form" model="ir.ui.view">
+	    <field name="name">view.finance.second.form</field>
+	    <field name="model">finance.second</field>
+	    <field name="arch" type="xml">
+	        <form string="Financement emplois-ressources">
+				<header>
+                        <button name="get_lines" type="object" string="Mise à jour des données"/>
+				</header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom" create="false" delete="false">
+									<field name="name"/>
+									<field name="emploi_debut"/>
+									<field name="ressource_debut" />
+									<field name="emploi_fin" />
+									<field name="ressource_fin" />
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+									<field name="edi_emploi_debut" invisible="1"/>
+									<field name="edi_ressource_debut" invisible="1" />
+									<field name="edi_emploi_fin"  invisible="1"/>
+									<field name="edi_ressource_fin" invisible="1" />
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_finance_second_tree" model="ir.ui.view">
+	    <field name="name">view.finance.second.tree</field>
+	    <field name="model">finance.second</field>
+	    <field name="arch" type="xml">
+	        <tree string="Financement emplois-ressources">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_finance_second" model="ir.actions.act_window">
+	    <field name="name">Financement emplois-ressources</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">finance.second</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB FINANCEMENT EMPLOI-RESSOURCES" id="menu_finance_second_id" parent="menu_tables_root" action="action_finance_second" 
+	sequence="35"/>
+
+	<!-- Ruuules -->
+	<record id="finance_second_comp_rule" model="ir.rule">
+        <field name="name">Finnanacement Emploi ressources multi-company</field>
+        <field name="model_id" ref="model_finance_second" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="finance_second_line_comp_rule" model="ir.rule">
+        <field name="name">Finnancement Emploi Ressources LINES multi-company</field>
+        <field name="model_id" ref="model_finance_second_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+
+	<!-- pdf report -->
+	<record id="action_report_finance_second" model="ir.actions.report">
+        <field name="name">Financement emplois-ressources</field>
+        <field name="model">finance.second</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_finance_second</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_finance_second</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_finance_second"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_finance_second">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                <div class="page">
+                <div class="oe_structure"/>
+                <div>
+                    <h3 style="text-align: center;">Tableau  : Financement emplois-ressources</h3>                 
+                    <h6 style="text-align: center;">Exercice : <span t-field="doc.fy_n_id.name"/></h6>
+                </div>
+                <div class="wrap">
+				<table class="table table-sm o_main_table">
+					<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+					<thead style="display: table-row-group">
+						<tr>
+							<!-- <th></th> -->
+							<th style="border: 1px solid;text-align: center;" name="th_name" >II- EMPLOIS ET RESSOURCES- I- RESSOURCES STABLES DE L'EXERCICE (FLUX)</th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_debut" >EXERCICE EMPLOIS </th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_fin" >EXERCICE RESSOURCES </th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_debut" >EXERCICE PRECEDENT EMPLOIS </th>
+							<th style="border: 1px solid;text-align: center;" name="th_montant_fin" >EXERCICE PRECEDENT RESSOURCES </th>
+						</tr>
+					</thead>
+					<tbody class="sale_tbody">
+						<t t-foreach="doc.line_ids" t-as="line">
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span t-field="line.name"/>
+								</td>
+								<td style="border: 1px solid;" name="td_montant_debut">
+									<span t-field="line.emploi_debut"/>
+								</td>
+								<td style="border: 1px solid;" name="td_montant_fin">
+									<span t-field="line.ressource_debut"/>
+								</td>
+								<td style="border: 1px solid;" name="td_montant_debut">
+									<span t-field="line.emploi_fin"/>
+								</td>
+								<td style="border: 1px solid;" name="td_montant_fin">
+									<span t-field="line.ressource_fin"/>
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+            	</div>
+            </div>
+        </t>
+        </t>
+        </t>
+    </template>
+</odoo>

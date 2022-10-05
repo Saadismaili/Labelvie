@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_credit_bail_form" model="ir.ui.view">
+	    <field name="name">view.credit.bail.form</field>
+	    <field name="model">credit.bail</field>
+	    <field name="arch" type="xml">
+	        <form string="Crédit Bail">
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]" />
+					<field name="company_id" invisible="1"/>
+					<field name="edi_name" invisible="1"/>
+					<field name="check_line" invisible="1"/>
+					<field name="edi_date_premiere_echeance" invisible="1"/>
+					<field name="edi_duuree_contrat" invisible="1"/>
+					<field name="edi_valeur_estimee" invisible="1"/>
+					<field name="edi_duuree_theorique" invisible="1"/>
+					<field name="edi_cumul_redevance" invisible="1"/>
+					<field name="edi_montant_redevance" invisible="1"/>
+					<field name="edi_redevance_restant_moins" invisible="1"/>
+					<field name="edi_redevance_restant_plus" invisible="1"/>
+					<field name="edi_prix_achat_fin_contrat" invisible="1"/>
+					<field name="edi_observations" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="credit_bail_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="code"/>
+									<field name="name"/>
+									<field name="date_premiere_echeance"/>
+									<field name="duuree_contrat"/>
+									<field name="valeur_estimee"/>
+									<field name="duuree_theorique"/>
+									<field name="cumul_redevance"/>
+									<field name="montant_redevance"/>
+									<field name="redevance_restant_moins"/>
+									<field name="redevance_restant_plus"/>
+									<field name="prix_achat_fin_contrat"/>
+									<field name="observations"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_credit_bail_tree" model="ir.ui.view">
+	    <field name="name">view.credit.bail.tree</field>
+	    <field name="model">credit.bail</field>
+	    <field name="arch" type="xml">
+	        <tree string="Crédit Bail">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_credit_bail" model="ir.actions.act_window">
+	    <field name="name">BIENS EN CREDIT BAIL</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">credit.bail</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+	<!-- Principal Menu Item -->
+	<menuitem id="menu_tables_root_general" name="Liasse fiscale et comptable" parent="account_accountant.menu_accounting"/>
+	<!-- category menu items -->
+	<menuitem id="menu_tables_root" name="Liasse fiscale" parent="menu_tables_root_general"/>
+	<menuitem id="menu_tables_root_comptable" name="Liasse Comptable" parent="menu_tables_root_general"/>
+	<!-- ___ -->
+	<menuitem name="TAB-07 BIENS EN CREDIT BAIL" id="menu_credit_bail_id" parent="menu_tables_root" action="action_credit_bail" 
+	sequence="8"/>
+
+	<!-- Ruuules -->
+	<record id="credit_bail_comp_rule" model="ir.rule">
+        <field name="name">Credit Bail multi-company</field>
+        <field name="model_id" ref="model_credit_bail" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="credit_bail_line_comp_rule" model="ir.rule">
+        <field name="name">Credit Bail LINES multi-company</field>
+        <field name="model_id" ref="model_credit_bail_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+
+	<!-- pdf report -->
+	<record id="action_report_credit_bail" model="ir.actions.report">
+        <field name="name">BIENS EN CREDIT BAIL</field>
+        <field name="model">credit.bail</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_credit_bail</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_credit_bail</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_credit_bail"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_credit_bail">
+		<t t-foreach="docs" t-as="doc">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°7
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>TABLEAU DES BIENS EN CREDIT-BAIL</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Nom</th>
+								<th style="border: 1px solid;text-align: center;" name="th_date_premiere_echeance" >Date de la 1ère échéance</th>
+								<th style="border: 1px solid;text-align: center;" name="th_duuree_contrat" >Durée du contrat en mois</th>
+								<th style="border: 1px solid;text-align: center;" name="th_valeur_estimee">Valeur estimée du bien à la date du contrat</th>
+								<th style="border: 1px solid;text-align: center;" name="th_duuree_theorique">Durée théorique d'amortissement du bien</th>
+								<th style="border: 1px solid;text-align: center;" name="th_cumul_redevance">Cumul des exercices précedents des redevances</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_redevance">Montant de l'exercice des redevances</th>
+								<th style="border: 1px solid;text-align: center;" name="th_redevance_restant_moins">Redevances restant à payer A moins d'un an</th>
+								<th style="border: 1px solid;text-align: center;" name="th_redevance_restant_plus">Redevances restant à payer A plus d'un an</th>
+								<th style="border: 1px solid;text-align: center;" name="th_prix_achat_fin_contrat">Prix d'achat résiduel en fin de contrat</th>
+								<th style="border: 1px solid;text-align: center;" name="th_observations">Observations</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-if="doc.check_line == True">
+								<t t-foreach="doc.credit_bail_line_ids" t-as="line">
+									<tr>
+										<td  name="td_name">
+											<span t-field="line.name"/>
+										</td>
+										<td  style="text-align: right;"  name="td_date_premiere_echeance">
+											<span t-field="line.date_premiere_echeance"/>
+										</td>
+										<td  style="text-align: right;"  name="td_duuree_contrat">
+											<span t-field="line.duuree_contrat"/>
+										</td>
+										<td  style="text-align: right;"  name="td_valeur_estimee">
+											<span t-field="line.valeur_estimee"/>
+										</td>
+										<td  style="text-align: right;"  name="td_duuree_theorique">
+											<span t-field="line.duuree_theorique"/>
+										</td>
+										<td  style="text-align: right;" name="td_cumul_redevance">
+											<span t-field="line.cumul_redevance"/>
+										</td>
+										<td  style="text-align: right;"  name="td_montant_redevance">
+											<span t-field="line.montant_redevance"/>
+										</td>
+										<td  style="text-align: right;"  name="td_redevance_restant_moins">
+											<span t-field="line.redevance_restant_moins"/>
+										</td>
+										<td  style="text-align: right;"  name="td_redevance_restant_plus">
+											<span t-field="line.redevance_restant_plus"/>
+										</td>
+										<td  style="text-align: right;"  name="td_prix_achat_fin_contrat">
+											<span t-field="line.prix_achat_fin_contrat"/>
+										</td>
+										<td  style="text-align: right;"  name="td_observations">
+											<span t-field="line.observations"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+							<t t-else="doc.check_line == False">
+								<tr>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+				</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

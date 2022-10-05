@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="supplier_setting_mt_ht_61262000_debit" model="external.supplier.settings">
+            <field name="name">mt_ht</field>
+            <field name="type">debiteur</field>
+            <field name="actif">True</field>
+            <field name="account_id" ref="l10n_maroc.1_pcg_61262000" />
+        </record>
+
+        <record id="supplier_setting_mt_tva_34552140_debit" model="external.supplier.settings">
+            <field name="name">mt_tva</field>
+            <field name="type">debiteur</field>
+            <field name="actif">True</field>
+            <field name="account_id" ref="l10n_maroc.1_pcg_34552140" />
+        </record>
+
+        <record id="supplier_setting_mt_tva_44111000_debit" model="external.supplier.settings">
+            <field name="name">mt_tva</field>
+            <field name="type">debiteur</field>
+            <field name="actif">True</field>
+            <field name="account_id" ref="l10n_maroc.1_pcg_44111000" />
+        </record>
+
+        <record id="supplier_setting_mt_ras_4411_debit" model="external.supplier.settings">
+            <field name="name">mt_ras</field>
+            <field name="type">debiteur</field>
+            <field name="actif">True</field>
+            <field name="account_id" ref="l10n_maroc.1_pcg_44111000" />
+        </record>
+
+        <record id="supplier_setting_mt_ttc_44111_credit" model="external.supplier.settings">
+            <field name="name">mt_ttc</field>
+            <field name="type">crediteur</field>
+            <field name="actif">True</field>
+            <field name="account_id" ref="l10n_maroc.1_pcg_44111000" />
+        </record>
+
+        <record id="supplier_setting_mt_ras_4457_credit" model="external.supplier.settings">
+            <field name="name">mt_ras</field>
+            <field name="type">crediteur</field>
+            <field name="actif">True</field>
+            <field name="account_id" ref="l10n_maroc.1_pcg_44570000" />
+        </record>
+
+        <record id="supplier_setting_mt_ras_44550129_credit" model="external.supplier.settings">
+            <field name="name">mt_tva</field>
+            <field name="type">crediteur</field>
+            <field name="actif">True</field>
+            <field name="account_id" ref="l10n_maroc.1_pcg_44550129" />
+        </record>
+    </data>
+</odoo>

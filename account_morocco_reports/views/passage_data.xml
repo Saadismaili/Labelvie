@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="passage_enterieur_form" model="ir.ui.view">
+        <field name="name">passage.enterieur.form</field>
+        <field name="model">passage.enterieur</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+
+                        </h1>
+                    </div>
+                    <group>
+
+                        <group>
+                            <field name="date"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group string = 'CUMUL DES AMORTISSEMENTS DIFFERES ANTERIEUR'>
+                            <field name="cumule_amorti"/>
+                        </group>
+                        
+                    </group>
+                    <group string="CUMUL DES DEFICITES FISCAUX A REPORTER ANTERIEUR">
+                        <group>
+                            <field name="exercice_n_1"/>
+                            <field name="exercice_n_2"/>
+                        </group>
+                        <group>
+                            <field name="exercice_n_3"/>
+                            <field name="exercice_n_4"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="passage_enterieur_tree" model="ir.ui.view">
+        <field name="name">passage.enterieur.tree</field>
+        <field name="model">passage.enterieur</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="date"/>
+                <field name="cumule_amorti"/>
+                <field name="exercice_n_4"/>
+                <field name="exercice_n_3"/>
+                <field name="exercice_n_2"/>
+                <field name="exercice_n_1"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="passage_enterieur_action" model="ir.actions.act_window">
+        <field name="name">Passage : Enterieur Valeur</field>
+        <field name="res_model">passage.enterieur</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- <record model="passage.enterieur" id="passage_enterieur">
+        <field name="name">Valeur anterieur de tableau passage, partie Cumulatif</field>
+    </record> -->
+    <!-- Ruules -->
+    <record id="passage_data_comp_rule" model="ir.rule">
+        <field name="name">Anterieur Passage multi-company</field>
+        <field name="model_id" ref="model_passage_enterieur" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+    <menuitem name="TAB-PASSAGE Valeur Anterieur" sequence="20" id="passage_enterieur_menu" parent="account.menu_finance_entries_accounting_miscellaneous" action="passage_enterieur_action"/>
+</odoo>

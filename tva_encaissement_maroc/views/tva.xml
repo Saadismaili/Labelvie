@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tva declaration-->
+        <record id="view_tva_declaration_tree" model="ir.ui.view">
+            <field name="name">tva.declaration.tree</field>
+            <field name="model">tva.declaration</field>
+            <field name="arch" type="xml">
+                <tree string="Déclaration TVA">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="period_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tva_declaration_form" model="ir.ui.view">
+            <field name="name">tva.declaration.form</field>
+            <field name="model">tva.declaration</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Déclaration TVA">
+                    <header>
+                        <button name="generate_data" string="Importer les données" type="object" class="oe_highlight"
+                                states="draft"/>
+                        <button name="generate_tva_file" string="Générer fichier Excel" type="object"
+                                class="oe_highlight"/>
+                        <button name="genetare_tax_account_move" states="draft" string="Générer écritures comptables"
+                                type="object" class="oe_highlight"/>
+                        <button name="validate" string="Valider" type="object" class="oe_highlight" states="draft"/>
+                        <button name="action_draft" string="Brouillon" type="object" states="done"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date" attrs="{'readonly': [('state','=', 'done')]}"/>
+                            <field name="period_id" options="{'no_create': True, 'no_open':True}" attrs="{'readonly': [('state','=', 'done')]}"/>
+                            <field name="regime" attrs="{'readonly': [('state','=', 'done')]}"/>
+                            <field name="annee" attrs="{'readonly': [('state','=', 'done')]}"/>
+                            <field name="period" attrs="{'readonly': [('state','=', 'done')]}"/>
+                        </group>
+                        <group>
+                            <field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+                            <field name="tax_account_id" options="{'no_create': True, 'no_open':True}" required="1"/>
+                            <field name="payed_tax_account_id" options="{'no_create': True, 'no_open':True}" required="1"/>
+                            <field name="tva_report_file" filename="name_file_excel" readonly="1"/>
+                            <field name="move_id" attrs="{'readonly': [('state','=', 'done')]}"/>
+
+                            <field name="payment_proof_file" attrs="{'readonly': [('state','=', 'done')]}"/>
+
+                        </group>
+
+
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Décaissement">
+                            <field name="line_ids" nolabel="1" colspan="4" context="{'default_type': False}">
+                                <tree editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="sequence" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="move_id" invisible="1" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="invoice_number" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="partner_id" invisible="1" string="Fournisseur" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="partner_name" string="Fournisseur" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="id_fisc" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="ice" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="description" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="amount_ht" sum="total" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="amount_tva" sum="total" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="amount_ttc" sum="total" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="invoice_date" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="paiement_date" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="paiement_type" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="tax_id" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="tax_rate" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="to_be_delayed" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="delayed" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="type" invisible="1" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Encaissement">
+                            
+                            <field name="encaissement_ids" nolabel="1" colspan="4" context="{'default_type': True}">
+                                <tree editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="sequence" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="move_id" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="partner_id" string="Client" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="description" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="amount_ht" sum="total" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="amount_tva" sum="total" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="amount_ttc" sum="total" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="invoice_date" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="paiement_date" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="tax_id" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="tax_rate" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="to_be_delayed" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="type" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="TVA facturée">
+                            <field name="payable_tva_ids" colspan="4">
+                                <tree editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="tax_id"/>
+                                    <field name="amount_ht" sum="total"/>
+                                    <field name="amount" sum="total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="TVA récupérable">
+                            <field name="receivable_tva_ids" colspan="4">
+                                <tree editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="tax_id"/>
+                                    <field name="amount_ht" sum="total"/>
+                                    <field name="amount" sum="total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Champs à saisie manuelle">
+                            <field name="manual_field_ids" readonly="0">
+                                <tree editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="tva_report_id" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                    <field name="value" attrs="{'readonly': [('state','=', 'done')]}"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Champs calculés">
+                            <button name="get_auto_computed_lines" string="Calculer" type="object" class="oe_highlight"/>
+                            <field name="auto_field_ids" readonly="1">
+                                <tree editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="tva_report_id"/>
+                                    <field name="value"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Récapitulatif">
+                            <group>
+                                <field name="sum_receivable"/>
+                                <field name="sum_payable"/>
+                                <field name="credit_tva"/>
+                                <field name="tva_due"/>
+                                <field name="cred_pay"/>
+                                <field name="to_be_payed" invisible="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="tva_declaration_action" model="ir.actions.act_window">
+            <field name="name">Déclaration TVA</field>
+            <field name="res_model">tva.declaration</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="tva_declaration_comp_rule" model="ir.rule">
+			<field name="name">tva_declaration multi-company</field>
+			<field name="model_id" ref="model_tva_declaration" />
+			<field name="domain_force">
+				['|',('company_id', 'in', company_ids),('company_id','=',False)]
+			</field>
+		</record>
+
+
+        <menuitem id="tva_declaration_menu_root" name="Déclaration TVA"
+                  web_icon="tva_encaissement_maroc,static/description/logo.png"/>
+        <menuitem id="tva_declaration_menu_action_root" name="Déclaration TVA" parent="tva_declaration_menu_root"/>
+        <menuitem id="tva_declaration_menu_id" parent="tva_declaration_menu_action_root"
+                  action="tva_declaration_action"/>
+
+
+    </data>
+</odoo>

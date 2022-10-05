@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!-- Formulas engine form -->
+
+        <record id="view_formulas_engine_form" model="ir.ui.view">
+			<field name="name">formulas_engine_form</field>
+			<field name="model">formulas.engine</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Concepteur de formules">
+					<sheet>
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <!--<label for="company_id" class="oe_edit_only" groups="base.group_multi_company"/>-->
+                            <!--<h1>-->
+                                <!--<field name="company_id" groups="base.group_multi_company"/>-->
+                            <!--</h1>-->
+                            <label for="description" class="oe_edit_only"/>
+                            <div>
+                                <field name="description" class="oe_inline"/>
+                            </div>
+
+                            <group string="Methode de calcul">
+                                <field name="is_matrix"
+                                attrs="{'invisible':[('computation_mode','not in',('python','sql', 'count'))]}"/>
+
+                                <field widget="radio" name="computation_mode"/>
+                                <field name="exercice"/>
+
+                                <!-- Hide the fields below if manually -->
+                                <field name="model_id" class="oe_inline"
+                                    attrs="{'invisible':[('computation_mode','not in',('sum', 'count'))], 'required':[('computation_mode','in',('sum', 'count'))]}"/>
+                                <field name="field_id" class="oe_inline"
+                                    attrs="{'invisible':[('computation_mode','!=','sum')], 'required':[('computation_mode','=','sum')]}"
+                                    domain="[('model_id', '=', model_id)]"/>
+                                <field name="date_field_id" class="oe_inline"
+                                    attrs="{'invisible':[('computation_mode','!=','sum')], 'required':[('exercice','=',True)]}"
+                                    domain="[
+                                        ('ttype', 'in', ('date', 'datetime')),
+                                            ('model_id', '=', model_id)]"/>
+                                <field widget="ace" options="{'mode': 'python'}" name="python_code" attrs="{'invisible':[('computation_mode','!=','python')], 'required':[('computation_mode','=','python')]}" help="Variable disponibles: cr,uid,env,domain,ex_n,ex_n_1"/>
+                                <field name="sql_code" attrs="{'invisible':[('computation_mode','!=','sql')], 'required':[('computation_mode','=','sql')]}" help="e.g. select name from res_partner;"/>
+                                <field name="sql_date" attrs="{'invisible':[('computation_mode','!=','sql')],'required':[('exercice','=',True)] }"/>
+                                <field name="field_list" attrs="{'invisible':['|',('computation_mode','not in',('python','sql', 'count')),('is_matrix','=',False)], 'required':[('computation_mode','in',('sql', 'count')),('is_matrix','=',True)]}" placeholder="['champs1','champs2',...]"/>
+
+                            </group>
+
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="formulas_engine_action" model="ir.actions.act_window">
+			<field name="name">Concepteur de formules</field>
+			<field name="res_model">formulas.engine</field>
+			<!-- <field name="view_type">form</field> -->
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Concepteur de formules" id="formulas_engine_menu_id" parent="odoo_excel_engin.report_engin_menu_root" action="formulas_engine_action" />
+
+
+    </data>
+</odoo>

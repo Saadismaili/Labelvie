@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- IMMOBILISATIONS EN NON VALEURS A -->
+    <record model="assets.line" id="asset_211">
+        <field name="name">*  Frais préliminaires</field>
+        <field name="sequence">10</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_21"/>
+        <field name="accounts_domain">[["code","=like","211%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2811%"]]</field>
+    </record>
+    <record model="assets.line" id="asset_212">
+        <field name="name">*  Charges à repartir sur plusieurs  exercices</field>
+        <field name="sequence">20</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_21"/>
+        <field name="accounts_domain">[["code","=like","212%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2812%"]]</field>
+    </record>
+    <record model="assets.line" id="asset_213">
+        <field name="name">*  Primes de remboursement des obligations</field>
+        <field name="sequence">30</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_21"/>
+        <field name="accounts_domain">[["code","=like","213%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2813%"]]</field>
+    </record>
+
+    <!-- IMMOBILISATIONS INCORPORELLES  (B) -->
+    <record model="assets.line" id="asset_221">
+        <field name="name">*  Immobilisation en recherche et développement</field>
+        <field name="sequence">40</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_22"/>
+        <field name="accounts_domain">[["code","=like","221%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2821%"]]</field>
+        <field name="left_char">C</field>
+    </record>
+
+    <record model="assets.line" id="asset_222">
+        <field name="name">*  Brevets, marques, droits et valeurs similaires</field>
+        <field name="sequence">50</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_22"/>
+        <field name="accounts_domain">[["code","=like","222%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2822%"]]</field>
+        <field name="left_char">T</field>
+    </record>
+
+    <record model="assets.line" id="asset_223">
+        <field name="name">*  Fonds commercial</field>
+        <field name="sequence">60</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_22"/>
+        <field name="accounts_domain">[["code","=like","223%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2823%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+
+    <record model="assets.line" id="asset_228">
+        <field name="name">*  Autres immobilisations incorporelles</field>
+        <field name="sequence">70</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_22"/>
+        <field name="accounts_domain">[["code","=like","228%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2828%"]]</field>
+        <field name="left_char">F</field>
+    </record>
+
+    <!-- IMMOBILISATIONS CORPORELLES (C) -->
+    <record model="assets.line" id="asset_231">
+        <field name="name">*  Terrains</field>
+        <field name="sequence">80</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_23"/>
+        <field name="accounts_domain">[["code","=like","231%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2831%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="assets.line" id="asset_232">
+        <field name="name">*  Constructions</field>
+        <field name="sequence">90</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_23"/>
+        <field name="accounts_domain">[["code","=like","232%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2832%"]]</field>
+        <field name="left_char">M</field>
+    </record>
+    <record model="assets.line" id="asset_233">
+        <field name="name">*  Installations techniques, matériel et outillage</field>
+        <field name="sequence">100</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_23"/>
+        <field name="accounts_domain">[["code","=like","233%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2833%"]]</field>
+        <field name="left_char">M</field>
+    </record>
+    <record model="assets.line" id="asset_234">
+        <field name="name">*  Matériel transport</field>
+        <field name="sequence">110</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_23"/>
+        <field name="accounts_domain">[["code","=like","234%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2834%"]]</field>
+        <field name="left_char">O</field>
+    </record>
+    <record model="assets.line" id="asset_235">
+        <field name="name">*  Mobilier, matériel de bureau et aménagements div,</field>
+        <field name="sequence">120</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_23"/>
+        <field name="accounts_domain">[["code","=like","235%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2835%"]]</field>
+        <field name="left_char">B</field>
+    </record>
+    <record model="assets.line" id="asset_238">
+        <field name="name">*  Autres immobilisations corporelles</field>
+        <field name="sequence">130</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_23"/>
+        <field name="accounts_domain">[["code","=like","238%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2838%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="assets.line" id="asset_239">
+        <field name="name">*  Immobilisations corporelles en cours</field>
+        <field name="sequence">140</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_23"/>
+        <field name="accounts_domain">[["code","=like","239%"]]</field>
+        <field name="left_char">L</field>
+    </record>
+
+    <!-- IMMOBILISATIONS FINANCIERES  (D) -->
+    <record model="assets.line" id="asset_241">
+        <field name="name">*  Prêts immobilisés</field>
+        <field name="sequence">150</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_24_25"/>
+        <field name="accounts_domain">[["code","=like","241%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2941%"]]</field>
+        <field name="left_char">S</field>
+    </record>
+    <record model="assets.line" id="asset_248">
+        <field name="name">*  Autres créances financières</field>
+        <field name="sequence">150</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_24_25"/>
+        <field name="accounts_domain">[["code","=like","248%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2948%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="assets.line" id="asset_251">
+        <field name="name">*  Titres de participation</field>
+        <field name="sequence">160</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_24_25"/>
+        <field name="accounts_domain">[["code","=like","251%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2951%"]]</field>
+    </record>
+    <record model="assets.line" id="asset_258">
+        <field name="name">*  Autres titres immobilisés</field>
+        <field name="sequence">170</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_24_25"/>
+        <field name="accounts_domain">[["code","=like","258%"]]</field>
+        <field name="accounts2_domain">[["code","=like","2958%"]]</field>
+    </record>
+    <!-- ECARTS DE CONVERSION -ACTIF  (E) -->
+    <record model="assets.line" id="asset_271">
+        <field name="name">*  Diminution des créances immobilisées</field>
+        <field name="sequence">180</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_27"/>
+        <field name="accounts_domain">[["code","=like","271%"]]</field>
+    </record>
+    <record model="assets.line" id="asset_272">
+        <field name="name">*  Augmentation des dettes de financement</field>
+        <field name="sequence">190</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_27"/>
+        <field name="accounts_domain">[["code","=like","272%"]]</field>
+    </record>
+
+    <!-- STOCKS (F) -->
+    <record model="assets.line" id="asset_311">
+        <field name="name">*  Marchandises</field>
+        <field name="sequence">200</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_31"/>
+        <field name="accounts_domain">[["code","=like","311%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3911%"]]</field>
+        <field name="left_char">A</field>
+    </record>
+    <record model="assets.line" id="asset_312">
+        <field name="name">*  Matières et fournitures, consommables</field>
+        <field name="sequence">210</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_31"/>
+        <field name="accounts_domain">[["code","=like","312%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3912%"]]</field>
+        <field name="left_char">C</field>
+    </record>
+    <record model="assets.line" id="asset_313">
+        <field name="name">*  Produits en cours</field>
+        <field name="sequence">220</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_31"/>
+        <field name="accounts_domain">[["code","=like","313%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3913%"]]</field>
+        <field name="left_char">T</field>
+    </record>
+    <record model="assets.line" id="asset_314">
+        <field name="name">*  produits intermédiaires et produits résiduels</field>
+        <field name="sequence">230</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_31"/>
+        <field name="accounts_domain">[["code","=like","314%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3914%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="assets.line" id="asset_315">
+        <field name="name">*  Produits finis</field>
+        <field name="sequence">240</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_31"/>
+        <field name="accounts_domain">[["code","=like","315%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3915%"]]</field>
+        <field name="left_char">F</field>
+    </record>
+
+    <!-- CREANCES DE L'ACTIF CIRCULANT  (G) -->
+    <record model="assets.line" id="asset_341">
+        <field name="name">*  Fournis. débiteurs, avances et acomptes</field>
+        <field name="sequence">250</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_34"/>
+        <field name="accounts_domain">[["code","=like","341%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3941%"]]</field>
+        <field name="left_char">C</field>
+    </record>
+    <record model="assets.line" id="asset_342">
+        <field name="name">*   Clients et comptes rattachés</field>
+        <field name="sequence">260</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_34"/>
+        <field name="accounts_domain">[["code","=like","342%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3942%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="assets.line" id="asset_343">
+        <field name="name">*  Personnel</field>
+        <field name="sequence">270</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_34"/>
+        <field name="accounts_domain">[["code","=like","343%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3943%"]]</field>
+        <field name="left_char">R</field>
+    </record>
+    <record model="assets.line" id="asset_345">
+        <field name="name">*  Etat</field>
+        <field name="sequence">280</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_34"/>
+        <field name="accounts_domain">[["code","=like","345%"]]</field>
+        <field name="left_char">C</field>
+    </record>
+    <record model="assets.line" id="asset_346">
+        <field name="name">*  Comptes d'associés</field>
+        <field name="sequence">290</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_34"/>
+        <field name="accounts_domain">[["code","=like","346%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3946%"]]</field>
+        <field name="left_char">U</field>
+    </record>
+    <record model="assets.line" id="asset_348">
+        <field name="name">*  Autres débiteurs</field>
+        <field name="sequence">300</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_34"/>
+        <field name="accounts_domain">[["code","=like","348%"]]</field>
+        <field name="accounts2_domain">[["code","=like","3948%"]]</field>
+        <field name="left_char">L</field>
+    </record>
+    <record model="assets.line" id="asset_349">
+        <field name="name">*  Comptes de régularisation-Actif</field>
+        <field name="sequence">310</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_34"/>
+        <field name="accounts_domain">[["code","=like","349%"]]</field>
+        <field name="left_char">A</field>
+    </record>
+
+    <!-- TRESORERIE-ACTIF -->
+    <record model="assets.line" id="asset_511">
+        <field name="name">*  Chèques et valeurs à encaisser</field>
+        <field name="sequence">320</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_51"/>
+        <field name="accounts_domain">[["code","=like","511%"]]</field>
+        <field name="left_char">R</field>
+    </record>
+    <record model="assets.line" id="asset_514">
+        <field name="name">*  Banques, T.G et C.P</field>
+        <field name="sequence">330</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_51"/>
+        <field name="accounts_domain">[["code","=like","514%"]]</field>
+        <field name="accounts2_domain">[["code","=like","590%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="assets.line" id="asset_516">
+        <field name="name">*  Caisses, Régies d'avances et accréditifs</field>
+        <field name="sequence">340</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="asset_51"/>
+        <field name="accounts_domain">[["code","=like","516%"]]</field>
+        <field name="left_char">S</field>
+    </record>
+</odoo>

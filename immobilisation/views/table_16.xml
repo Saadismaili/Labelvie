@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_immo_dotation_form" model="ir.ui.view">
+	    <field name="name">view.immo.dotation.form</field>
+	    <field name="model">immo.dotation</field>
+	    <field name="arch" type="xml">
+	        <form string="ETAT DE DOTATIONS AUX AMORTISSEMENTS">
+                <header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+                </header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<field name="edi_name" invisible="1"/>
+					<field name="edi_date_in" invisible="1"/>
+					<field name="edi_acquisition_price" invisible="1"/>
+					<field name="edi_revaluation_value" invisible="1"/>
+					<field name="edi_amortissement_internal" invisible="1"/>
+					<field name="edi_taux" invisible="1"/>
+					<field name="edi_duration" invisible="1"/>
+					<field name="edi_normal_amortissement" invisible="1"/>
+					<field name="edi_end_amortissement" invisible="1"/>
+					<field name="edi_observation" invisible="1"/>
+
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" create="false" colspan="4">
+								<tree editable="bottom" create="false" delete="false">
+									<field name="code" invisible="1"/>
+									<field name="name" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="date_in" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="acquisition_price" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="revaluation_value" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="amortissement_internal" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="taux" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="duration" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="normal_amortissement" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="end_amortissement" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="sequence" invisible="1"/>
+                                    <field name="observation" decoration-success="name == 'Total General'" decoration-bf ="name == 'Total General'"/>
+									<field name="immo_id" invisible="1"/>
+									<field name="category_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_immo_dotation_tree" model="ir.ui.view">
+	    <field name="name">view.immo.financiere.tree</field>
+	    <field name="model">immo.dotation</field>
+	    <field name="arch" type="xml">
+	        <tree string="ETAT DE DOTATIONS AUX AMORTISSEMENTS">
+				<field name="name"/>
+				<field name="fy_n_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Ruuules -->
+	<record id="immo_dotation_comp_rule" model="ir.rule">
+		<field name="name">immo dotation multi-company</field>
+		<field name="model_id" ref="model_immo_dotation" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<record id="immo_dotation_line_comp_rule" model="ir.rule">
+		<field name="name">immo dotation LINES multi-company</field>
+		<field name="model_id" ref="model_immo_dotation_line" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<!-- ___________ -->
+
+	<!-- PDF report -->
+	<record id="action_report_immo_dotation" model="ir.actions.report">
+        <field name="name">ETAT DE DOTATIONS AUX AMORTISSEMENTS</field>
+        <field name="model">immo.dotation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">immobilisation.repport_report_immo_dotation</field>
+        <field name="report_file">immobilisation.repport_report_immo_dotation</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_immo_dotation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_immo_dotation">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+                <div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.name" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span style="font-size: 10px;" class="float-right">
+                                TABLEAU N°16
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h6>ETAT DE DOTATIONS AUX AMORTISSEMENTS RELATIFS AUX IMMOBILISATIONS</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span tyle="font-size: 10px;" class="float-right">
+                                <p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+                            </span>
+                        </div>
+                    </div>
+                    <style type="text/css">
+                        .small{
+                            font-size: 15px;
+                            width: 100%;
+                            border: 1px solid;
+                        }
+                    </style>
+                    <h1></h1>
+                    <h1></h1>
+					<table class="small"> 
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Immobilisation concernée</th>
+								<th style="border: 1px solid;text-align: center;" name="date_in" >Date d'entrée</th>
+								<th style="border: 1px solid;text-align: center;" name="acquisition_price" >Prix d'acquisition</th>
+								<th style="border: 1px solid;text-align: center;" name="revaluation_value">Valeur comptable après réévaluation</th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_internal">Amortissements antérieurs</th>
+								<th style="border: 1px solid;text-align: center;" name="taux">Taux</th>
+								<th style="border: 1px solid;text-align: center;" name="duration">Durée</th>
+								<th style="border: 1px solid;text-align: center;" name="normal_amortissement">Amortissements normaux ou accélérés de l'exercice</th>
+								<th style="border: 1px solid;text-align: center;" name="end_amortissement">Total des amortissements à la fin de l'exercice</th>
+								<th style="border: 1px solid;text-align: center;" name="observation">Observations</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-foreach="obj.line_ids" t-as="line">
+								<tr>
+									<td style="border: 1px solid;" name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="border: 1px solid;" name="date_in">
+										<span t-field="line.date_in"/>
+									</td>
+									<td style="border: 1px solid;text-align: right;" name="acquisition_price">
+										<span t-field="line.acquisition_price"/>
+									</td>
+									<td style="border: 1px solid;text-align: right;" name="revaluation_value">
+										<span t-field="line.revaluation_value"/>
+									</td>
+									<td style="border: 1px solid;text-align: right;" name="amortissement_internal">
+										<span t-field="line.amortissement_internal"/>
+									</td>
+									<td style="border: 1px solid;text-align: right;" name="taux">
+										<span t-field="line.taux"/>
+									</td>
+									<td style="border: 1px solid;text-align: right;" name="duration">
+										<span t-field="line.duration"/>
+									</td>
+									<td style="border: 1px solid;text-align: right;" name="normal_amortissement">
+										<span t-field="line.normal_amortissement"/>
+									</td>
+									<td style="border: 1px solid;text-align: right;" name="end_amortissement">
+										<span t-field="line.end_amortissement"/>
+									</td>
+									<td style="border: 1px solid;" name="observation">
+										<span t-field="line.observation"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+				</div>
+			</t>
+        </t>
+    </template>
+</odoo>

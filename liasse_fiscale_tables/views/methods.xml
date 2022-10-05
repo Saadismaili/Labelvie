@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="methods_form" model="ir.ui.view">
+        <field name="name">methods.form</field>
+        <field name="model">methods</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <field name="company_id"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="methods_tree" model="ir.ui.view">
+        <field name="name">methods.tree</field>
+        <field name="model">methods</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

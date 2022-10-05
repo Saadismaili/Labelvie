@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- PRODUITS NON COURANTS -->
+    <record model="loss.line" id="loss_751">
+        <field name="name">*  Produits des cessions d'immobilisations</field>
+        <field name="sequence">10</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","751%"],["code","not like","7518%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7518%"]]</field>
+    </record>
+    <record model="loss.line" id="loss_756">
+        <field name="name">*  Subventions d'équilibre</field>
+        <field name="sequence">20</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","756%"],["code","not like","7568%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7568%"]]</field>
+        <field name="left_char">N</field>
+    </record>
+    <record model="loss.line" id="loss_757">
+        <field name="name">*  Reprises sur subventions d'investissement</field>
+        <field name="sequence">30</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","757%"],["code","not like","7578%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7578%"]]</field>
+        <field name="left_char">O</field>
+    </record>
+    <record model="loss.line" id="loss_758">
+        <field name="name">*  Autres produits non courants</field>
+        <field name="sequence">40</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","758%"],["code","not like","7588%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7588%"]]</field>
+        <field name="left_char">N</field>
+    </record>
+    <record model="loss.line" id="loss_759">
+        <field name="name">*  Reprises non courantes  ; transferts  de charges</field>
+        <field name="sequence">50</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","759%"],["code","not like","7598%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7598%"]]</field>
+    </record>
+
+    <!-- CHARGES NON COURANTES -->
+    <record model="loss.line" id="loss_651">
+        <field name="name">*  Valeurs nettes d'amortissements des  immobilisations cédées</field>
+        <field name="sequence">60</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_65"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","651%"],["code","not like","6518%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6518%"]]</field>
+        <field name="left_char">U</field>
+    </record>
+
+    <record model="loss.line" id="loss_656">
+        <field name="name">*  Subventions accordées</field>
+        <field name="sequence">70</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_65"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","656%"],["code","not like","6568%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6568%"]]</field>
+        <field name="left_char">R</field>
+    </record>
+    <record model="loss.line" id="loss_658">
+        <field name="name">*  Autres charges non courantes</field>
+        <field name="sequence">80</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_65"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","658%"],["code","not like","6588%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6588%"]]</field>
+        <field name="left_char">A</field>
+    </record>
+    <record model="loss.line" id="loss_659">
+        <field name="name">*  Dotations non courantes aux  amortissements et aux provisions</field>
+        <field name="sequence">90</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="loss_65"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","659%"],["code","not like","6598%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6598%"]]</field>
+        <field name="left_char">N</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Cash supplier search -->
+        <record id="view_cash_supplier_filter" model="ir.ui.view">
+			<field name="name">view.cash.supplier.filter</field>
+			<field name="model">paiement.cash.supplier</field>
+			<field name="arch" type="xml">
+				<search string="Cash supplier">
+	                <filter string="Confirmé" name="done" domain="[('state','=','done')]"/>
+	                <filter string="Brouillon" name="drafe" domain="[('state','=','draft')]"/>
+					<separator/>
+	                <field name="name"/>
+	                <field name="partner_id"/>
+	                <field name="amount"/>
+	                <separator/>
+					<field name="journal_id"/>
+					<field name="date"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Fournisseur" name="partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Banque"  name="journal" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Date" name="date" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+        <!-- Cash client tree view -->
+        <record id="cash_supplier_tree_view" model="ir.ui.view">
+           <field name="name">cash.supplier.tree.view</field>
+            <field name="model">paiement.cash.supplier</field>
+            <field name="arch" type="xml">
+                <tree string="OV">
+		           <field name="name"/>
+		           <field name="journal_id"/>
+		           <field name="partner_id"/>
+		           <field name="amount"/>
+		           <field name="date"/>
+		           <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Cash supplier form view -->
+       <record id="cash_form_supplier_view" model="ir.ui.view">
+			<field name="name">cash.form.supplier.view</field>
+			<field name="model">paiement.cash.supplier</field>
+			<field name="arch" type="xml">
+				<form string="Cash supplier">
+					<header>
+                    	<button name="button_done" states="draft" type="object" string="Confirmer" class="oe_highlight"/>
+                    	<button name="button_cancel" states="draft" type="object" string="Annuler"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,done" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="partner_id" />
+								<!-- domain="[('supplier','=',True)]" -->
+								<field name="journal_id" domain="[('company_id','=',company_id)]"/>
+								<field name="period_id" domain="[('company_id','=',company_id)]"/>
+								<field name="analytic_account_id" domain="[('company_id','=',company_id)]"/>
+							</group>
+							<group>
+								<field name="company_id" groups="base.group_multi_company"/>
+								<field name="supplier_payment_id"/>
+								<field name="date"/>
+								<field name="amount"/>
+							</group>
+						</group>
+						<notebook colspan="4">
+	                    	<page string="Notes">
+	                        	<field name="note" nolabel="1"/>
+	                    	</page>
+	                     	<page string="Écritures comptables" name="move_live_ids">
+	                    		<field colspan="4" name="move_line_ids" nolabel="1"/>
+	                    	</page>
+						</notebook>
+					</sheet>
+            	</form>
+			</field>
+       </record>
+
+		<!-- Cheques Suppliers Calendar -->
+        <record id="cheque_supplier_calendar_view" model="ir.ui.view">
+            <field name="name">id="cheque.supplier.calendar.view"</field>
+            <field name="model">paiement.cheque.supplier</field>
+            <field name="arch" type="xml">
+                <calendar string="Chèques Fournisseur" date_start="due_date" color="partner_id">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Cheques Suppliers Graph -->
+		<record id="cheque_supplier_graph_view" model="ir.ui.view">
+            <field name="name">cheque.supplier.graph.view</field>
+            <field name="model">paiement.cheque.supplier</field>
+            <field name="arch" type="xml">
+                <graph string="Chèques Fournisseur" type="bar">
+                    <field name="partner_id"/>
+                    <field name="amount" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Cheques Suppliers Search -->
+        <record id="view_cheque_supplier_filter" model="ir.ui.view">
+			<field name="name">Cheques Fournisseurs</field>
+			<field name="model">paiement.cheque.supplier</field>
+			<field name="arch" type="xml">
+				<search string="Cheque Fournisseur">
+                	<filter string="Confirmé" name="done" domain="[('state','=','done')]"/>
+                    <filter string="Brouillon" name="drafe" domain="[('state','=','draft')]"/>
+					<separator/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                    <newline/>
+					<field name="journal_id"/>
+					<field name="date"/>
+					<field name="due_date"/>
+					<newline/>
+					<group expand="0" string="Group By...">
+                        <filter string="Fournisseur" name="partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Journal" name="journal" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Date" name="date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Echéance" name="due_date" domain="[]" context="{'group_by':'due_date'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+        <!-- Cheques Supplier Tree View -->
+        <record id="cheque_supplier_tree_view" model="ir.ui.view">
+            <field name="name">cheque.supplier.tree.view</field>
+            <field name="model">paiement.cheque.supplier</field>
+            <field name="arch" type="xml">
+                <tree string="Cheques">
+	                <field name="name"/>
+	                <field name="journal_id"/>
+	                <field name="partner_id"/>
+	                <field name="amount"/>
+	                <field name="date"/>
+	                <field name="due_date"/>
+	                <field name="date_paiement"/>
+	                <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Cheques Supplier Form View -->
+       <record id="cheque_form_supplier_view" model="ir.ui.view">
+			<field name="name">cheque.form.supplier.view</field>
+			<field name="model">paiement.cheque.supplier</field>
+			<field name="arch" type="xml">
+				<form string="Cheques">
+					<header>
+						<button name="button_envoyer" states="draft" type="object" string="Envoyer" class="oe_highlight"/>
+						<button name="button_cancel" states="draft" type="object" string="Annuler"/>
+	                	<button name="button_done" states="envoye" type="object" string="Confirmer" class="oe_highlight"/>
+	                	<button name="button_rejected" states="envoye" type="object" string="Rejet" class="oe_highlight"/>
+	                	<field name="state" widget="statusbar" statusbar_visible="draft,envoye,done,cancel"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="partner_id" domain="[('supplier_rank','>',0)]"/>
+								<field name="journal_id" domain="[('company_id','=',company_id)]"/>
+								<field name="due_date"/>
+								<field name="amount"/>
+								<field name="amount_text"/>
+								<field name="analytic_account_id" domain="[('company_id','=',company_id)]"/>
+							</group>
+							<group>
+								<field name="company_id" groups="base.group_multi_company"/>
+								<field name="date"/>
+								<field name="date_paiement"/>
+								<field name="period_id" domain="[('company_id','=',company_id)]"/>
+								<field name="caisse_id" domain="[('company_id','=',company_id)]"/>
+							</group>
+						</group>
+	                    <notebook>
+							<page string="Notes">
+	                        	<field name="note" nolabel="1"/>
+	                        </page>
+							<page string="Écritures comptables" name="move_live_ids">
+								<field colspan="4" name="move_line_ids" nolabel="1"/>
+	                        </page>
+	                        <page string="Frais Bancaires" name="tres_fees_ids">
+		                        <field colspan="4" name="frais_bancaire_ids" nolabel="1">
+		                        	<tree editable="bottom">
+										<field name="account_id" attrs="{'readonly':[('state','=','done')]}" />
+						              	<field name="amount" sum="Total" attrs="{'readonly':[('state','=','done')]}"/>
+						              	<field name="move_id"/>
+						              	<field name="state"/>
+		     					  	</tree>
+		                        </field>
+		                        <button type="object" name="action_post_fees" string="Poster" icon="gtk-ok" />
+		                	</page>
+	                    </notebook>
+                    </sheet>
+            	</form>
+			</field>
+       </record>
+
+	   	<!-- Effet Supplier Calendar -->
+
+        <record id="effet_supplier_calendar_view" model="ir.ui.view">
+            <field name="name">effet.supplier.calendar.view</field>
+            <field name="model">paiement.effet.supplier</field>
+            <field name="arch" type="xml">
+                <calendar string="Effets Fournisseurs" date_start="due_date" color="partner_id">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Effet Supplier Graph -->
+		<record id="effet_supplier_graph_view" model="ir.ui.view">
+            <field name="name">effet.supplier.graph.view</field>
+            <field name="model">paiement.effet.supplier</field>
+            <field name="arch" type="xml">
+                <graph string="Effets Fournisseur" type="bar">
+                    <field name="partner_id"/>
+                    <field name="amount" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Effet Supplier Search -->
+        <record id="view_effet_supplier_filter" model="ir.ui.view">
+			<field name="name">view.effet.supplier.filter</field>
+			<field name="model">paiement.effet.supplier</field>
+			<field name="arch" type="xml">
+				<search string="Effet Fournisseurs">
+                    <filter string="Confirme" name="done" domain="[('state','=','done')]"/>
+                    <filter string="Brouillon" name="drafe" domain="[('state','=','draft')]"/>
+					<separator/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                    <newline/>
+					<field name="journal_id"/>
+					<field name="date"/>
+					<field name="due_date"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Fournisseur" name="partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Banque" name="journal" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Date" name="date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Date d'échéance" name="due_date" domain="[]" context="{'group_by':'due_date'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		 <!-- Effets Supplier Tree View -->
+        <record id="effet_supplier_tree_view" model="ir.ui.view">
+            <field name="name">effet.supplier.tree.view</field>
+            <field name="model">paiement.effet.supplier</field>
+            <field name="arch" type="xml">
+                <tree string="Effets Fournisseurs">
+	                <field name="name"/>
+					<field name="date"/>
+					<field name="amount"/>
+					<field name="partner_id"/>
+	                <field name="journal_id"/>
+	                <field name="due_date"/>
+	                <field name="date_paiement"/>
+	                <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Effets Supplier Form View -->
+       	<record model="ir.ui.view" id="effet_form_supplier_view">
+			<field name="name">effet.form.supplier.view</field>
+			<field name="model">paiement.effet.supplier</field>
+			<field name="arch" type="xml">
+				<form string="Effets Fournisseur">
+					<header>
+			            <button name="button_delivred" states="draft" type="object" string="Livrer" class="oe_highlight"/>
+						<button name="button_cancel" string="Annuler" type="object" states="draft"/>
+			            <button name="button_payed" states="delivred" type="object" string="Paye" class="oe_highlight"/>
+			            <button name="button_rejected" states="delivred" type="object" string="Rejet"/>
+			            <field name="state" widget="statusbar" statusbar_visible="draft,delivred,,payed,cancel"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="date"/>
+								<field name="partner_id" domain="[('supplier_rank','>',0)]"/>
+								<field name="journal_id" required="1" domain="[('company_id','=',company_id), ('type', '=', 'general')]"/>
+								<field name="period_id" domain="[('company_id','=',company_id)]"/>
+								<field name="caisse_id" domain="[('company_id','=',company_id)]"/>
+							</group>
+							<group>
+								<field name="company_id" groups="base.group_multi_company"/>
+								<field name="model_id" domain="[('company_id','=',company_id)]"/>
+								<field name="due_date"/>
+								<field name="date_paiement"/>
+								<field name="amount"/>
+								<field name="amount_text"/>
+								<field name="analytic_account_id" domain="[('company_id','=',company_id)]"/>
+							</group>
+						</group>
+		                <notebook colspan="4">
+		                    <page string="Notes">
+		                        <field name="note" nolabel="1"/>
+		                    </page>
+		                    <page string="Écritures comptables" name="move_live_ids">
+		                        <field colspan="4" name="move_line_ids" nolabel="1"/>
+		                    </page>
+	                        <page string="Frais Bancaires">
+		                        <field colspan="4" name="frais_bancaire_ids" nolabel="1">
+		                        	<tree editable="bottom">
+										<field name="account_id" attrs="{'readonly':[('state','=','done')]}" />
+						              	<field name="amount" sum="Total" attrs="{'readonly':[('state','=','done')]}"/>
+						              	<field name="move_id"/>
+						              	<field name="state"/>
+		     					  	</tree>
+		                        </field>
+		                        <button type="object" name="action_post_fees" string="Poster" icon="gtk-ok" />
+		                    </page>
+		                </notebook>
+	                </sheet>
+				</form>
+			</field>
+       	</record>
+
+		<!-- ov suppliers calendar -->
+        <record id="ov_supplier_calendar_view" model="ir.ui.view">
+            <field name="name">ov0supplier.calendar.view</field>
+            <field name="model">paiement.ov.supplier</field>
+            <field name="arch" type="xml">
+                <calendar string="OV Fournisseurs" date_start="date" color="partner_id">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- OV suppliers graph -->
+		<record id="ov_supplier_graph_view" model="ir.ui.view">
+            <field name="name">ov.supplier.graph.view</field>
+            <field name="model">paiement.ov.supplier</field>
+            <field name="arch" type="xml">
+                <graph string="OV Fournisseurs" type="bar">
+                    <field name="partner_id"/>
+                    <field name="amount" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- OV  suppliers search -->
+        <record id="view_ov_supplier_filter" model="ir.ui.view">
+			<field name="name">view.ov.supplier.filter</field>
+			<field name="model">paiement.ov.supplier</field>
+			<field name="arch" type="xml">
+				<search string="OV Fournisseur">
+					<group>
+	                    <filter string="Confirmé" name="done" domain="[('state','=','done')]"/>
+	                    <filter string="Brouillon" name="drafe" domain="[('state','=','draft')]"/>
+	                    <field name="name"/>
+	                    <field name="partner_id"/>
+	                    <field name="amount"/>
+	                    <newline/>
+						<field name="journal_id"/>
+						<field name="date"/>
+						<field name="due_date"/>
+					</group>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Fournisseur" name="partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Banque" name="journal" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Date" name="date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Echéance" name="due_date" domain="[]" context="{'group_by':'due_date'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+        <!-- OV supplier tree view -->
+        <record id="ov_supplier_tree_view" model="ir.ui.view">
+            <field name="name">ov.supplier.tree.view</field>
+            <field name="model">paiement.ov.supplier</field>
+            <field name="arch" type="xml">
+                <tree string="OV">
+	                <field name="name"/>
+	                <field name="journal_id"/>
+	                <field name="partner_id"/>
+	                <field name="amount"/>
+	                <field name="montant_devise"/>
+	                <field name="date"/>
+	                <field name="due_date"/>
+	                <field name="date_paiement"/>
+	                <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- OV supplier form view -->
+
+        <record id="ov_form_supplier_view" model="ir.ui.view">
+			<field name="name">ov.form.supplier.view</field>
+			<field name="model">paiement.ov.supplier</field>
+			<field name="arch" type="xml">
+				<form string="OV">
+					<header>
+	                    <button name="button_done" states="draft" type="object" string="Confirmer" class="oe_highlight"/>
+	                    <button name="button_cancel" states="draft" type="object" string="Annuler"/>
+						<button name="button_rejected" states="draft" type="object" string="Rejet" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,done,rejected"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="partner_id" />
+								<!-- domain="[('supplier','=',True)]" -->
+								<field name="journal_id" domain="[('company_id','=',company_id)]"/>
+								<field name="due_date"/>
+								<field name="amount"/>
+								<field name="montant_devise"/>
+								<field name="type"/>
+								<field name="ref_fournisseur"/>
+								<field name="analytic_account_id" domain="[('company_id','=',company_id)]"/>
+							</group>
+							<group>
+								<field name="company_id" groups="base.group_multi_company"/>
+								<field name="date"/>
+								<field name="date_paiement"/>
+								<field name="period_id" domain="[('company_id','=',company_id)]"/>
+								<field name="caisse_id" domain="[('company_id','=',company_id)]"/>
+							</group>
+						</group>
+                        <notebook colspan="4">
+	                        <page string="Notes">
+	                            <field name="note" nolabel="1"/>
+	                        </page>
+	                         <page string="Écritures comptables" name="move_live_ids">
+	                         	<field colspan="4" name="move_line_ids" nolabel="1"/>
+                            </page>
+	                        <page string="Frais Bancaires" name="tres_fees_ids">
+		                        <field colspan="4" name="frais_bancaire_ids" nolabel="1">
+		                        	<tree editable="bottom">
+										<field name="account_id" attrs="{'readonly':[('state','=','done')]}" />
+						              	<field name="amount" sum="Total" attrs="{'readonly':[('state','=','done')]}"/>
+						              	<field name="move_id"/>
+						              	<field name="state"/>
+		     					  	</tree>
+		                        </field>
+		                        <button type="object" name="action_post_fees" string="Poster" icon="gtk-ok" />
+		                	</page>
+	                        <page string="Suivi Provision" attrs="{'invisible': [('type','=', 'Local')]}">
+	                        	<group>
+		                            <field name="amount_provision"/>
+		                            <field name="date_provision"/>
+		                            <field name="date_extourne"/>
+	                            </group>
+	                        </page>
+                        </notebook>
+					</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+				</form>
+			</field>
+       	</record>
+
+        <!-- Modèle effet supplier tree view -->
+
+        <record model="ir.ui.view" id="modele_effet_supplier_tree_view">
+           <field name="name">paiement.effet.model.supplier.tree.view</field>
+            <field name="model">paiement.effet.model.supplier</field>
+            <field name="arch" type="xml">
+                <tree string="Modèle effet fournisseur">
+		           <field name="name"/>
+		           <field name="company_id"/>
+		           <field name="delivred_account"/>
+		           <field name="post"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Modèle effet supplier form view -->
+
+       <record model="ir.ui.view" id="paiement_effet_model_supplier_form_view">
+			<field name="name">paiement.effet.model.supplier.form.view</field>
+			<field name="model">paiement.effet.model.supplier</field>
+			<field name="arch" type="xml">
+				<form string="Modèle effet fournisseur" version="7.0">
+					<sheet>
+						<group>
+				           <field name="name"/>
+				           <field name="company_id"/>
+				           <field name="delivred_account"/>
+				           <field name="post"/>
+						</group>
+					</sheet>
+            	</form>
+			</field>
+       </record>
+
+		<!-- Cash supplier Action -->
+        <record model="ir.actions.act_window" id="cash_supplier_action">
+			<field name="name">Espèces Fournisseur</field>
+			<field name="res_model">paiement.cash.supplier</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- Chèque supplier Action -->
+        <record model="ir.actions.act_window" id="cheque_supplier_action">
+			<field name="name">Chèques Fournisseur</field>
+			<field name="res_model">paiement.cheque.supplier</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- Effet supplier Action -->
+        <record model="ir.actions.act_window" id="effet_supplier_action">
+			<field name="name">Effets Fournisseur</field>
+			<field name="res_model">paiement.effet.supplier</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+		</record>
+
+		<!-- OV supplier Action -->
+        <record model="ir.actions.act_window" id="ov_supplier_action">
+			<field name="name">OV Fournisseur</field>
+			<field name="res_model">paiement.ov.supplier</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+		</record>
+
+		<!-- Modele effet Action -->
+        <record model="ir.actions.act_window" id="paiement_effet_model_supplier_action">
+			<field name="name">Modèle comptable effet fournisseur</field>
+			<field name="res_model">paiement.effet.model.supplier</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <menuitem id="paiement_supplier_pieces_menu" name="Pièces Fournisseurs" parent="supplier_payment_menu_root" sequence="3"/>
+
+        <menuitem id="effets_supplier_menu" action="effet_supplier_action" parent="paiement_supplier_pieces_menu" sequence="1"/>
+        <menuitem id="cheques_supplier_menu" action="cheque_supplier_action" parent="paiement_supplier_pieces_menu" sequence="2"/>
+        <menuitem id="ov_supplier_menu" action="ov_supplier_action" parent="paiement_supplier_pieces_menu" sequence="3"/>
+		<menuitem id="cash_supplier_menu" action="cash_supplier_action" parent="paiement_supplier_pieces_menu" sequence="4"/>
+
+		<menuitem id="modeles_supplier_menu" name="Modèles comptables" parent="supplier_payment_menu_root" sequence="4"/>
+		<menuitem id="paiement_effet_model_supplier_id" parent="modeles_supplier_menu" action="paiement_effet_model_supplier_action"/>
+
+	</data>
+</odoo>

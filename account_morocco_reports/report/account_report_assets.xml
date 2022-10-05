@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_assets_table_header">
+        <thead>
+            <tr>
+                <th colspan="1"/>
+                <th t-att-class="'o_account_report_column_header'"
+                    colspan="1"/>
+                <th t-att-class="'o_account_report_column_header text-center'"
+                    colspan="3">
+                    <t t-esc="options['date'].get('string')"/>
+                </th>
+                <t t-foreach="options['comparison'].get('periods')"
+                   t-as="column_header">
+                    <th t-att-class="'o_account_report_column_header text-center'"
+                        colspan="1">
+                        <t t-esc="column_header.get('string')"/>
+                    </th>
+                </t>
+            </tr>
+            <tr class="o_account_report_column_header">
+                <t t-foreach="lines.get('columns_header')[0]"
+                   t-as="column_header">
+                    <th t-att-class="'o_account_report_column_header ' + (column_header.get('class', ''))"
+                        t-att-style="column_header.get('style', '')"
+                        t-att-title="column_header.get('title')">
+                        <t t-raw="column_header.get('name')"/>
+                    </th>
+                </t>
+            </tr>
+        </thead>
+    </template>
+
+    <template id="search_template_comparison_assets">
+        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-bar-chart"/>
+            Comparison:
+            <t t-if="options['comparison'].get('string') and options['comparison'].get('filter') != 'custom'">
+                <t t-esc="options['comparison']['string']"/>
+            </t>
+            <t t-if="options['comparison'].get('filter') == 'custom'">
+                <t t-if="options['date']['mode'] == 'range'">
+                    <span class="o_reports_date_to">
+                        <span class="js_format_date">
+                            <t t-esc="options['comparison']['date_from']"/>
+                        </span>
+                    </span>
+                    <span class="o_reports_date_to">-
+                        <span class="js_format_date">
+                            <t t-esc="options['comparison']['date_to']"/>
+                        </span>
+                    </span>
+                </t>
+                <t t-if="options['date']['mode'] == 'single'">Date:
+                    <span class="js_format_date">
+                        <t t-esc="options['comparison']['date_to']"/>
+                    </span>
+                </t>
+            </t>
+        </a>
+        <div class="dropdown-menu o_filters_menu" role="menu">
+            <a role="menuitem" title="No Comparison" data-filter="no_comparison"
+               class="dropdown-item js_account_report_date_cmp_filter">No
+                Comparison
+            </a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a role="menuitem"
+               class="dropdown-item js_foldable_trigger o_closed_menu"
+               data-filter='previous_period_filter'>Previous Period
+            </a>
+            <div class="o_foldable_menu o_closed_menu o_account_report_search"
+                 data-filter='previous_period_filter'>
+                <label for="periods_number">Number of periods :</label>
+                <br/>
+                <input type="number" name="periods_number"
+                       t-att-value="options['comparison'].get('number_period')"/>
+                <br/>
+                <button type="button"
+                        class="btn btn-primary js_account_report_date_cmp_filter"
+                        data-filter='previous_period'>Apply
+                </button>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="search_template_date_filter_assets">
+        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-calendar" title="Dates" role="img"
+                  aria-label="Dates"/>
+            <t t-if="options['date'].get('string') and options['date'].get('filter') != 'custom'">
+                <t t-esc="options['date']['string']"/>
+            </t>
+            <t t-if="options['date'].get('filter') == 'custom'">
+                <t t-if="options['date']['mode'] == 'range'">
+                    <span class="o_reports_date_to">to:
+                        <span class="js_format_date">
+                            <t t-esc="options['date']['date_to']"/>
+                        </span>
+                    </span>
+                </t>
+            </t>
+        </a>
+        <div class="dropdown-menu o_filters_menu" role="menu">
+            <div role="separator" class="dropdown-divider"></div>
+            <a role="menuitem"
+               class="dropdown-item js_foldable_trigger o_closed_menu"
+               data-filter='custom_filter_date'>Custom
+            </a>
+            <div class="o_foldable_menu o_closed_menu o_account_report_search"
+                 data-filter='custom_filter_date'>
+                <label class="custom-date" for="date_to"
+                       t-if="options['date']['mode'] == 'single'">End Date :
+                </label>
+                <label class="custom-date" for="date_to"
+                       t-if="options['date']['mode'] == 'range'">Date :
+                </label>
+                <div class="form-group custom-date">
+                    <div class='o_datepicker js_account_reports_datetimepicker'
+                         t-att-data-default-value="options['date']['date_to']">
+                        <input type='text' class="o_datepicker_input"
+                               name="date_to"/>
+                        <span class="o_datepicker_button"/>
+                    </div>
+                </div>
+                <button type="button"
+                        class="btn btn-primary js_account_report_date_filter"
+                        data-filter="custom">Apply
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <template id="search_template_extra_options_assets">
+        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-filter"/>
+            Options:
+            <t t-if="options.get('all_entries') != None"
+               groups="account.group_account_user">
+                <t t-if="options['all_entries']">With Draft Entries</t>
+                <t t-if="not options['all_entries']">Posted Entries Only</t>
+            </t>
+        </a>
+        <div class="dropdown-menu o_filters_menu" role="menu">
+            <a role="menuitem"
+               class="dropdown-item js_account_report_bool_filter"
+               t-if="options.get('all_entries') != None"
+               title="Include unposted entries" data-filter="all_entries"
+               groups="account.group_account_user">Include Unposted Entries
+            </a>
+        </div>
+    </template>
+
+    <template id="search_template_assets">
+        <div class="btn-group o_dropdown o_account_reports_filter_date"
+             t-if="options.get('date') != None">
+            <t t-call="account_morocco_reports.search_template_date_filter_assets"/>
+        </div>
+        <div class="btn-group o_dropdown o_account_reports_filter_date_cmp"
+             t-if="options.get('comparison') != None">
+            <t t-call="account_morocco_reports.search_template_comparison_assets"/>
+        </div>
+        <div id="extra_options_dropdown"
+             class="btn-group o_dropdown o_account_reports_filter_bool"
+             t-if="options.get('cash_basis') != None or options.get('all_entries') != None or options.get('unfold_all') != None">
+            <t t-call="account_morocco_reports.search_template_extra_options_assets"/>
+        </div>
+    </template>
+
+    <template id="line_caret_options_assets"
+              inherit_id="account_reports.line_caret_options">
+        <xpath expr="//li[last()]" position="after">
+            <li t-if="line['caret_options'] in ('assets.group','equity.group','profit.group','loss.group')">
+                <a role="menuitem" tabindex="-1" t-att-data-id="line['id']"
+                   t-att-data-caret_options="line['caret_options']"
+                   action="open_group" class="dropdown-item">
+                    Open Group Definition
+                </a>
+            </li>
+
+            <li t-if="line['caret_options']  in ('assets.line','equity.line','profit.line','loss.line')">
+                <a role="menuitem" tabindex="-1" t-att-data-id="line['id']"
+                   t-att-data-caret_options="line['caret_options']"
+                   action="open_line_journal_items" class="dropdown-item">
+                    Open Journal Items
+                </a>
+            </li>
+        </xpath>
+    </template>
+
+
+    <template id="line_template_assets">
+        <t t-foreach="lines['lines']" t-as="line">
+            <t t-set="trclass" t-value="''"/>
+            <t t-set="domainClass" t-value="'o_account_reports_domain_line_2'"/>
+            <t t-if="not line.get('caret_options')">
+                <t t-set="trclass" t-value="'o_account_reports_default_style'"/>
+                <t t-if="line.get('level') != None">
+                    <t t-set="trclass"
+                       t-value="'o_account_reports_level'+str(line['level'])"/>
+                </t>
+            </t>
+            <t t-if="line.get('caret_options')">
+                <t t-if="line.get('level')">
+                    <t t-set="domainClass"
+                       t-value="'o_account_reports_domain_line_'+str(line['level'])"/>
+                </t>
+            </t>
+
+            <tr t-attf-class="#{trclass} #{line.get('class', '')} #{'o_js_account_report_parent_row_unfolded' if line.get('unfolded', False) else ''}"
+                t-att-data-pagebreak="'before' if (line.get('page_break') and context.get('print_mode')) else None"
+                t-att-data-parent-id="line.get('parent_id', False)"
+                t-att-style="line.get('style', '')">
+                <td t-att-class="'text-center'">
+                    <t t-esc="line.get('left_col', '')"/>
+                </td>
+                <td t-att-data-id="line['id']"
+                    t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable o_foldable_total' or '')"
+                    t-att-data-unfolded="line.get('unfolded', False)"
+                    t-att-colspan="line.get('colspan', '1')"
+                    t-att-data-offset="line.get('offset', False)"
+                    t-att-data-progress="line.get('progress', False)"
+                    t-att-data-remaining="line.get('remaining', False)"
+                >
+                    <t t-if="line.get('unfoldable')">
+                        <span t-att-data-id="line['id']"
+                              class="o_account_reports_caret_icon">
+                            <i class="fa fa-caret-down"
+                               t-if="line.get('unfolded')" role="img"
+                               aria-label="Unfolded" title="Unfolded"/>
+                            <i class="fa fa-caret-right"
+                               t-if="not line.get('unfolded')" role="img"
+                               aria-label="Folded" title="Folded"/>
+                        </span>
+                    </t>
+                    <t t-elif="not line.get('caret_options')">
+                        <span t-att-data-id="line['id']"
+                              class="o_account_reports_caret_icon">
+                            <i class="fa fa-caret-right invisible" role="img"
+                               aria-label="Unfolded" title="Unfolded"/>
+                        </span>
+                    </t>
+                    <t t-if="not line.get('caret_options')">
+                        <span class="account_report_line_name"
+                              t-att-title="line.get('title_hover')">
+                            <a t-if="line.get('action_id')"
+                               t-att-data-id="line['id']"
+                               t-att-data-action-id="line['action_id']"
+                               t-att-action="line.get('action', 'execute_action')">
+                                <t t-esc="line.get('name')"/>
+                            </a>
+                            <t t-if="not line.get('action_id')"
+                               t-esc="line.get('name')"/>
+                            <span class="js_account_report_line_footnote"
+                                  t-att-data-id="line['id']">
+                                <sup t-if="line.get('footnote')">
+                                    <b class="o_account_reports_footnote_sup">
+                                        <a t-att-href="'#footnote'+line['footnote']"></a>
+                                        <t t-esc="line['footnote']"/>
+                                    </b>
+                                </sup>
+                            </span>
+                        </span>
+                    </t>
+                    <t t-if="line.get('caret_options')">
+                        <t t-if="not context.get('print_mode')">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle"
+                                   data-toggle="dropdown" href='#'>
+                                    <span t-att-data-id="line['id']"
+                                          t-att-class="domainClass"
+                                          t-att-title="line.get('title_hover')">
+                                        <t t-esc="line.get('name')"/>
+                                    </span>
+                                </a>
+                                <span class="js_account_report_line_footnote"
+                                      t-att-data-id="line['id']">
+                                    <sup t-if="line.get('footnote')">
+                                        <b class="o_account_reports_footnote_sup">
+                                            <a t-att-href="'#footnote'+line['footnote']"></a>
+                                            <t t-esc="line['footnote']"/>
+                                        </b>
+                                    </sup>
+                                </span>
+                                <div class="dropdown-menu o_account_reports_domain_dropdown"
+                                     role="menu">
+                                    <t t-call="account_reports.line_caret_options"/>
+                                    <a role="menuitem" tabindex="-1"
+                                       t-att-data-id="line['id']"
+                                       class="dropdown-item js_account_reports_add_footnote">
+                                        Annotate
+                                    </a>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <span t-att-data-id="line['id']"
+                                  t-att-class="domainClass"
+                                  t-att-title="line.get('title_hover')">
+                                <t t-esc="line.get('name')"/>
+                            </span>
+                            <span class="js_account_report_line_footnote"
+                                  t-att-data-id="line['id']">
+                                <sup t-if="line.get('footnote')">
+                                    <b class="o_account_reports_footnote_sup">
+                                        <a t-att-href="'#footnote'+line['footnote']"></a>
+                                        <t t-esc="line['footnote']"/>
+                                    </b>
+                                </sup>
+                            </span>
+                        </t>
+                    </t>
+                </td>
+                <t t-set="column_index" t-value="0"/>
+                <t t-foreach="line.get('columns')" t-as="column">
+                    <t t-set="hierarchies_enabled"
+                       t-value="len(lines.get('columns_header', [])) > 1"/>
+                    <td t-att-class="'o_account_report_line ' + (column.get('class', lines.get('columns_header')[-1][column_index+line.get('colspan', 1)].get('class', '')) + (line.get('unfoldable') and ' o_foldable_total' or '')) + ('' if hierarchies_enabled else ' o_account_report_line_indent')"
+                        t-att-style="column.get('style', lines.get('columns_header')[-1][column_index+line.get('colspan', 1)].get('style', ''))">
+                        <span class="o_account_report_column_value"
+                              t-att-title="column.get('title')">
+                            <t t-esc="column.get('name')"/>
+                        </span>
+                    </td>
+                    <t t-set="column_index" t-value="column_index + 1"/>
+                </t>
+            </tr>
+        </t>
+    </template>
+
+
+</odoo>

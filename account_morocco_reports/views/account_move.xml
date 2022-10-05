@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_inherit_line_view_move_line_form">
+            <field name="name">account.inherit.view_move_line_form</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='debit']" position="before">
+                    <field name="disallowed_expense_id"/>
+                    <field name="disallowed_price"/>
+                    <field name="is_exempt"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_inherit_view_move_line_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']//field[@name='debit']" position="before">
+                    <field name="disallowed_expense_id"/>
+                    <field name="disallowed_price"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

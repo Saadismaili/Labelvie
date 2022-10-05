@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+
+
+    <record id="group_tva_encaissement_maroc" model="res.groups">
+        <field name="name">Déclaration Tva</field>
+        <field name="category_id" ref="l10n_maroc.categorie_security_andema"/>
+    </record>
+    <record id="tva_declaration_rule_multi_company" model="ir.rule">
+        <field name="name">TVA Déclaration</field>
+        <field name="model_id" ref="model_tva_declaration"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+        <field eval="True" name="active"/>
+    </record>
+
+
+</data>
+</odoo>

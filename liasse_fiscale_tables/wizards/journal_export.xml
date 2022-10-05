@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="action_liasse_fiscale_tables_xlsx_report"
+            model="account.print.journal" 
+            string="Journal"
+            report_type="xlsx"
+            name="liasse_fiscale_tables.account_print_journal"
+            file="account_print_journal"
+            attachment_use="False"
+    />
+
+    <record model="ir.ui.view" id="account_print_journal_inherit_form">
+        <field name="name">account.print.journal.form</field>
+        <field name="model">account.print.journal</field>
+        <field name="inherit_id" ref="account_reports.account_report_print_journal_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='check_report']" position="after">
+                <button name="print_xlrd" type="object" string="Imprimer Excel"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

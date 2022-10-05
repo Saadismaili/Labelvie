@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_search_groupby_group" model="ir.ui.view">
+        <field name="name">account.account.search.groupby.group</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='accounttype']" position="after">
+                <filter string="Poste" name="poste" domain="" context="{'group_by':'group_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

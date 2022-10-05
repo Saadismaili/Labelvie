@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <report
+        id="financial_report_gl_xlsx"
+        model="financial.report"
+        string="Grand Livre"
+        report_type="xlsx"
+        name="financial.report.xlsx"
+        file="financial.report.gl.xlsx"
+        attachment_use="False"
+    />
+
+    <report
+        id="financial_report_balance_xlsx"
+        model="financial.report"
+        string="Balance"
+        report_type="xlsx"
+        name="financial.report.xlsx"
+        file="financial.report.balance.xlsx"
+        attachment_use="False"
+    />
+
+    </data>
+</odoo>

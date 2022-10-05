@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_locations_baux_form" model="ir.ui.view">
+	    <field name="name">view.locations.baux.form</field>
+	    <field name="model">locations.baux</field>
+	    <field name="arch" type="xml">
+	        <form string="LOCATIONS ET BAUX AUTRES QUE LE CREDIT-BAIL">
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<field name="check_line" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="locations_baux_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="code"/>
+									<field name="name"/>
+									<field name="lieu_situation"/>
+									<field name="nom_prenom"/>
+									<field name="raison"/>
+									<field name="adress"/>
+									<field name="n_if"/>
+									<field name="n_cni"/>
+									<field name="date_conclusion"/>
+									<field name="card_num"/>
+									<field name="montant_annuel"/>
+									<field name="montant_loyer"/>
+									<field name="nature_contrat_bail"/>
+									<field name="nature_contrat_period"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_locations_baux_tree" model="ir.ui.view">
+	    <field name="name">view.locations.baux.tree</field>
+	    <field name="model">locations.baux</field>
+	    <field name="arch" type="xml">
+	        <tree string="LOCATIONS ET BAUX AUTRES QUE LE CREDIT-BAIL">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_locations_baux" model="ir.actions.act_window">
+	    <field name="name">LOCATIONS ET BAUX AUTRES QUE LE CREDIT-BAIL</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">locations.baux</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-19 LOCATIONS ET BAUX AUTRES QUE LE CREDIT-BAIL" id="menu_locations_baux_id" parent="menu_tables_root" action="action_locations_baux" 
+	sequence="20"/>
+
+	<!-- Ruuules -->
+	<record id="locations_baux_comp_rule" model="ir.rule">
+        <field name="name">locations_baux multi-company</field>
+        <field name="model_id" ref="model_locations_baux" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="locations_baux_line_comp_rule" model="ir.rule">
+        <field name="name">locations_baux LINES multi-company</field>
+        <field name="model_id" ref="model_locations_baux_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+	<!-- pdf report -->
+	<record id="action_report_location_baux" model="ir.actions.report">
+        <field name="name">LACATION BAUX</field>
+        <field name="model">locations.baux</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.report_location_baux</field>
+        <field name="report_file">liasse_fiscale_tables.report_location_baux</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_locations_baux"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_location_baux">
+		<t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°19
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>TABLEAU DES LOCATIONS ET BAUX AUTRES QUE LE CREDIT BAIL</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<h1></h1>
+					<h1></h1>
+					<table class="small">
+					<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Nature du bien loué</th>
+								<th style="border: 1px solid;text-align: center;" name="date_in" >Lieu de Situation</th>
+								<th style="border: 1px solid;text-align: center;" name="acquisition_price" >Nom et prénoms ou Raison sociale et adresse du propriétaire</th>
+								<th style="border: 1px solid;text-align: center;" name="revaluation_value">Date de conclusion de l'acte de location</th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_internal">Montant annuel de location</th>
+								<th style="border: 1px solid;text-align: center;" name="taux">Montant du loyer compris dans les charges de l'exercice</th>
+								<th style="border: 1px solid;text-align: center;" name="duration">Nature du contrat-Bail-ordinaire</th>
+								<th style="border: 1px solid;text-align: center;" name="normal_amortissement">(Nème période)</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-if="obj.check_line == True">
+								<t t-foreach="obj.locations_baux_line_ids" t-as="line">
+									<tr>
+										<td style="border: 1px solid;" name="td_name">
+											<span t-field="line.name"/>
+										</td>
+										<td style="border: 1px solid;" name="lieu_situation">
+											<span t-field="line.lieu_situation"/>
+										</td>
+										<td style="border: 1px solid;" name="nom_prenom">
+											<span t-field="line.nom_prenom"/>
+										</td>
+										<td style="border: 1px solid;" name="date_conclusion">
+											<span t-field="line.date_conclusion"/>
+										</td>
+										<td style="border: 1px solid;" name="montant_annuel">
+											<span t-field="line.montant_annuel"/>
+										</td>
+										<td style="border: 1px solid;" name="montant_loyer">
+											<span t-field="line.montant_loyer"/>
+										</td>
+										<td style="border: 1px solid;" name="nature_contrat_bail">
+											<span t-field="line.nature_contrat_bail"/>
+										</td>
+										<td style="border: 1px solid;" name="nature_contrat_period">
+											<span t-field="line.nature_contrat_period"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+							<t t-else="obj.check_line == False">
+								<tr>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

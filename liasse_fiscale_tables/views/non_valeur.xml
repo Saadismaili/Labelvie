@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_preliminaire_form" model="ir.ui.view">
+            <field name="name">view.preliminaire.form</field>
+            <field name="model">preliminaire</field>
+            <field name="arch" type="xml">
+                <form string="Non Valeur">
+                    <header>
+                        <button name="get_lines" type="object" string="Mise à jour des données"/>
+                    </header>
+                    
+                    <group>
+                        <field name="name"/>
+                        <field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+                        <field name="company_id" invisible="1"/>
+                        <notebook colspan="4">
+                            <page string="Lignes">
+                                <field name="line_ids" nolabel="1" colspan="4">
+                                    <tree editable="bottom" create="false">
+                                        <field name="code"/>
+                                        <field name="intitule"/>
+                                        <field name="amount"/>
+                                        <field name="parent_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </form>
+            </field>
+        </record>
+    
+        <record id="view_preliminaire_tree" model="ir.ui.view">
+            <field name="name">view.preliminaire.tree</field>
+            <field name="model">preliminaire</field>
+            <field name="arch" type="xml">
+                <tree string="DETAIL DES NON-VALEURS">
+                    <field name="name"/>
+                    <field name="fy_n_id"/>
+                    <field name="company_id" />
+                </tree>
+            </field>
+        </record>
+    
+        <record id="action_preliminaire" model="ir.actions.act_window">
+            <field name="name">ETAT B1 : DETAIL DES NON-VALEURS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">preliminaire</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    
+        <menuitem name="TAB DETAIL DES NON-VALEURS" id="menu_preliminaire_id" parent="menu_tables_root_comptable" action="action_preliminaire" 
+        sequence="110"/>
+
+        <!-- Ruuules -->
+        <record id="preliminaire_comp_rule" model="ir.rule">
+            <field name="name">preliminaire multi-company</field>
+            <field name="model_id" ref="model_preliminaire" />
+            <field name="domain_force">
+                ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+            </field>
+        </record>
+        <record id="preliminaire_line_comp_rule" model="ir.rule">
+            <field name="name">preliminaire LINES multi-company</field>
+            <field name="model_id" ref="model_preliminaire_line" />
+            <field name="domain_force">
+                ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+            </field>
+        </record>
+        <!-- ___________ -->
+
+        <!-- pdf report -->
+	
+    </data>
+</odoo>

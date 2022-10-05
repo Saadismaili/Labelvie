@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_account_tax_repport_tree" model="ir.ui.view">
+        <field name="name">account.tax.repport.tree</field>
+        <field name="model">account.tax.repport</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Rapport tva">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="cell_base"/>
+                <field name="cell_tax"/>
+                <field name="cell_prorata"/>
+                <field name="cell_calc_tax"/>
+                <field name="type_calcul"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- report group form -->
+
+    <record id="view_account_tax_repport_form" model="ir.ui.view">
+        <field name="name">account.tax.repport.form</field>
+        <field name="model">account.tax.repport</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Rapport tva">
+                <group>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="cell_base"/>
+                    <field name="cell_tax"/>
+                    <field name="cell_prorata"/>
+                    <field name="cell_calc_tax"/>
+                    <field name="type_calcul"/>
+
+                </group>
+                <notebook colspan="4">
+                    <page string="Formules" attrs="{'invisible':[('code','>','0')]}">
+                        <field name="formula_ids" nolabel="1" colspan="4">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                </group>
+                                <notebook>
+                                    <page string="Formules">
+                                        <field name="formula_line_ids" nolabel="1" colspan="4">
+                                            <tree>
+                                                <field name="type"/>
+                                                <field name="op"/>
+                                                <field name="range_from"
+                                                       attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                <field name="range_to"
+                                                       attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                <field name="code"
+                                                       attrs="{'invisible':[('type','in',('formula'))], 'required':[('type','not in',('formula'))]}"/>
+                                            </tree>
+                                            <form>
+                                                <group>
+                                                    <field name="type"/>
+                                                    <field name="op"/>
+                                                    <field name="range_from"
+                                                           attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                    <field name="range_to"
+                                                           attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                    <field name="code"
+                                                           attrs="{'invisible':[('type','in',('formula'))], 'required':[('type','not in',('formula'))]}"/>
+                                                </group>
+                                            </form>
+                                        </field>
+                                    </page>
+                                    <page string="Conditions">
+                                        <field name="condition_ids" nolabel="1" colspan="4">
+                                            <tree>
+                                                <field name="type"/>
+                                                <field name="op"/>
+                                                <field name="range_from"
+                                                       attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                <field name="range_to"
+                                                       attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                <field name="code"
+                                                       attrs="{'invisible':[('type','in',('formula'))], 'required':[('type','not in',('formula'))]}"/>
+                                            </tree>
+                                            <form>
+                                                <group>
+                                                    <field name="type"/>
+                                                    <field name="op"/>
+                                                    <field name="range_from"
+                                                           attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                    <field name="range_to"
+                                                           attrs="{'invisible':[('type','not in',('formula'))], 'required':[('type','in',('formula'))]}"/>
+                                                    <field name="code"
+                                                           attrs="{'invisible':[('type','in',('formula'))], 'required':[('type','not in',('formula'))]}"/>
+                                                </group>
+                                            </form>
+                                        </field>
+                                    </page>
+
+
+                                </notebook>
+                            </form>
+                        </field>
+                    </page>
+
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <!-- report engin form -->
+
+
+    <record id="account_tax_repport_action" model="ir.actions.act_window">
+        <field name="name">Rapport tva</field>
+        <field name="res_model">account.tax.repport</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="account_tax_repport_menu" action="account_tax_repport_action" name="Rapport tva"
+              parent="account.account_account_menu"/>
+
+</odoo>
+
+
+
+
+
+
+

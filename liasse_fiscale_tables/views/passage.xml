@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_liasse_passage_form" model="ir.ui.view">
+	    <field name="name">view.liasse.passage.form</field>
+	    <field name="model">liasse.passage</field>
+	    <field name="arch" type="xml">
+	        <form string="Passage">
+				<header>
+					<button name="create_lines" type="object" string="Insérer les lignes"/>
+					<button name="get_lines" type="object" string="Mise à jour les données"/>
+				</header>
+				<group>
+                    <group colspan="4">
+                        <field name="name"/>
+                        <field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+						<field name="company_id" invisible="1"/>
+						<field name="reintegration_total" invisible="1"/>
+						<field name="deduction_total" invisible="1"/>
+                    </group>
+					<group string="I. RESULTAT NET COMPTABLE">
+						<field name="benifice_net_1"/>
+						<field name="perte_nette_1"/>
+					</group>
+					<group string="IV. RESULTAT BRUT FISCAL">
+						<field name="benifice_brut_1"/>
+						<field name="deficit_brut_1"/>
+					</group>
+                    <group string="V. REPORTS DEFICITAIRES IMPUTES (C)">
+                        <field name="exercice_n_4"/>
+                        <field name="exercice_n_3"/>
+                        <field name="exercice_n_2"/>
+                        <field name="exercice_n_1"/>
+                        <field name="amortissement"/>
+                    </group>
+                    <group string="VI. RESULTAT NET FISCAL">
+						<field name="benifice_net_a_c_1"/>
+						<field name="deficit_net_b_1"/>
+                    </group>
+                    <group string="VII. CUMUL DES AMORTISSEMENTS FISCALEMENT DIFFERES">
+                        <field name="amortissement_1" nolabel="1"/>
+                    </group>
+                    <group string="VIII. CUMUL DES DEFICITS FISCAUX RESTANT A REPORTER">
+						<field name="exercice_n_4_1_c"/>
+						<field name="exercice_n_3_1_c"/>
+						<field name="exercice_n_2_1_c"/>
+						<field name="exercice_n_1_1_c"/>
+                    </group>
+					<notebook colspan="4">
+						<page string="II. REINTEGRATIONS FISCALES COURANTE">
+							<field name="re_fy_courante_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="code"/>
+									<field name="montant_1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+                        <page string="II. REINTEGRATIONS FISCALES NON COURANTE">
+							<field name="re_fy_non_courante_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="code"/>
+									<field name="montant_1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+                        <page string="III. DEDUCTIONS FISCALES COURANTE">
+							<field name="de_fy_courante_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="code"/>
+									<field name="montant_1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+                        <page string="III. DEDUCTIONS FISCALES NON COURANTE">
+							<field name="de_fy_non_courante_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="code"/>
+									<field name="montant_1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_liasse_passage_tree" model="ir.ui.view">
+	    <field name="name">view.liasse.passage.tree</field>
+	    <field name="model">liasse.passage</field>
+	    <field name="arch" type="xml">
+	        <tree string="Passage">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_liasse_passage" model="ir.actions.act_window">
+	    <field name="name">TABLEAU DE PASSAGE</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">liasse.passage</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- <menuitem name="TAB-03 TABLEAU DE PASSAGE" id="menu_liasse_passage" parent="menu_tables_root" action="action_liasse_passage"
+	sequence="4" /> -->
+
+	<!-- PDF report -->
+	<record id="action_report_passage" model="ir.actions.report">
+        <field name="name">Rapport Passage</field>
+        <field name="model">liasse.passage</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_passage</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_passage</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_liasse_passage"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_passage">
+		<t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°3
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>PASSAGE DU RESULTAT NET COMPTABLE AU RESULTAT FISCAL</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+						<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" ></th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_sortie">MONTANT</th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_entree">MONTANT</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >I . RESULTAT NET COMPTABLE</span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_sortie">
+									<span ></span>  
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<!-- _____ -->
+							<tr>
+								<td  name="td_name">
+									<span >* BÈnÈfice net</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.benifice_net_1"/>
+									
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<!-- ___________ -->
+							<tr>
+								<td  name="td_name">
+									<span >* Perte nette</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span t-field="obj.perte_nette_1"/>
+								</td>
+							</tr>
+							<!-- ___________ -->
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >II . REINTEGRATIONS FISCALES</span>
+								</td>
+								<td style="border: 1px solid;text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.reintegration_total"/>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >1. Courantes</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<t t-foreach="obj.re_fy_courante_ids" t-as="line">
+								<tr>
+									<td  name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_sortie">
+										<span t-field="line.montant_1"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_entree">
+										<span></span>
+									</td>
+								</tr>
+							</t>
+							<tr>
+								<td  name="td_name">
+									<span >1. Non-Courantes</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+							</tr>
+							<t t-foreach="obj.re_fy_non_courante_ids" t-as="line">
+								<tr>
+									<td  name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_sortie">
+										<span t-field="line.montant_1"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_entree">
+										<span></span>
+									</td>
+								</tr>
+							</t>
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >III . DEDUCTIONS FISCALES</span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="border: 1px solid;text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.deduction_total"/>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >1. Courantes</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<t t-foreach="obj.de_fy_courante_ids" t-as="line">
+								<tr>
+									<td  name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_entree">
+										<span></span>
+									</td>
+									<td style="text-align: right;" name="amortissement_sortie">
+										<span t-field="line.montant_1"/>
+									</td>
+								</tr>
+							</t>
+							<tr>
+								<td  name="td_name">
+									<span >1. Non-Courantes</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<t t-foreach="obj.de_fy_non_courante_ids" t-as="line">
+								<tr>
+									<td  name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_entree">
+										<span></span>
+									</td>
+									<td style="text-align: right;" name="amortissement_sortie">
+										<span t-field="line.montant_1"/>
+									</td>
+									
+								</tr>
+							</t>
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >IV . RESULTAT BRUT FISCAL</span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >BÈnÈfice brut Si T1 > T2 (A)</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span t-field="obj.benifice_brut_1"/>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >DÈficit brut fiscal Si T2 > T1 (B)</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span t-field="obj.deficit_brut_1"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >V . REPORT DEFICITAIRE IMPUTES (C)</span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  style="border: 1px solid;" name="td_name">
+									<span >CUMUL DES DEFICITES FISCAUX A IMPUTER</span>
+								</td>
+								<td style="border: 1px solid;text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.amortissement"/>
+								</td>
+								<td style="border: 1px solid;text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >* Exercice N-4</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_4"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+									
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >* Exercice N-3</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_3"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+									
+								</td>
+							</tr>
+							<tr>
+								<td name="td_name">
+									<span >* Exercice N-2</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_2"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+									
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >* Exercice N-1</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_1"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >VI . RESULTAT NET FISCAL</span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >BÈnÈfice net fiscal ( A - C )</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.benifice_net_a_c_1"/>
+									
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >DÈficit net fiscal (B)</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span t-field="obj.deficit_net_b_1"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >VII .CUMUL DES AMORTISSEMENTS DIFFERES</span>
+								</td>
+								<td style="border: 1px solid;text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.amortissement_1"/>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span >VIII . CUMUL DES DEFICITES FISCAUX A REPORTER</span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_sortie">
+									<span ></span>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >* Exercice N-4</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_4_1_c"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >* Exercice N-3</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_3_1_c"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td  name="td_name">
+									<span >* Exercice N-2</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_2_1_c"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+							<tr>
+								<td name="td_name">
+									<span >* Exercice N-1</span>
+								</td>
+								<td style="text-align: right;" name="amortissement_sortie">
+									<span t-field="obj.exercice_n_1_1_c"/>
+								</td>
+								<td style="text-align: right;" name="amortissement_entree">
+									<span ></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

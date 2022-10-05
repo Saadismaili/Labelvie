@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ma_profit_44577000" model="account.account">
+        <field name="code">44577000</field>
+        <field name="name">TIMBRES FISCAUX SUR VENTES A PAYER</field>
+        <field name="user_type_id"
+               ref="account.data_account_type_current_liabilities"/>
+    </record>
+    <record id="ma_profit_51412000" model="account.account">
+        <field name="code">51412000</field>
+        <field name="name">ATTIJARIWAFA BANK HY EL FATH</field>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+    </record>
+    <record id="ma_profit_51416000" model="account.account">
+        <field name="code">51416000</field>
+        <field name="name">ATTIJARIWAFA BANK AL KIFAH</field>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+    </record>
+    <record id="ma_profit_51417000" model="account.account">
+        <field name="code">51417000</field>
+        <field name="name">C.N.C.A. RABAT EL KIFAH</field>
+        <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+    </record>
+    <record id="ma_profit_61251200" model="account.account">
+        <field name="code">61251200</field>
+        <field name="name">Achats de fournitures non stockés ( EAU, )</field>
+        <field name="user_type_id"
+               ref="account.data_account_type_direct_costs"/>
+    </record>
+    <record id="ma_profit_61431200" model="account.account">
+        <field name="code">61431200</field>
+        <field name="name">CARBURANTS</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+    <record id="ma_profit_61455100" model="account.account">
+        <field name="code">61455100</field>
+        <field name="name">FRAIS D'INTERNET</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+    <record id="ma_profit_44411000" model="account.account">
+        <field name="code">44411000</field>
+        <field name="name">CAISSE NATIONALE DE LA SECURITE SOCIALE</field>
+        <field name="user_type_id"
+               ref="account.data_account_type_current_liabilities"/>
+    </record>
+    <record id="ma_profit_55412000" model="account.account">
+        <field name="code">55412000</field>
+        <field name="name">ATTIJARIWAFA BANK HY EL FATH</field>
+        <field name="user_type_id"
+               ref="account.data_account_type_current_liabilities"/>
+    </record>
+    <record id="ma_profit_44551000" model="account.account">
+        <field name="code">44551000</field>
+        <field name="name">Etat, TVA sur immobilisations cédées</field>
+        <field name="user_type_id"
+               ref="account.data_account_type_current_liabilities"/>
+    </record>
+    <record id="ma_profit_55416000" model="account.account">
+        <field name="code">55416000</field>
+        <field name="name">ATTIJARIWAFA BANK EL KIFAH</field>
+        <field name="user_type_id"
+               ref="account.data_account_type_current_liabilities"/>
+    </record>
+    <record id="ma_profit_65890000" model="account.account">
+        <field name="code">65890000</field>
+        <field name="name">Autres charges non courantes</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses"/>
+    </record>
+
+</odoo>

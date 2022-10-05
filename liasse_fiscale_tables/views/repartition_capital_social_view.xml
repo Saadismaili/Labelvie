@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_repartition_capital_social_form" model="ir.ui.view">
+	    <field name="name">view.repartition.capital.social.form</field>
+	    <field name="model">repartition.capital.social</field>
+	    <field name="arch" type="xml">
+	        <form string="REPARTITION DU CAPITAL SOCIAL">
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<field name="check_line" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="repartition_capital_social_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="raison_social"/>
+									<field name="n_if"/>
+									<field name="n_cin"/>
+									<field name="n_etr"/>
+									<field name="adresse"/>
+									<field name="nbre_titre_exe_prec"/>
+									<field name="nbre_titre_exe_actuel"/>
+									<field name="valeur_nominal"/>
+									<field name="montant_capital_souscrit"/>
+									<field name="montant_capital_appele"/>
+									<field name="montant_capital_libere"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_repartition_capital_social_tree" model="ir.ui.view">
+	    <field name="name">view.repartition.capital.social.tree</field>
+	    <field name="model">repartition.capital.social</field>
+	    <field name="arch" type="xml">
+	        <tree string="REPARTITION DU CAPITAL SOCIAL">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_repartition_capital_social" model="ir.actions.act_window">
+	    <field name="name">REPARTITION DU CAPITAL SOCIAL 1</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">repartition.capital.social</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-13 REPARTITION DU CAPITAL SOCIAL" id="menu_repartition_capital_social_id" parent="menu_tables_root" action="action_repartition_capital_social" 
+	sequence="14"/>
+
+	<!-- Ruuules -->
+	<record id="repartition_capital_social_comp_rule" model="ir.rule">
+		<field name="name">repartition_capital_social multi-company</field>
+		<field name="model_id" ref="model_repartition_capital_social" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<record id="repartition_capital_social_line_comp_rule" model="ir.rule">
+		<field name="name">repartition_capital_social LINES multi-company</field>
+		<field name="model_id" ref="model_repartition_capital_social_line" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<!-- ___________ -->
+	<record id="action_report_capital_sociale" model="ir.actions.report">
+        <field name="name">Capital Sociale</field>
+        <field name="model">repartition.capital.social</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.report_capital_sociale</field>
+        <field name="report_file">liasse_fiscale_tables.report_capital_sociale</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_repartition_capital_social"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_capital_sociale">
+        <t t-foreach="docs" t-as="obj">
+		<t t-call="web.basic_layout">
+        
+        
+         <div class="container text-center" style=" margin-top: 10%;">
+                            <div class="row">
+                                <div class="col" style=" margin-left: 22%;    padding-right: 500px;">
+                                    <p style="      font-size: 195%;                           font-weight: 600;                           word-spacing: 3rem; ">PIECES ANNEXES A LA
+                                        DECLARATION FISCALE
+                                    </p>
+                                    <div style="  margin-left: 14%;    margin-right: 14%;">
+                                        <div style="border-bottom: 1px  double black !important; border-style: double !important;   padding-left: 10%;     padding-right: 10%;      ">
+
+                                        </div>
+
+                                    </div>
+                                      <div style=" margin-left: 14%;  padding-left: 0%;  margin-right: 14%;   padding-right: 0%;margin-top: 0.5%;">
+                                        <div style="border-bottom: 1px  solid black !important; border-style: double !important;   padding-left: 10%;     padding-right: 10%;      ">
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div style="     margin-top: 3%;">
+                                        <p style="      font-size: 194%;         font-weight: 600;         word-spacing: 1rem;             ">
+                                            IMPOT SUR LES SOCIETES
+                                        </p>
+                                    </div>
+                                    <div style="     margin-top: 3%;">
+                                        <p style="          font-size: 150%;         font-weight: 600;         word-spacing: 0.3rem;        ">
+                                            ( ModËle Comptable Normal )
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="row" style="margin-top: 3%;  margin-left: 15%;margin-right: 15%; ">
+
+                                <div class="col" style="">
+
+
+                                    <div style="       ">
+                                        <div style="      border-bottom: 4px solid black;                /* MARGIN-LEFT: 23%; */       ">
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row" style="margin-top: 5%;">
+
+                                <div class="col" style="text-align: center;margin-left:-3% ;font-size: 21px;font-weight: 600;">
+
+                                    <p>EXERCICE DU : 01/01/2020 AU : 31/12/2020
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                            <div class="row" style=" margin-left: 10%;    padding-right: 500px; margin-top: 5%; width: 81%;">
+                                <div class="col" style="  margin: 0%; text-align: left;font-size: 19px;font-weight: 600;">RAISON SOCIALE
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;font-size: 21px;font-weight: 600;">: AL AOUNATE.FOR SARLAU
+
+                                </div>
+                            </div>
+
+
+                            <div class="row" style=" margin-left: 10%;    padding-right: 500px; margin-top: 3%; width: 81%;">
+
+                                <div class="col" style="  margin: 0%; text-align: left;font-size: 19px;font-weight: 600;">ARTICLE IS
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;font-size: 21px;font-weight: 600;">: 18755312
+                                </div>
+                            </div>
+
+                            <div class="row" style=" margin-left: 10%;    padding-right: 500px; margin-top: 3%; width: 81%;">
+
+                                <div class="col" style="  margin: 0%; text-align: left;font-size: 19px;font-weight: 600;">IDENTIFICATION A LA TAXE
+                                    PROFESSIONELLE
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;font-size: 21px;font-weight: 600;">: 27350485
+                                </div>
+                            </div>
+
+                            <div class="row" style=" margin-left: 10%;    padding-right: 500px; margin-top: 3%;font-size: 19px;font-weight: 600; width: 81%;">
+
+                                <div class="col" style="  margin: 0%; text-align: left;">DENTIFIANT COMMUN ´ICEª
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;">: 18755312
+                                </div>
+                            </div>
+
+
+                            <div class="row" style=" margin-left: 10%;   padding-right: 500px;margin-top: 3%;font-size: 19px;font-weight: 600; width: 81%;">
+
+                                <div class="col" style="  margin: 0%; text-align: left; ">ARTICLE IS
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;">: 001741563000004
+                                </div>
+                            </div>
+
+                            <div class="row" style=" margin-left: 10%;    padding-right: 500px;margin-top: 3%;font-size: 19px;font-weight: 600; width: 81%;">
+
+                                <div class="col" style="  margin: 0%; text-align: left;">IDENTIFICATION T.V.A.
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;">: 18755312
+                                </div>
+                            </div>
+
+                            <div class="row" style=" margin-left: 10%;    padding-right: 500px;margin-top: 3%;font-size: 19px;font-weight: 600; width: 81%;">
+
+                                <div class="col" style="  margin: 0%; text-align: left;">R.C
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;">: 116603
+                                </div>
+
+                            </div>
+                             <div class="row" style=" margin-left: 10%;    padding-right: 500px;margin-top: 3%;font-size: 19px;font-weight: 600; width: 81%;">
+
+                                <div class="col" style="  margin: 0%; text-align: left;">ADRESSE
+                                </div>
+                                <div class="col" style="  margin: 0%; text-align: left;">: J5 AMAL 1 N°163 KWAS CYM RABAT
+
+                                </div>
+
+                            </div>
+                            
+                            
+                            <div class="row" style="margin-top: 5%;">
+
+                                <div class="col" style="text-align: center;margin-left:29% ;font-size: 22px;font-weight: 700;">
+
+                                    <p>A RABAT, Le 02/03/2021 
+
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                                      
+                            <div class="row" style="margin-top: 3%;">
+
+                                <div class="col" style="text-align: center;margin-left:23% ;font-size: 22px;font-weight: 700;">
+
+                                    <p>Signature :
+
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                            
+                            
+                            <div class="row" style="margin-top: 10%; margin-left: 5%;margin-right: 5%;">
+
+                                <div class="col" style="">
+
+
+                                    <div style="       ">
+                                        <div style="      border-bottom: 4px solid black;                /* MARGIN-LEFT: 23%; */       ">
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            
+                            
+                             <div class="row " style="     margin-top: 3%;">
+                                        <p style="      font-size: 194%;       margin-left: 21%;  font-weight: 700;         word-spacing: 1rem;             ">
+                        CADRE RESERVE A L'ADMINISTRATION
+                                        </p>
+                              </div>
+                              
+                           <div class="row" style="margin-top: 3%;">
+
+                                <div class="col" style="margin-left:-13% ;">
+
+                                    <p>NUMERO D'ENREGISTREMENT DE LA DECLARATION : .....................
+
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                          <div class="row" style="margin-top: 1%;">
+
+                                <div class="col" style="margin-left:-31% ;">
+
+                                    <p>DATE : ............
+
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                        <div class="row" style="margin-top: 3%;">
+
+                                <div class="col" style="text-align: center;margin-left:23% ;font-size: 22px;font-weight: 700;">
+
+                                    <p>Signature :
+
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                            
+                            
+                       <div class="row" style="margin-top: 10%; padding-right: 100px; ">
+
+                                <div class="col" style="text-align: center ;     margin-left: 11%;  width:80%; font-weight: 600;     ">
+
+                                    <p>NB : Les tableaux de 1 ‡ 14 sont conformes au Ètats prÈvus par la loi N° 9.88 relative aux obligations 
+                                             comptables des commerÁants promulguÈe par le dahir N° 1.92.138 du 3 Joumada II 1413 (5.12.1992) .
+
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                </t>
+		
+			<t t-call="web.basic_layout">
+                <div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.name" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span style="font-size: 10px;" class="float-right">
+                                TABLEAU N°13
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h6>ETAT DE REPARTITION DU CAPITAL SOCIAL </h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span tyle="font-size: 10px;" class="float-right">
+                                <p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+                            </span>
+                        </div>
+                    </div>
+                    <style type="text/css">
+                        .small{
+                            font-size: 15px;
+                            width: 100%;
+                            border: 1px solid;
+                        }
+						.bgtext {
+							position: relative;			
+							}
+						.bgtext:before {
+							content: "NEANT";
+							position: absolute;
+							color: #808080;
+							text-align: center;
+							margin-top: 27%;
+							margin-left: 25%;
+							font-family: sans-serif;
+							font-size: 9em;
+						}
+                    </style>
+                    <h1></h1>
+                    <h1></h1>
+		    		<div >
+                    	<table class="small  ">
+                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <!-- <th></th> -->
+                                <th style="border: 1px solid;text-align: center;" name="th_name" >Nom, prénoms ou raison sociale des principaux associés</th>
+								<th style="border: 1px solid;text-align: center;" name="th_start_solde" >Adresse</th>
+								<th style="border: 1px solid;text-align: center;" name="th_operation_solde" >Nbre de titre de l'exercice précedent</th>
+								<th style="border: 1px solid;text-align: center;" name="th_declaration_solde">Nbre de titre de l'exercice actuel</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde">valeur nominal de chaque action ou part sociale</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_1">Montant du capital souscrit</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_2">Montant du capital appelé</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_3">Montant du capital Libéré</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody" >
+                            <t t-if="obj.check_line == True">
+								<t t-foreach="obj.repartition_capital_social_line_ids" t-as="line">
+									<tr >
+										<td  name="td_name">
+											<span t-field="line.name"/>
+										</td>
+										<td  name="td_secteur_activite">
+											<span t-field="line.adresse"/>
+										</td>
+										<td style="text-align: right;" name="td_capital_social">
+											<span t-field="line.nbre_titre_exe_prec"/>
+										</td>
+										<td style="text-align: right;" name="td_participation_capital">
+											<span t-field="line.nbre_titre_exe_actuel"/>
+										</td>
+										<td style="text-align: right;" name="tdprix_acquisition">
+											<span t-field="line.valeur_nominal"/>
+										</td>
+										<td style="text-align: right;" name="td_valeur_comptable_nette">
+											<span t-field="line.montant_capital_souscrit"/>
+										</td>
+										<td style="text-align: right;" name="td_date_cloture">
+											<span t-field="line.montant_capital_appele"/>
+										</td>
+										<td style="text-align: right;" name="td_situation_nette">
+											<span t-field="line.montant_capital_libere"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+							<t t-else="obj.check_line == False" class="bgtext">
+								<tr class="bgtext" >
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+								</tr>
+							</t>
+                        </tbody>
+                    </table>
+					</div>    
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

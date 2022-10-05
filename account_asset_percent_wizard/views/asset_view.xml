@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_account_asset_asset_form_inherit_percent">
+            <field name="name">account.asset.asset.form.inherit.percent</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="os_account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <header position="inside">
+                    <button name="%(compute_depreciation_bypercent_action)d"  string="Calcul des amortissements en pourcentage" type="action"/>
+                </header>
+                <field name="method_number" position="before">
+                    <field name="percent" invisible="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_succursale,asset.succursale,account_asset_ma.model_asset_succursale,group_asset_ma,1,1,1,1
+access_emplacement,asset.emplacement,account_asset_ma.model_asset_emplacement,group_asset_ma,1,1,1,1
+access_asset_control,asset_control,model_asset_control,,1,1,1,1
+access_asset_control_line,asset_control_line,model_asset_control_line,,1,1,1,1
+access_asset_control_accounting,asset_control_accounting,model_asset_control_accounting,,1,1,1,1
+access_asset_unreconciled,asset_unreconciled,model_asset_unreconciled,,1,1,1,1

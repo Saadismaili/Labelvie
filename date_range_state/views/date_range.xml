@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="date_range_inherited_form">
+      <field name="name">date.range.form</field>
+      <field name="model">date.range</field>
+      <field name="inherit_id" ref="date_range.view_date_range_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/*" position="before">
+          <header>
+              <field name="state" widget="statusbar"/>
+              <button name="change_state" type="object" string="Fermer" attrs="{'invisible': [('state','=', 'closed')]}"/>
+              <button name="set_to_open" type="object" string="Ouvrer" attrs="{'invisible': [('state','=', 'open')]}"/>
+          </header>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- inherit tree -->
+    <record model="ir.ui.view" id="date_range_inherited_tree">
+      <field name="name">date.range.tree</field>
+      <field name="model">date.range</field>
+      <field name="inherit_id" ref="date_range.view_date_range_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='active']" position="after">
+          <field name="state" readonly="1"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

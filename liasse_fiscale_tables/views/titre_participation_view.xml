@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_titre_participation_form" model="ir.ui.view">
+	    <field name="name">view.titre.participation.form</field>
+	    <field name="model">titre.participation</field>
+	    <field name="arch" type="xml">
+	        <form string="TITRES DE PARTICIPATION">
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<!-- Code Edi -->
+					<field name="check_line" invisible="1" force_save="1" readonly="1"/>
+					<field name="edi_name" invisible="1"/>
+					<field name="edi_code" invisible="1"/>
+					<field name="edi_secteur_activite" invisible="1"/>
+					<field name="edi_capital_social" invisible="1"/>
+					<field name="edi_participation_capital" invisible="1"/>
+					<field name="edi_prix_acquisition" invisible="1"/>
+					<field name="edi_valeur_comptable_nette" invisible="1"/>
+					<field name="edi_date_cloture" invisible="1"/>
+					<field name="edi_situation_nette" invisible="1"/>
+					<field name="edi_resultat_net" invisible="1"/>
+					<field name="edi_produits_inscrits" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="titre_participation_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="code"/>
+									<field name="secteur_activite"/>
+									<field name="capital_social"/>
+									<field name="participation_capital"/>
+									<field name="prix_acquisition"/>
+									<field name="valeur_comptable_nette"/>
+									<field name="date_cloture"/>
+									<field name="situation_nette"/>
+									<field name="resultat_net"/>
+									<field name="produits_inscrits"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_titre_participation_tree" model="ir.ui.view">
+	    <field name="name">view.titre.participation.tree</field>
+	    <field name="model">titre.participation</field>
+	    <field name="arch" type="xml">
+	        <tree string="TITRES DE PARTICIPATION">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_titre_participation" model="ir.actions.act_window">
+	    <field name="name">TITRES DE PARTICIPATION</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">titre.participation</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-11 TITRES DE PARTICIPATION" id="menu_titre_participation_id" parent="menu_tables_root" action="action_titre_participation" 
+	sequence="12"/>
+
+	<!-- Ruuules -->
+	<record id="titre_participation_comp_rule" model="ir.rule">
+		<field name="name">titre_participation multi-company</field>
+		<field name="model_id" ref="model_titre_participation" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<record id="titre_participation_line_comp_rule" model="ir.rule">
+		<field name="name">titre_participation LINES multi-company</field>
+		<field name="model_id" ref="model_titre_participation_line" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<!-- ___________ -->
+
+	<!-- PDF report -->
+	<record id="action_report_titre_participation" model="ir.actions.report">
+        <field name="name">Titre Participation</field>
+        <field name="model">titre.participation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_titre_participation</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_titre_participation</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_titre_participation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+	<template id="repport_report_titre_participation">
+		<t t-foreach="docs" t-as="doc">
+        	<t t-call="web.basic_layout">
+                <div style="page-break-before:always;"> 
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°11
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>TABLEAU DES TITRES DE PARTICIPATIONS</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 11px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<table class="table table-sm o_main_table">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Raison sociale de la Société émettrice</th>
+								<th style="border: 1px solid;text-align: center;" name="th_start_solde" >Secteur d'activité</th>
+								<th style="border: 1px solid;text-align: center;" name="th_operation_solde" >Capital social</th>
+								<th style="border: 1px solid;text-align: center;" name="th_declaration_solde">Participation au capital en %</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde">Prix d'acquisition global</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_1">Valeur comptable nette</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_2">Date de cloture</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_3">Situation nette</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_4">Résultat net</th>
+								<th style="border: 1px solid;text-align: center;" name="th_end_solde_5">Produits inscrits au C.P.C de l'exercice</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-if="doc.check_line == True">
+								<t t-foreach="doc.titre_participation_line_ids" t-as="line">
+									<tr>
+										<td  name="td_name">
+											<span t-field="line.name"/>
+										</td>
+										<td style="text-align: right;" name="td_secteur_activite">
+											<span t-field="line.secteur_activite"/>
+										</td>
+										<td style="text-align: right;" name="td_capital_social">
+											<span t-field="line.capital_social"/>
+										</td>
+										<td style="text-align: right;" name="td_participation_capital">
+											<span t-field="line.participation_capital"/>
+										</td>
+										<td style="text-align: right;" name="tdprix_acquisition">
+											<span t-field="line.prix_acquisition"/>
+										</td>
+										<td style="text-align: right;" name="td_valeur_comptable_nette">
+											<span t-field="line.valeur_comptable_nette"/>
+										</td>
+										<td style="text-align: right;" name="td_date_cloture">
+											<span t-field="line.date_cloture"/>
+										</td>
+										<td style="text-align: right;" name="td_situation_nette">
+											<span t-field="line.situation_nette"/>
+										</td>
+										<td style="text-align: right;" name="td_resultat_net">
+											<span t-field="line.resultat_net"/>
+										</td>
+										<td style="text-align: right;" name="td_produits_inscrits">
+											<span t-field="line.produits_inscrits"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+							<t t-else="doc.check_line == False">
+								<tr>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+								</tr>
+							</t>
+							
+						</tbody>
+					</table>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

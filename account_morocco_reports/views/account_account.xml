@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_account_report_assets" model="ir.actions.client">
+        <field name="name">BILAN (ACTIF)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.assets'}"/>
+    </record>
+
+    <record id="action_account_report_equity" model="ir.actions.client">
+        <field name="name">BILAN (PASSIF)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.equity'}"/>
+    </record>
+
+    <record id="action_account_report_profit" model="ir.actions.client">
+        <field name="name">COMPTE DE PRODUITS ET CHARGES</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.profit'}"/>
+    </record>
+
+    <record id="action_account_report_loss" model="ir.actions.client">
+        <field name="name">COMPTE DE PRODUITS ET CHARGES (SUITE)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.loss'}"/>
+    </record>
+
+    <record id="action_account_report_passage" model="ir.actions.client">
+        <field name="name">PASSAGE DU RESULTAT NET COMPTABLE AU RESULTAT FISCAL</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.passage'}"/>
+    </record>
+
+    <record id="action_account_report_esg_tfr" model="ir.actions.client">
+        <field name="name">ETAT DES SOLDES DE GESTION (TFR)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.esg.tfr'}"/>
+    </record>
+
+    <record id="action_account_report_esg_caf" model="ir.actions.client">
+        <field name="name">ETAT DES SOLDES DE GESTION (CAF)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.esg.caf'}"/>
+    </record>
+
+    <record id="action_account_report_details_cpc" model="ir.actions.client">
+        <field name="name">DETAILS CPC</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.report.details.cpc'}"/>
+    </record>
+
+    <!-- <menuitem id="account_morocco_reports_menu" name="Morocco Reports"
+              parent="account.menu_finance_reports" sequence="0"/> -->
+
+        
+    <!-- ________________ -->
+    <menuitem id="menu_action_account_report_assets"
+              name="TAB-01 BILAN (ACTIF)"
+              action="action_account_report_assets"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="0"/>
+
+    <menuitem id="menu_action_account_report_equity"
+              name="TAB-01 BILAN (PASSIF)"
+              action="action_account_report_equity"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="1"/>
+
+    <menuitem id="menu_action_account_report_profit"
+              name="TAB-02 COMPTE DE PRODUITS ET CHARGES"
+              action="action_account_report_profit"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="2"/>
+
+    <menuitem id="menu_action_account_report_loss"
+              name="TAB-02 COMPTE DE PRODUITS ET CHARGES (SUITE)"
+              action="action_account_report_loss"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="3"/>
+    
+    <menuitem id="menu_action_account_report_passage"
+              name="TAB-03 PASSAGE DU RESULTAT NET COMPTABLE AU RESULTAT FISCAL"
+              action="action_account_report_passage"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="4"/>
+    
+    <menuitem id="menu_action_account_report_esg_tfr"
+              name="TAB-05 ETAT DES SOLDES DE GESTION (TFR)"
+              action="action_account_report_esg_tfr"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="6"/>
+
+    <menuitem id="menu_action_account_report_esg_caf"
+              name="TAB-05 ETAT DES SOLDES DE GESTION (CAF)"
+              action="action_account_report_esg_caf"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="7"/>
+
+    <menuitem id="menu_action_account_report_details_cpc"
+              name="TAB-06 DETAILS CPC"
+              action="action_account_report_details_cpc"
+              parent="liasse_fiscale_tables.menu_tables_root"
+              groups="account.group_account_user"
+              sequence="7"/>
+</odoo>

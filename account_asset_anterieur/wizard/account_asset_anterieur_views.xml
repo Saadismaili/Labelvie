@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_asset_anterieur_form_view" model="ir.ui.view">
+            <field name="name">account.asset.anterieur.form.view</field>
+            <field name="model">account.asset.anterieur</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="date" required="True"/>
+                    </group>
+
+                    <footer>
+                        <button string="Valider" name="check_old_depreciation" type="object" class="btn-primary"
+                                groups="account_asset_anterieur.groups_account_asset_old_depreciation"/>
+                        <button string="Annuler" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_asset_anterieur_action" model="ir.actions.act_window">
+            <field name="name">Valider les amortissements anterieurs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.asset.anterieur</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_asset_anterieur_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--<act_window id="account_asset_anterieur_view_action"
+                key2="client_action_multi"
+                name="Valider les amortissements anterieurs"
+                res_model="account.asset.anterieur"
+                src_model="account.asset.asset"
+                view_mode="form"
+                target="new"
+                groups="account_asset_anterieur.groups_account_asset_old_depreciation"/>-->
+
+        <act_window id="account_asset_anterieur_view_action"
+                name="Valider les amortissements anterieurs"
+                res_model="account.asset.anterieur"
+                view_mode="form"
+                target="new"
+                groups="account_asset_anterieur.groups_account_asset_old_depreciation"/>
+
+    </data>
+</odoo>

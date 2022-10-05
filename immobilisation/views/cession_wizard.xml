@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="record_import_wizard" model="ir.ui.view">
+        <field name="name">immo.wizard</field>
+        <field name="model">immo.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importer les Cessions">
+                <group>
+                    <group>
+                        <field name="file"/>
+                        <field name="immobilisation_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="import_cession"
+                        string="Importer"
+                        type="object"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

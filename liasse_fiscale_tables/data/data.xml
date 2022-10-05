@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- affectation.resultats.intervenue.line1 data -->
+        <record id="affectation_line_1_1" model="affectation.resultats.intervenue.line1">
+            <field name="name">Décision du (Date AGOA ....)</field>
+        </record>
+        <record id="affectation_line_1_2" model="affectation.resultats.intervenue.line1">
+            <field name="name">Report à nouveau (Antérieur) + ou(-)</field>
+            <field name="code" >116</field>
+        </record>
+        <record id="affectation_line_1_3" model="affectation.resultats.intervenue.line1">
+            <field name="name">Résultat net en instance d'affectation + ou(-)</field>
+            <field name="code" >118</field>
+        </record>
+        <record id="affectation_line_1_4" model="affectation.resultats.intervenue.line1">
+            <field name="name">Résultat net de l'exercice + ou(-)</field>
+            <field name="code" >119</field>
+        </record>
+        <record id="affectation_line_1_5" model="affectation.resultats.intervenue.line1">
+            <field name="name">Prélèvement sur les réserves +</field>
+            <field name="code" >115</field>
+        </record>
+        <record id="affectation_line_1_6" model="affectation.resultats.intervenue.line1">
+            <field name="name">Autres prélèvements +</field>
+        </record>
+        <!-- affectation.resultats.intervenue.line2 data -->
+        <record id="affectation_line_2_1" model="affectation.resultats.intervenue.line2">
+            <field name="name">Réserve Légale</field>
+            <field name="code" >1140</field>
+        </record>
+        <record id="affectation_line_2_2" model="affectation.resultats.intervenue.line2">
+            <field name="name">Autres réserves </field>
+            <field name="code" >115</field>
+        </record>
+        <record id="affectation_line_2_3" model="affectation.resultats.intervenue.line2">
+            <field name="name">Tantièmes (Abrogé)</field>
+            <field name="code" >4465</field>
+        </record>
+        <record id="affectation_line_2_4" model="affectation.resultats.intervenue.line2">
+            <field name="name">Dividendes (Mt Brut)(1)</field>
+            <field name="code" >4465</field>
+        </record>
+        <record id="affectation_line_2_5" model="affectation.resultats.intervenue.line2">
+            <field name="name">Autres affectation</field>
+        </record>
+        <record id="affectation_line_2_6" model="affectation.resultats.intervenue.line2">
+            <field name="name">Report à nouveau reportable</field>
+            <field name="code" >116</field>
+        </record>
+    </data>
+</odoo>

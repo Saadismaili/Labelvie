@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="res_company_inherit_form">
+      <field name="name">res.company.osi.inherit.form</field>
+      <field name="model">res.company</field>
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='phone']" position="before">
+          <field name="id_fisc" invisible="1"/>
+          <field name="rc" invisible="1"/>
+          <field name="cnss" invisible="1"/>
+          <field name="capital_social" invisible="1"/>
+          <field name="ice" invisible="1"/>
+          <field name="itp" invisible="1"/>
+          <field name="activites" invisible="1"/>
+          <field name="nationalite" invisible="1"/>
+          <field name="fax" invisible="1"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

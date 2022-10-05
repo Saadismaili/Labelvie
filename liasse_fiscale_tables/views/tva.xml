@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_osi_tva_form" model="ir.ui.view">
+            <field name="name">view.osi.tva.form</field>
+            <field name="model">osi.tva</field>
+            <field name="arch" type="xml">
+                <form string="TVA">
+                    <header>
+                        <button name="get_lines" type="object" string="Mise à jour des données"/>
+                    </header>
+                    
+                    <group>
+                        <field name="name"/>
+                        <field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+                        <field name="company_id" invisible="1"/>
+                        <notebook colspan="4">
+                            <page string="Lignes">
+                                <field name="line_ids" nolabel="1" colspan="4">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="name"/>
+                                        <field name="start_solde"/>
+                                        <field name="operation_solde"/>
+                                        <field name="declaration_solde"/>
+                                        <field name="end_solde"/>
+                                        <!-- Edi Code -->
+                                        <field name="edi_start_solde" invisible="1"/>
+                                        <field name="edi_operation_solde" invisible="1"/>
+                                        <field name="edi_declaration_solde" invisible="1"/>
+                                        <field name="edi_end_solde" invisible="1"/>
+                                        <field name="tva_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </form>
+            </field>
+        </record>
+    
+        <record id="view_osi_tva_tree" model="ir.ui.view">
+            <field name="name">view.osi.tva.tree</field>
+            <field name="model">osi.tva</field>
+            <field name="arch" type="xml">
+                <tree string="TVA">
+                    <field name="name"/>
+                    <field name="fy_n_id"/>
+                    <field name="company_id" />
+                </tree>
+            </field>
+        </record>
+    
+        <record id="action_osi_tva" model="ir.actions.act_window">
+            <field name="name">DETAIL DE LA TAXE</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">osi.tva</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    
+        <menuitem name="TAB-12 DETAIL DE LA TAXE" id="menu_osi_tva_id" parent="menu_tables_root" action="action_osi_tva" 
+        sequence="13"/>
+        <!-- Ruuules -->
+        <record id="osi_tva_comp_rule" model="ir.rule">
+            <field name="name">TVA multi-company</field>
+            <field name="model_id" ref="model_osi_tva" />
+            <field name="domain_force">
+                ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+            </field>
+        </record>
+        <record id="osi_tva_line_comp_rule" model="ir.rule">
+            <field name="name">TVA LINES multi-company</field>
+            <field name="model_id" ref="model_osi_tva_line" />
+            <field name="domain_force">
+                ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+            </field>
+        </record>
+        <!-- ___________ -->
+
+        <!-- pdf report -->
+	<record id="action_report_osi_tva" model="ir.actions.report">
+        <field name="name">DETAIL DE LA TAXE</field>
+        <field name="model">osi.tva</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_osi_tva</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_osi_tva</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_osi_tva"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_osi_tva">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+                <div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.name" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span style="font-size: 10px;" class="float-right">
+                                TABLEAU N°12
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h6>DETAIL DE LA TAXE SUR VALEUR AJOUTEE</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span tyle="font-size: 10px;" class="float-right">
+                                <p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+                            </span>
+                        </div>
+                    </div>
+                    <style type="text/css">
+                        .small{
+                            font-size: 15px;
+                            width: 100%;
+                            border: 1px solid;
+                        }
+                    </style>
+                    <h1></h1>
+                    <h1></h1>
+                    <table class="small">
+                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <!-- <th></th> -->
+                                <th style="border: 1px solid;text-align: center;" name="th_name" >NATURE</th>
+                                <th style="border: 1px solid;text-align: center;" name="th_start_solde" >Solde au début de l'exercice</th>
+                                <th style="border: 1px solid;text-align: center;" name="th_operation_solde" >Opérations comptables de l'exercice</th>
+                                <th style="border: 1px solid;text-align: center;" name="th_declaration_solde">Déclarations T.V.A de l'exercice</th>
+                                <th style="border: 1px solid;text-align: center;" name="th_end_solde">Solde fin d'exercice</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="obj.line_ids" t-as="line">
+                                <tr>
+                                    <td style="height: 50px;border: 1px solid;" name="td_name">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td style="height: 50px;border: 1px solid;text-align: right;" name="td_start_solde">
+                                        <span t-field="line.start_solde"/>
+                                    </td>
+                                    <td style="height: 50px;border: 1px solid;text-align: right;" name="td_operation_solde">
+                                        <span t-field="line.operation_solde"/>
+                                    </td>
+                                    <td style="height: 50px;border: 1px solid;text-align: right;" name="td_declaration_solde">
+                                        <span t-field="line.declaration_solde"/>
+                                    </td>
+                                    <td style="height: 50px;border: 1px solid;text-align: right;" name="td_end_solde">
+                                        <span t-field="line.end_solde"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    </data>
+</odoo>

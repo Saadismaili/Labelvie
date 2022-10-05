@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_calcul_impot_form" model="ir.ui.view">
+	    <field name="name">view.calcul.impot.form</field>
+	    <field name="model">calcul.impot</field>
+	    <field name="arch" type="xml">
+	        <form string="Calcul impot">
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]" />
+					<field name="company_id" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="calcul_impot_line_ids" nolabel="1" colspan="4" >
+								<tree editable="bottom" delete="false">
+									<field name="type"/>
+									<field name="name" attrs="{'readonly': [('name','in', ['4- Autres produits taxables','- Autres produits d\'exploitation','- Produits financiers','- Subventions'])]}" />
+									<field name="taux_reduit"/>
+									<field name="montant"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_calcul_impot_tree" model="ir.ui.view">
+	    <field name="name">view.calcul.impot.tree</field>
+	    <field name="model">credit.bail</field>
+	    <field name="arch" type="xml">
+	        <tree string="Calcul impot">
+				<field name="name"/>
+				<field name="fy_n_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_calcul_impot" model="ir.actions.act_window">
+	    <field name="name">CALCUL IMPOT</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">calcul.impot</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-15 CALCUL IMPOT" id="menu_calcul_impot_id" parent="menu_tables_root" action="action_calcul_impot"
+	sequence="16" />
+
+	<!-- Ruuules -->
+	<record id="calcul_impot_comp_rule" model="ir.rule">
+        <field name="name">CALCUL IMPOT multi-company</field>
+        <field name="model_id" ref="model_calcul_impot" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="calcul_impot_line_comp_rule" model="ir.rule">
+        <field name="name">CALCUL IMPOT LINES multi-company</field>
+        <field name="model_id" ref="model_calcul_impot_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+
+	<!-- pdf report -->
+	<record id="action_report_impot" model="ir.actions.report">
+        <field name="name">CALCUL IMPOT</field>
+        <field name="model">calcul.impot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_impot</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_impot</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_calcul_impot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_impot">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+                <div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.name" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span style="font-size: 10px;" class="float-right">
+                                TABLEAU N°15
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h6>ETAT POUR LE CALCUL DE L'IMPOT DU PAR LES ENTREPRISES BENEFICIANTS<br/>ETAT POUR LE CALCUL DE L'IMPOT DU PAR LES ENTREPRISES BENEFICIANTS</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span tyle="font-size: 10px;" class="float-right">
+                                <p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+                            </span>
+                        </div>
+                    </div>
+                    <style type="text/css">
+                        .small{
+                            font-size: 15px;
+                            width: 100%;
+                            border: 1px solid;
+                        }
+                    </style>
+                    <h1></h1>
+                    <h1></h1>
+					<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >NATURE DES PRODUITS</th>
+								<th style="border: 1px solid;text-align: center;" name="th_ens_produit" >TAUX REDUIT</th>
+								<th style="border: 1px solid;text-align: center;" name="th_ens_produit_base_imposable" >MONTANT</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-foreach="obj.calcul_impot_line_ids" t-as="line">
+								<tr>
+									<td style="height: 50px;" name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="height: 50px;text-align: right;" name="td_ens_produit">
+										<span t-field="line.taux_reduit"/>
+									</td>
+									<td style="height: 50px;text-align: right;" name="td_ens_produit_base_imposable">
+										<span t-field="line.montant"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

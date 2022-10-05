@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="details.cpc.group" id="cpc_7">
+        <field name="name">CHARGES D'EXPLOITATION</field>
+        <field name="sequence">10</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",999]]</field>
+    </record>
+
+    <record model="details.cpc.group" id="cpc_71">
+        <field name="name">ACHATS REVENDUS DE MARCHANDISES</field>
+        <field name="sequence">11</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">611</field>
+    </record>
+    
+    <record model="details.cpc.line" id="cpc_72">
+        <field name="name">* Achats de marchandises</field>
+        <field name="sequence">2</field>
+        <field name="group_id" ref="cpc_71"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|",["code","=like","6112%"],["code","=like","6111%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.line" id="cpc_73">
+        <field name="name">Variation des stocks de marchandises (±)</field>
+        <field name="sequence">3</field>
+        <field name="group_id" ref="cpc_71"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","6114%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_74">
+        <field name="name">Total</field>
+        <field name="sequence">12</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","611%"]]</field>
+    </record>  
+
+    <record model="details.cpc.group" id="cpc_ff">
+        <field name="name">ACHATS CONSOMMES DE MATIERES ET FOURNITURES</field>
+        <field name="sequence">13</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">612</field>
+    </record>
+    
+    <record model="details.cpc.line" id="cpc_76">
+        <field name="name">* Achat de matières premières</field>
+        <field name="sequence">6</field>
+        <field name="group_id" ref="cpc_ff"/>       
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","6121%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>   
+
+    <record model="details.cpc.line" id="cpc_77">
+        <field name="name">*Variation des stocks de matières premières (+-)</field>
+        <field name="sequence">7</field>
+        <field name="group_id" ref="cpc_ff"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","61241%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_77">
+        <field name="name">* Achats de matières et fournitures consommables et d'emballages</field>
+        <field name="sequence">8</field>
+        <field name="group_id" ref="cpc_ff"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","6122%"],["code","=like","6128%"],["code","=like","6123%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_78">
+        <field name="name">Variation des stocks de matières, fournitures et emballages (+/-)</field>
+        <field name="sequence">9</field>
+        <field name="group_id" ref="cpc_ff"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|",["code","=like","61243%"],["code","=like","61242%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_79">
+        <field name="name">* Achats non stockés de matières et de fournitures</field>
+        <field name="sequence">10</field>
+        <field name="group_id" ref="cpc_ff"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6125%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_80">
+        <field name="name">* Achats de travaux, études et prestations de services</field>
+        <field name="sequence">11</field>
+        <field name="group_id" ref="cpc_ff"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6126%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_81">
+        <field name="name">Total</field>
+        <field name="sequence">13</field>
+         <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","612%"]]</field>
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_dd">
+        <field name="name">AUTRES CHARGES EXTERNES</field>
+        <field name="sequence">14</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">613/614</field>
+    </record>
+
+    <record model="details.cpc.line" id="cpc_83">
+        <field name="name">* Locations et charges locatives</field>
+        <field name="sequence">14</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6131%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_84">
+        <field name="name">* Redevances de crédit-bail</field>
+        <field name="sequence">15</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6132%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.line" id="cpc_85">
+        <field name="name">* Entretien et réparations</field>
+        <field name="sequence">16</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6133%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_86">
+        <field name="name">* Primes d'assurances</field>
+        <field name="sequence">17</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6134%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.line" id="cpc_87">
+        <field name="name">* Rémunérations du personnel extérieur à l'entreprise</field>
+        <field name="sequence">18</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6135%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.line" id="cpc_88">
+        <field name="name">* Rémunérations d'intermédiaires et honoraires</field>
+        <field name="sequence">111</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6136%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_89">
+        <field name="name">* Redevances pour brevets, marques, droits.......</field>
+        <field name="sequence">112</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6137%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_90">
+        <field name="name">* Déplacements, missions et réceptions</field>
+        <field name="sequence">113</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6143%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+    <record model="details.cpc.line" id="cpc_999999">
+        <field name="name">*Transports</field>
+        <field name="sequence">113</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6142%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>  
+
+    <record model="details.cpc.line" id="cpc_911111">
+        <field name="name">* Reste du poste des autres charges externes</field>
+        <field name="sequence">115</field>
+        <field name="group_id" ref="cpc_dd"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|","|","|","|",["code","=like","6144%"],["code","=like","6145%"],["code","=like","6146%"],["code","=like","6147%"],["code","=like","6148%"],["code","=like","6149%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>  
+
+    <record model="details.cpc.group" id="cpc_92">
+        <field name="name">Total</field>
+        <field name="sequence">15</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|",["code","=like","613%"],["code","=like","614%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.group" id="cpc_aa">
+        <field name="name">CHARGES DU PERSONNEL</field>
+        <field name="sequence">16</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">617</field>
+    </record>
+
+    <record model="details.cpc.line" id="cpc_94">
+        <field name="name">* Rémunération du personnel</field>
+        <field name="sequence">117</field>
+        <field name="group_id" ref="cpc_aa"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6171%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.line" id="cpc_95">
+        <field name="name">* Charges sociales</field>
+        <field name="sequence">121</field>
+        <field name="group_id" ref="cpc_aa"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6174%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_96">
+        <field name="name">* Reste du poste des charges de personnel</field>
+        <field name="sequence">122</field>
+        <field name="group_id" ref="cpc_aa"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","6176%"],["code","=like","6177%"],["code","=like","6178%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.group" id="cpc_97">
+        <field name="name">Total</field>
+        <field name="sequence">17</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","617%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+   <record model="details.cpc.group" id="cpc_pp">
+        <field name="name">AUTRES CHARGES D'EXPLOITATION</field>
+        <field name="sequence">18</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">618</field>
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_99">
+        <field name="name">* Jetons de présence</field>
+        <field name="sequence">125</field>
+        <field name="group_id" ref="cpc_pp"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6181%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_100">
+        <field name="name">* Pertes sur créances irrécouvrables</field>
+        <field name="sequence">126</field>
+        <field name="group_id" ref="cpc_pp"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6182%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_101">
+        <field name="name">* Reste du poste des autres charges d'exploitation</field>
+        <field name="sequence">131</field>
+        <field name="group_id" ref="cpc_pp"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","6185%"],["code","=like","6186%"],["code","=like","6188%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_102">
+        <field name="name">Total</field>
+        <field name="sequence">19</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","618%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_charge">
+        <field name="name">CHARGES FINANCIERES</field>
+        <field name="sequence">20</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",999]]</field>
+    </record>
+    <record model="details.cpc.group" id="cpc_rr">
+        <field name="name">AUTRES CHARGES FINANCIERES</field>
+        <field name="sequence">21</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">638</field>
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_104">
+        <field name="name">* Charges nettes sur cessions de titres et valeurs de placement</field>
+        <field name="sequence">134</field>
+        <field name="group_id" ref="cpc_rr"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6385%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_105">
+        <field name="name">* Reste du poste des autres charges financières</field>
+        <field name="sequence">141</field>
+        <field name="group_id" ref="cpc_rr"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","6382%"],["code","=like","6386%"],["code","=like","6388%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_106">
+        <field name="name">TOTAL</field>
+        <field name="sequence">22</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","638%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_charge_non">
+        <field name="name">CHARGES NON COURANTES</field>
+        <field name="sequence">30</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",999]]</field>
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_OO">
+        <field name="name">AUTRES CHARGES NON COURANTES</field>
+        <field name="sequence">31</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">658</field>
+    </record> 
+    
+    <record model="details.cpc.line" id="cpc_108">
+        <field name="name">* Pénalités sur marchés et dédits</field>
+        <field name="sequence">144</field>
+        <field name="group_id" ref="cpc_OO"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6581%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_109">
+        <field name="name">* Rappels d'impôts (autres qu'impôts sur les résultats)</field>
+        <field name="sequence">1111</field>
+        <field name="group_id" ref="cpc_OO"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6582%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_200">
+        <field name="name">* Pénalités et amendes fiscales et pénales</field>
+        <field name="sequence">1112</field>
+        <field name="group_id" ref="cpc_OO"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6583%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_201">
+        <field name="name">* Créances devenues irrécouvrables</field>
+        <field name="sequence">1113</field>
+        <field name="group_id" ref="cpc_OO"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","6585%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.line" id="cpc_202">
+        <field name="name">* Reste du poste des autres charges non courantes</field>
+        <field name="sequence">1114</field>
+        <field name="group_id" ref="cpc_OO"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|",["code","=like","6586%"],["code","=like","6588%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_203">
+        <field name="name">Total</field>
+        <field name="sequence">35</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","658%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+
+
+    <record model="details.cpc.group" id="cpc_produit_exploi">
+        <field name="name">PRODUITS D'EXPLOITATION</field>
+        <field name="sequence">40</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",999]]</field>
+    </record>
+
+    <record model="details.cpc.group" id="cpc_ventee">
+        <field name="name">VENTES DE MARCHANDISES</field>
+        <field name="sequence">45</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">711</field>
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_205">
+        <field name="name">* Ventes de marchandises au Maroc</field>
+        <field name="sequence">1234</field>
+        <field name="group_id" ref="cpc_ventee"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7111%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_206">
+        <field name="name">* Ventes de marchandises à l'étranger</field>
+        <field name="sequence">11111</field>
+        <field name="group_id" ref="cpc_ventee"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7113%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_207">
+        <field name="name">* Reste du poste des ventes de marchandises</field>
+        <field name="sequence">11112</field>
+        <field name="group_id" ref="cpc_ventee"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|",["code","=like","7118%"],["code","=like","7119%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+    <record model="details.cpc.group" id="cpc_208">
+        <field name="name">Total</field>
+        <field name="sequence">50</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","711%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>  
+
+    <record model="details.cpc.group" id="cpc_vente">
+        <field name="name">VENTES DE BIENS ET SERVICES PRODUITS</field>
+        <field name="sequence">55</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">712</field>
+    </record>
+
+    <record model="details.cpc.line" id="cpc_300">
+        <field name="name">*Ventes de biens au Maroc</field>
+        <field name="sequence">11125</field>
+        <field name="group_id" ref="cpc_vente"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7121%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_301">
+        <field name="name">*Ventes de biens à l'étranger</field>
+        <field name="sequence">11211</field>
+        <field name="group_id" ref="cpc_vente"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7122%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_302">
+        <field name="name">*Ventes de services au Maroc</field>
+        <field name="sequence">11212</field>
+        <field name="group_id" ref="cpc_vente"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7124%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_303">
+        <field name="name">*Ventes de services à l'étranger</field>
+        <field name="sequence">11214</field>
+        <field name="group_id" ref="cpc_vente"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7125%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_304">
+        <field name="name">* Redevances pour brevets, marques, droits..</field>
+        <field name="sequence">11333</field>
+        <field name="group_id" ref="cpc_vente"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7126%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_305">
+        <field name="name">* Reste du poste des ventes et services produits</field>
+        <field name="sequence">111334</field>
+        <field name="group_id" ref="cpc_vente"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","7127%"],["code","=like","7128%"],["code","=like","7129%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_306">
+        <field name="name">Total</field>
+        <field name="sequence">60</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","712%"]]</field>
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_var">
+        <field name="name">VARIATIONS DES STOCKS DE PRODUITS</field>
+        <field name="sequence">65</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">713</field>
+    </record>
+
+    <record model="details.cpc.line" id="cpc_308">
+        <field name="name">* Variation des stocks des biens produits (+/-)</field>
+        <field name="sequence">113434</field>
+        <field name="group_id" ref="cpc_var"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7132%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_309">
+        <field name="name">*Variation des stocks des services produits (+/-)</field>
+        <field name="sequence">113435</field>
+        <field name="group_id" ref="cpc_var"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7134%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_400">
+        <field name="name">*Variation des stocks des produits en cours (+/-)</field>
+        <field name="sequence">113436</field>
+        <field name="group_id" ref="cpc_var"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7131%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_401">
+        <field name="name">Total</field>
+        <field name="sequence">70</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","713%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_aut_var">
+        <field name="name">AUTRES PRODUITS D'EXPLOITATION</field>
+        <field name="sequence">75</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">718</field>
+    </record>
+
+    <record model="details.cpc.line" id="cpc_403">
+        <field name="name">* Jetons de présence reçus</field>
+        <field name="sequence">114431</field>
+        <field name="group_id" ref="cpc_aut_var"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","7181%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_404">
+        <field name="name">* Reste du poste (produits divers)</field>
+        <field name="sequence">114432</field>
+        <field name="group_id" ref="cpc_aut_var"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|","|",["code","=like","7182%"],["code","=like","7185%"],["code","=like","7186%"],["code","=like","7188%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+
+    <record model="details.cpc.group" id="cpc_405">
+        <field name="name">Total</field>
+        <field name="sequence">80</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","718%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>
+
+     <record model="details.cpc.group" id="cpc_aut_vari">
+        <field name="name">REPRISES D'EXPLOITATION , TRANSFERT DE CHARGES</field>
+        <field name="sequence">75</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">719</field>
+    </record>
+
+    <record model="details.cpc.line" id="cpc_407">
+        <field name="name">* Reprises</field>
+        <field name="sequence">114435</field>
+        <field name="group_id" ref="cpc_aut_vari"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|","|","|","|","|",["code","=like","7191%"],["code","=like","7192%"],["code","=like","7193%"],["code","=like","7194%"],["code","=like","7195%"],["code","=like","7196%"],["code","=like","7198%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_408">
+        <field name="name">*Transferts de charges</field>
+        <field name="sequence">114436</field>
+        <field name="group_id" ref="cpc_aut_vari"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","7197%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.group" id="cpc_409">
+        <field name="name">Total</field>
+        <field name="sequence">85</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","719%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record>  
+    
+</odoo>

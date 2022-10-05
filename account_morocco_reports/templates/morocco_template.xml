@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="morocco_main_template"
+              inherit_id="account_reports.main_template" primary="True">
+        <xpath expr="//table[hasclass('o_account_reports_table')]"
+               position="attributes">
+            <attribute name="class">
+                o_account_reports_table table-hover o_account_border_table table-bordered
+            </attribute>
+        </xpath>
+    </template>
+
+    <!-- <template id="assets_backend" name="account assets"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss"
+                  href="/account_morocco_reports/static/src/scss/account_reports.scss"/>
+        </xpath>
+    </template> -->
+</odoo>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="profit.line" id="profit_711">
+        <field name="name">*  Ventes de marchandises (en l'état)</field>
+        <field name="sequence">10</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","711%"],["code","not like","7118%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7118%"]]</field>
+    </record>
+    <record model="profit.line" id="profit_712">
+        <field name="name">*  Ventes de biens et services produits</field>
+        <field name="sequence">20</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","712%"],["code","not like","7128%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7128%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="profit.line" id="profit_711_712">
+        <field name="name">*  Chiffres d'affaires</field>
+        <field name="sequence">30</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;","&amp;",["code","not like","7118%"],["code","not like","7128%"],"|",["code","=like","712%"],["code","=like","711%"]]</field>
+        <field name="accounts2_domain">["|",["code","=like","7118%"],["code","=like","7128%"]]</field>
+        <field name="left_char">X</field>
+        <field name="disable_sum_group" eval="True"/>
+    </record>
+    <record model="profit.line" id="profit_713">
+        <field name="name">*  Variation de stocks de produits(+,-) (1)</field>
+        <field name="sequence">40</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","713%"]]</field>
+        <field name="accounts2_domain">[["code","=like","000%"]]</field>
+        <field name="left_char">P</field>
+    </record>
+    <record model="profit.line" id="profit_714">
+        <field name="name">*  Immobilisations produites par l'entreprise pour elle-même</field>
+        <field name="sequence">50</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","714%"],["code","not like","7148%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7148%"]]</field>
+        <field name="left_char">L</field>
+    </record>
+    <record model="profit.line" id="profit_716">
+        <field name="name">*  Subventions d'exploitation</field>
+        <field name="sequence">60</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","716%"],["code","not like","7168%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7168%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="profit.line" id="profit_718">
+        <field name="name">*  Autres produits d'exploitation</field>
+        <field name="sequence">70</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","718%"],["code","not like","7188%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7188%"]]</field>
+        <field name="left_char">O</field>
+    </record>
+    <record model="profit.line" id="profit_719">
+        <field name="name">*  Reprises d'exploitation; transferts de charges</field>
+        <field name="sequence">80</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","719%"],["code","not like","7198%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7198%"]]</field>
+        <field name="left_char">T</field>
+    </record>
+
+    <!-- CHARGES D'EXPLOITATION -->
+    <record model="profit.line" id="profit_611">
+        <field name="name">*  Achats revendus(2) de marchandises</field>
+        <field name="sequence">110</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_61"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","611%"],["code","not like","6118%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6118%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="profit.line" id="profit_612">
+        <field name="name">*  Achats consommés(2) de matières  et fournitures</field>
+        <field name="sequence">120</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_61"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","612%"],["code","not like","6128%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6128%"]]</field>
+        <field name="left_char">O</field>
+    </record>
+    <record model="profit.line" id="profit_613_614">
+        <field name="name">*  Autres charges externes</field>
+        <field name="sequence">130</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_61"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;","|",["code","=like","613%"],["code","=like","614%"],["code","not like","6148%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6148%"]]</field>
+        <field name="left_char">N</field>
+    </record>
+    <record model="profit.line" id="profit_616">
+        <field name="name">*  Impôts et taxes</field>
+        <field name="sequence">140</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_61"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","616%"],["code","not like","6168%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6168%"]]</field>
+    </record>
+    <record model="profit.line" id="profit_617">
+        <field name="name">*  Charges de personnel</field>
+        <field name="sequence">150</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_61"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","617%"],["code","not like","6178%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6178%"]]</field>
+    </record>
+    <record model="profit.line" id="profit_618">
+        <field name="name">*  Autres charges d'exploitation</field>
+        <field name="sequence">160</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_61"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","618%"],["code","not like","6188%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6188%"]]</field>
+    </record>
+    <record model="profit.line" id="profit_619">
+        <field name="name">*  Dotations d'exploitation</field>
+        <field name="sequence">170</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_61"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","619%"],["code","not like","6198%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6198%"]]</field>
+    </record>
+
+    <!-- PRODUITS FINANCIERS -->
+    <record model="profit.line" id="profit_732">
+        <field name="name">*  Produits des titres de participation  et autres titres immobilisés</field>
+        <field name="sequence">180</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_73"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","732%"],["code","not like","7328%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7328%"]]</field>
+        <field name="left_char">F</field>
+    </record>
+    <record model="profit.line" id="profit_733">
+        <field name="name">*  Gains de change</field>
+        <field name="sequence">190</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_73"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","733%"],["code","not like","7338%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7338%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="profit.line" id="profit_738">
+        <field name="name">*  Interêts et autres produits financiers</field>
+        <field name="sequence">200</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_73"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","738%"],["code","not like","7388%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7388%"]]</field>
+        <field name="left_char">N</field>
+    </record>
+    <record model="profit.line" id="profit_739">
+        <field name="name">*  Reprises financier; transfert de charges</field>
+        <field name="sequence">210</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_73"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","739%"],["code","not like","7398%"]]</field>
+        <field name="accounts2_domain">[["code","=like","7398%"]]</field>
+        <field name="left_char">A</field>
+    </record>
+
+    <!-- CHARGES FINANCIERES -->
+     <record model="profit.line" id="profit_631">
+        <field name="name">*  Charges d'interêts</field>
+        <field name="sequence">220</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_63"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","631%"],["code","not like","6318%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6318%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="profit.line" id="profit_633">
+        <field name="name">*  Pertes de change</field>
+        <field name="sequence">230</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_63"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","633%"],["code","not like","6338%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6338%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="profit.line" id="profit_638">
+        <field name="name">*  Autres charges financières</field>
+        <field name="sequence">240</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_63"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","638%"],["code","not like","6388%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6388%"]]</field>
+        <field name="left_char">R</field>
+    </record>
+    <record model="profit.line" id="profit_639">
+        <field name="name">*  Dotations finacières</field>
+        <field name="sequence">250</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="profit_63"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;",["code","=like","639%"],["code","not like","6398%"]]</field>
+        <field name="accounts2_domain">[["code","=like","6398%"]]</field>
+    </record>
+
+</odoo>

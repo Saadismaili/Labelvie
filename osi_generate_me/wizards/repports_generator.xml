@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <report
+            id="action_osi_generate_me_xlsx_report"
+            model="report.generator"
+            string="Liasse Fiscale"
+            report_type="xlsx"
+            name="osi_generate_me.report_generator"
+            file="report_generator"
+            attachment_use="False"
+    />
+
+    <record id="repport_generator_wizard" model="ir.ui.view">
+        <field name="name">report.generator</field>
+        <field name="model">report.generator</field>
+        <field name="arch" type="xml">
+            <form string="Rapportes">
+                <group>
+                    <group>
+                        <field name="fy_n_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="boolean"/>
+                        <field name="model_id"  attrs="{'invisible': [('boolean','=', False)]}"/>
+
+                        
+                    </group>
+                    <group>
+                        <field name="xml_bool"/>
+                        <field name="fiscal_model" />
+                        <field name="name" attrs="{'invisible': [('xml_bool','=', False)]}" readonly="1"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Tableaux" attrs="{'invisible': [('boolean','=', True)]}">
+                        <field name="models_ids" >
+                            <tree >
+                                <field name="name"/>
+                              </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button
+                        name="print_pdf"
+                        string="Generate PDF"
+                        type="object"
+                        class="btn-primary"
+                    />
+
+                    <button
+                        name="print_xlrd"
+                        string="Generate EXCEL"
+                        type="object"
+                        class="btn-primary"
+                    />
+
+                    <button
+                        name="print_xml"
+                        string="Generate XML"
+                        type="object"
+                        attrs="{'invisible': [('xml_bool','=', False)]}"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="repport_generator_action" model="ir.actions.act_window">
+        <field name="name">Rapportes</field>
+        <field name="res_model">report.generator</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="repport_generator_wizard" />
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem id="repport_generator_menu"
+        name="Liasses"
+        action="repport_generator_action"
+        sequence='15'
+        web_icon="osi_generate_me,static/description/logo.png"/>
+</odoo>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_esg_caf_form" model="ir.ui.view">
+	    <field name="name">view.esg.caf.form</field>
+	    <field name="model">esg.caf</field>
+	    <field name="arch" type="xml">
+	        <form string="Etat des Soldes de Gestion (E.S.G) CAF">
+				<header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+        </header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" create="false" colspan="4">
+								<tree editable="bottom" create="false">
+									<field name="name"/>
+									<field name="net"/>
+									<field name="prev_net"/>
+									<!-- Code Edi -->
+									<field name="code_edi_net" invisible="1"/>
+									<field name="code_edi_prev_net" invisible="1"/>
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_esg_caf_tree" model="ir.ui.view">
+	    <field name="name">view.esg.caf.tree</field>
+	    <field name="model">esg.caf</field>
+	    <field name="arch" type="xml">
+	        <tree string="Etat des Soldes de Gestion (E.S.G) CAF">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_esg_caf" model="ir.actions.act_window">
+	    <field name="name">Etat des Soldes de Gestion (E.S.G) CAF</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">esg.caf</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- <menuitem name="ESG CAF" id="menu_esg_caf_id" parent="menu_tables_root" action="action_esg_caf"
+	sequence="4" /> -->
+
+	<!-- PDF report -->
+	<record id="action_report_esg_caf" model="ir.actions.report">
+        <field name="name">Etat des Soldes de Gestion (E.S.G) CAF</field>
+        <field name="model">esg.caf</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liass_moroccain.repport_report_esg_caf</field>
+        <field name="report_file">liass_moroccain.repport_report_esg_caf</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_esg_caf"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_esg_caf">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                <div class="page">
+                <div class="oe_structure"/>
+                <div>
+                    <h3 style="text-align: center;">Tableau N°05 : Etat des Soldes de Gestion (E.S.G) CAF</h3>                 
+                    <h6 >Exercice de : <span style="text-align: left;" t-field="doc.fy_n_id.date_start"/> au : <span style="text-align: right;" t-field="doc.fy_n_id.date_end"/></h6>
+
+                </div>
+                <div class="wrap">
+				<table class="table table-sm o_main_table">
+					<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+					<thead style="display: table-row-group">
+						<tr>
+							<!-- <th></th> -->
+							<th style="border: 1px solid;text-align: center;" name="th_name" >Nature</th>
+							<th style="border: 1px solid;text-align: center;" name="amortissement_sortie">Net</th>
+							<th style="border: 1px solid;text-align: center;" name="amortissement_entree">Net d'exercice précédent</th>
+						</tr>
+					</thead>
+					<tbody class="sale_tbody">
+						<t t-foreach="doc.line_ids" t-as="line">
+							<tr>
+								<td style="border: 1px solid;" name="td_name">
+									<span t-field="line.name"/>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_sortie">
+									<span t-field="line.net"/>
+								</td>
+								<td style="border: 1px solid;" name="amortissement_entree">
+									<span t-field="line.prev_net"/>
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+            	</div>
+            </div>
+        </t>
+        </t>
+        </t>
+    </template>
+  </data>
+</odoo>

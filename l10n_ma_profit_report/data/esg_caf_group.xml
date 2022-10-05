@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+    <record model="esg.caf.group" id="caf_caf">
+        <field name="name">CAPACITE D'AUTOFINANCEMENT (C. A. F.) - AUTOFINANCEMENT</field>
+        <field name="sequence">10</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">A</field>
+    </record>
+
+    <record model="esg.caf.line" id="caf_71">
+        <field name="name">Résultat net de l'exercice</field>
+        <field name="sequence">1</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_72">
+        <field name="name">Bénéfice +</field>
+        <field name="sequence">2</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record> 
+    <record model="esg.caf.line" id="caf_73">
+        <field name="name">Perte -</field>
+        <field name="sequence">3</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_74">
+        <field name="name">(+) Dotations d'exploitation (1)</field>
+        <field name="sequence">4</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","619%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_75">
+        <field name="name">(+) Dotations financières (1)</field>
+        <field name="sequence">5</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","639%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_76">
+        <field name="name">(+) Dotations non courantes (1)</field>
+        <field name="sequence">6</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","659%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_77">
+        <field name="name">(-) Reprises d'exploitation (2)</field>
+        <field name="sequence">7</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","719%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_78">
+        <field name="name">(-) Reprises financières (2)</field>
+        <field name="sequence">8</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","739%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_79">
+        <field name="name">(-) Reprises non courantes (2)(3)</field>
+        <field name="sequence">9</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","759%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_80">
+        <field name="name">(-) Produits des cessions d'immobilisations (1)</field>
+        <field name="sequence">10</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","751%"]]</field>
+    </record>
+    <record model="esg.caf.line" id="caf_81">
+        <field name="name">(+) Valeurs nettes d'amortiss. des immo. Cédées</field>
+        <field name="sequence">11</field>
+        <field name="group_id" ref="caf_caf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","651%"]]</field>
+    </record>
+    <record model="esg.caf.group" id="caf_82">
+        <field name="name">CAPACITE D'AUTOFINANCEMENT (C.A.F.)</field>
+        <field name="sequence">12</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|","|","|","|","|",["code","=like","71%"],["code","=like","651%"],["code","=like","659%"],["code","=like","639%"],["code","=like","73%"],["code","=like","75%"],["code","=like","619%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|","|","|","|","|",["code","=like","751%"],["code","=like","739%"],["code","=like","759%"],["code","=like","719%"],["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+     <record model="esg.caf.group" id="caf_83">
+        <field name="name">(-) Distributions de bénéfices</field>
+        <field name="sequence">13</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","4465%"]]</field>
+    </record>
+    <record model="esg.caf.group" id="caf_84">
+        <field name="name">AUTOFINANCEMENT</field>
+        <field name="sequence">14</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|","|","|","|","|",["code","=like","71%"],["code","=like","651%"],["code","=like","659%"],["code","=like","639%"],["code","=like","73%"],["code","=like","75%"],["code","=like","619%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|","|","|","|","|","|",["code","=like","4465%"],["code","=like","751%"],["code","=like","739%"],["code","=like","759%"],["code","=like","719%"],["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+</odoo>

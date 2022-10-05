@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="details.cpc.group" id="cpc_produit_finan">
+        <field name="name">PRODUITS FINANCIERS</field>
+        <field name="sequence">95</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",999]]</field>
+    </record>
+
+    <record model="details.cpc.group" id="cpc_grf">
+        <field name="name">INTERETS ET AUTRES PRODUITS FINANCIERES</field>
+        <field name="sequence">100</field>
+        <field name="group_type">lines</field>
+        <field name="left_char">738</field>
+    </record>
+
+    <record model="details.cpc.line" id="cpc_501">
+        <field name="name">* Intérêts et produits assimilés</field>
+        <field name="sequence">115</field>
+        <field name="group_id" ref="cpc_grf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","7381%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+    <record model="details.cpc.line" id="cpc_502">
+        <field name="name">* Revenus des créances rattachées à des participations</field>
+        <field name="sequence">116</field>
+        <field name="group_id" ref="cpc_grf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","7383%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">["|","|","|",["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field> -->
+    </record> 
+
+    <record model="details.cpc.line" id="cpc_5033">
+        <field name="name">* Produits nets sur cessions de titres et valeurs de placement</field>
+        <field name="sequence">126</field>
+        <field name="group_id" ref="cpc_grf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","7385%"]]</field>
+    
+    </record> 
+    <record model="details.cpc.line" id="cpc_504">
+        <field name="name">* Reste du poste intérêts et autres produits financiers</field>
+        <field name="sequence">126</field>
+        <field name="group_id" ref="cpc_grf"/>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|",["code","=like","7384%"],["code","=like","7386%"],["code","=like","7388%"]]</field>
+    
+    </record> 
+    <record model="details.cpc.group" id="cpc_505">
+        <field name="name">Total</field>
+        <field name="sequence">127</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","738%"]]</field>
+    </record>
+
+    
+
+</odoo>

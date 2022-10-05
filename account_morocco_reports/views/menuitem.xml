@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="account_morocco_menu" name="Morocco Accounting"
+              parent="account_accountant.menu_accounting" sequence="20"
+              groups="base.group_no_one"/>
+
+    <menuitem id="menuitem_assets_group" parent="account_morocco_menu"
+              action="view_assets_group_action"
+              sequence="305"/>
+
+    <menuitem id="menuitem_equity_group" parent="account_morocco_menu"
+              action="view_equity_group_action"
+              sequence="310"/>
+
+    <menuitem id="menuitem_profit_group" parent="account_morocco_menu"
+              action="view_profit_group_action"
+              sequence="315"/>
+    
+    <menuitem id="menuitem_esg_tfr_group" parent="account_morocco_menu"
+              action="view_esg_tfr_group_action"
+              sequence="317"/>
+    
+    <menuitem id="menuitem_esg_caf_group" parent="account_morocco_menu"
+              action="view_esg_caf_group_action"
+              sequence="318"/>
+    
+    <menuitem id="menuitem_details_cpc_group" parent="account_morocco_menu"
+              action="view_details_cpc_group_action"
+              sequence="318"/>
+
+    <menuitem id="menuitem_loss_group" parent="account_morocco_menu"
+              action="view_loss_group_action"
+              sequence="320"/>
+    
+    <menuitem id="menuitem_passage_group" parent="account_morocco_menu"
+              action="view_passage_group_action"
+              sequence="315"/>
+    
+    <menuitem id="menuitem_passage_line" parent="account_morocco_menu"
+              action="view_passage_line_action"
+              sequence="316"/>
+
+    <menuitem id="menuitem_partner_share"
+              parent="account_morocco_menu"
+              action="view_partner_share_action"
+              sequence="200"/>
+</odoo>

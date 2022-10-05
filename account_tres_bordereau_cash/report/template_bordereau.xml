@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="bordereau_cash_document">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h2>
+                            <span>Bordereau espèce</span>
+                            N°:<span t-field="o.name"/>
+                        </h2>
+                        <div class="row mt32 mb32">
+                            <div class="col-auto mw-100 mb-2" >
+                                <strong>Date:</strong>
+                                <p t-field="o.date"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2" t-if="o.courssier_id" >
+                                <strong>Coursier:</strong>
+                                <p t-field="o.courssier_id.name"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2" >
+                                <strong>Banque:</strong>
+                                <p t-field="o.journal_id.name"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2" >
+                                <strong>Nombre d'espèces:</strong>
+                                <p t-field="o.nb_cash"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-2" >
+                                <strong>Total:</strong>
+                                <p t-field="o.total"/>
+                            </div>
+
+
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Numéro</th>
+                                    <th>Date</th>
+                                    <th>Partenaire</th>
+                                    <th>Montant</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <t t-foreach="o.cash_lines" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.name"/></td>
+                                        <td><span t-field="line.date"/></td>
+                                        <td><span t-field="line.client.name"/></td>
+                                        <td><span t-esc="'%.2f'%(line.amount)"/></td>
+                                    </tr>
+                                </t>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="template_bordereau_cash">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="account_tres_bordereau_cash.bordereau_cash_document"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

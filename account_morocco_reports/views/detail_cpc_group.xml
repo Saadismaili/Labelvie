@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_details_cpc_group_form" model="ir.ui.view">
+        <field name="name">details.cpc.group.form</field>
+        <field name="model">details.cpc.group</field>
+        <field name="arch" type="xml">
+            <form string="Report Data Profit">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" required="True"/>
+                            <field name="id" invisible="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="left_char"/>
+                            <field name="group_type" string="Type"
+                                   widget="radio"/>
+                            <field name="account_source_method"
+                                   widget="radio"
+                                   attrs="{'invisible': [('group_type', '!=', 'one_line')]}"/>
+                        </group>
+                        <group>
+                            <field name="value_type"/>
+                            <field name="view_type"/>
+                            <field name="period_fiscal_year"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Source">
+                            <group>
+                                <group>
+                                    <field name="summation_domain"
+                                           string="Plus Condition"
+                                           widget="domain"
+                                           options="{'model': 'details.cpc.group'}"
+                                           attrs="{'invisible': [('group_type', '!=', 'sum')]}"/>
+                                </group>
+                                <group>
+                                    <field name="subtraction_domain"
+                                           string="Minus Condition"
+                                           widget="domain"
+                                           options="{'model': 'details.cpc.group'}"
+                                           attrs="{'invisible': [('group_type', '!=', 'sum')]}"/>
+
+                                </group>
+                                <group string="Exercice"
+                                       attrs="{'invisible': [('group_type', '!=', 'one_line')]}">
+                                    <field name="account_ids"
+                                           string="Plus Accounts"
+                                           widget="many2many_tags"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'accounts'),('group_type', '!=', 'one_line')]}"/>
+                                    <field name="subtraction_account_ids"
+                                           string="Minus Accounts"
+                                           widget="many2many_tags"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'accounts'),('group_type', '!=', 'one_line')]}"/>
+                                    <field name="accounts_domain"
+                                           string="Plus Accounts Condition"
+                                           widget="domain"
+                                           options="{'model': 'account.account'}"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'domain'),('group_type', '!=', 'one_line')]}"/>
+                                    <field name="subtraction_accounts_domain"
+                                           string="Minus Accounts Condition"
+                                           widget="domain"
+                                           options="{'model': 'account.account'}"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'domain'),('group_type', '!=', 'one_line')]}"/>
+                                </group>
+                                <group string="Exercice Précédent"
+                                       attrs="{'invisible': [('group_type', '!=', 'one_line')]}">
+                                    <field name="account2_ids"
+                                           string="Plus Accounts"
+                                           widget="many2many_tags"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'accounts'),('group_type', '!=', 'one_line')]}"/>
+                                    <field name="subtraction_account2_ids"
+                                           string="Minus Acccounts"
+                                           widget="many2many_tags"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'accounts'),('group_type', '!=', 'one_line')]}"/>
+                                    <field name="accounts2_domain"
+                                           string="Plus Accounts Condition"
+                                           widget="domain"
+                                           options="{'model': 'account.account'}"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'domain'),('group_type', '!=', 'one_line')]}"/>
+                                    <field name="subtraction_accounts2_domain"
+                                           string="Minus Accounts Condition"
+                                           widget="domain"
+                                           options="{'model': 'account.account'}"
+                                           attrs="{'invisible': ['|',('account_source_method', '!=', 'domain'),('group_type', '!=', 'one_line')]}"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="line_ids" mode="tree"
+                                       nolabel="1"
+                                       attrs="{'invisible': [('group_type', '!=', 'lines')]}">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="left_char"/>
+                                        <field name="period_fiscal_year" string="Fiscal Year"/>
+
+                                        <field name="name"/>
+                                        <field name="account_source_method"
+                                               string="Source Method"/>
+                                        <field name="value_type"/>
+                                        <field name="view_type"/>
+                                        <field name="disable_sum_group"/>
+                                    </tree>
+                                    <form>
+                                        <div class="oe_title">
+                                            <label for="name"/>
+                                            <h1>
+                                                <field name="name"/>
+                                            </h1>
+                                        </div>
+                                        <group>
+                                            <group>
+                                                <field name="sequence"/>
+                                                <field name="period_fiscal_year" string="Fiscal Year"/>
+
+                                                <field name="left_char"/>
+                                                <field name="account_source_method"
+                                                       string="Source Method"
+                                                       widget="radio"/>
+                                            </group>
+                                            <group>
+                                                <field name="value_type"/>
+                                                <field name="view_type"/>
+                                                <field name="disable_sum_group"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group string="Exercice"
+                                                   attrs="{'invisible': [('account_source_method', '=', 'code')]}">
+                                                <field name="account_ids"
+                                                       string="Plus Accounts"
+                                                       widget="many2many_tags"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'accounts')]}"/>
+                                                <field name="subtraction_account_ids"
+                                                       string="Minus Accounts"
+                                                       widget="many2many_tags"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'accounts')]}"/>
+                                                <field name="accounts_domain"
+                                                       string="Plus Accounts Condition"
+                                                       widget="domain"
+                                                       options="{'model': 'account.account'}"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'domain')]}"/>
+                                                <field name="subtraction_accounts_domain"
+                                                       string="Minus Accounts Condition"
+                                                       widget="domain"
+                                                       options="{'model': 'account.account'}"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'domain')]}"/>
+
+                                            </group>
+                                            <group string="Esercice Précédent"
+                                                   attrs="{'invisible': [('account_source_method', '=', 'code')]}">
+                                                <field name="account2_ids"
+                                                       string="Plus Accounts"
+                                                       widget="many2many_tags"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'accounts')]}"/>
+                                                <field name="subtraction_account2_ids"
+                                                       string="Minus Accounts"
+                                                       widget="many2many_tags"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'accounts')]}"/>
+                                                <field name="accounts2_domain"
+                                                       string="Plus Accounts Condition"
+                                                       widget="domain"
+                                                       options="{'model': 'account.account'}"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'domain')]}"/>
+                                                <field name="subtraction_accounts2_domain"
+                                                       string="Minus Accounts Condition"
+                                                       widget="domain"
+                                                       options="{'model': 'account.account'}"
+                                                       attrs="{'invisible': [('account_source_method', '!=', 'domain')]}"/>
+                                            </group>
+                                            <div class="alert alert-info text-center"
+                                                 attrs="{'invisible': [('account_source_method', '!=', 'code')]}"
+                                                 role="alert">
+                                                This method does not affect in
+                                                report calculation it is used to
+                                                appear information only.
+                                            </div>
+                                            <field name="code" widget="ace"
+                                                   nolabel="1"
+                                                   options="{'mode': 'python'}"
+                                                   placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."
+                                                   attrs="{'invisible': [('account_source_method', '!=', 'code')]}"/>
+                                        </group>
+                                    </form>
+                                </field>
+
+
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_details_cpc_group_tree" model="ir.ui.view">
+        <field name="name">details.cpc.group.tree</field>
+        <field name="model">details.cpc.group</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="left_char"/>
+                <field name="name"/>
+                <field name="group_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_details_cpc_group_action" model="ir.actions.act_window">
+        <field name="name">Groups de tableau Details CPC</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">details.cpc.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

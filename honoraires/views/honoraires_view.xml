@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<!-- Honoraire tree -->
+        <record id="view_honoraire_tree" model="ir.ui.view">
+			<field name="name">view.honoraire.tree</field>
+			<field name="model">honoraire</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Etat des honoraires">
+					<field name="name"/>
+					<field name="date"/>
+					<field name="fiscal_year_id"/>
+					<field name="company_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Honoraire form -->
+        <record id="view_honoraire_form" model="ir.ui.view">
+			<field name="name">view.honoraire.form</field>
+			<field name="model">honoraire</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Etat des honoraires">
+					<header>
+                        <button name="generate_data" string="Importer les honoraires" type="object" class="oe_highlight" states="draft"/>
+						<button name="genetare_tp_file" string="Générer fichier Excel" type="object" class="oe_highlight"/>
+						<button name="generate_xml_file" states="draft" string="Générer fichier XML" type="object" class="oe_highlight"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<group>
+                        <field name="name"/>
+                        <field name="date"/>
+						<field name="fiscal_year_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+                        <field name="honoraire_rapport_excel" readonly="1"/>
+					</group>
+					<notebook colspan="4">
+						<page string="Honoraires">
+							<field name="line_ids" nolabel="1" colspan="4" readonly="1">
+								<tree editable="bottom" edit="false">
+									<field name="partner_id"/>
+									<field name="montant_honoraires"/>
+									<field name="montant_avoirs"/>
+									<field name="montant_retenue"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					<div class="oe_chatter">
+		              <field name="message_follower_ids" widget="mail_followers"/>
+		              <field name="message_ids" widget="mail_thread"/>
+		            </div>
+				</form>
+			</field>
+		</record>
+
+        <record id="honoraire_action" model="ir.actions.act_window">
+			<field name="name">Etat des honoraires</field>
+			<field name="res_model">honoraire</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="honoraire_comp_rule" model="ir.rule">
+			<field name="name">honoraire multi-company</field>
+			<field name="model_id" ref="model_honoraire" />
+			<field name="domain_force">
+				['|',('company_id', 'in', company_ids),('company_id','=',False)]
+			</field>
+		</record>
+
+		<menuitem id="honoraire_menu_root" name="Etat des honoraires"/>
+		<menuitem id="honoraire_menu" name="Etat des honoraires" parent="honoraire_menu_root"/>
+		<menuitem id="honoraire_menu_id" parent="honoraire_menu" action="honoraire_action" />
+
+
+    </data>
+</odoo>

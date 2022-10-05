@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_detail_stock_form" model="ir.ui.view">
+	    <field name="name">view.detail.stock.form</field>
+	    <field name="model">detail.stock</field>
+	    <field name="arch" type="xml">
+	        <form string="ETAT DETAIL DES STOCKS">
+				<header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+				</header>
+				
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1"  domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1" groups="base.group_multi_company"
+                options="{'no_create': True}"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="detail_stock_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom" create="false" delete="false">
+									<field name="code_1" invisible="1"/>
+									<field name="code_2" invisible="1"/>
+									<field name="name"/>
+									<field name="montant_brut_stock_final"/>
+									<field name="provisions_stock_final"/>
+									<field name="montant_net_stock_final"/>
+									<field name="montant_brut_stock_initial"/>
+									<field name="provisions_stock_initial"/>
+									<field name="montant_net_stock_initial"/>
+									<field name="variation_stock" force_save="1" readonly="1"/>
+									<!-- Code edi -->
+									<field name="edi_montant_brut_stock_final" invisible="1"/>
+									<field name="edi_provisions_stock_final" invisible="1"/>
+									<field name="edi_montant_net_stock_final" invisible="1"/>
+									<field name="edi_montant_brut_stock_initial" invisible="1"/>
+									<field name="edi_provisions_stock_initial" invisible="1"/>
+									<field name="edi_montant_net_stock_initial" invisible="1"/>
+									<field name="edi_variation_stock" invisible="1"/>
+
+									<field name="company_id" invisible="1" groups="base.group_multi_company"
+                						options="{'no_create': True}"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_detail_stock_tree" model="ir.ui.view">
+	    <field name="name">view.detail.stock.tree</field>
+	    <field name="model">detail.stock</field>
+	    <field name="arch" type="xml">
+	        <tree string="ETAT DETAIL DES STOCKS">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id"  groups="base.group_multi_company"
+                options="{'no_create': True}"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_detail_stock" model="ir.actions.act_window">
+	    <field name="name">ETAT DETAIL DES STOCKS</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">detail.stock</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Ruuules -->
+	<record id="detaild_stock_comp_rule" model="ir.rule">
+        <field name="name">ETAT DETAIL DES STOCKS multi-company</field>
+        <field name="model_id" ref="model_detail_stock" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="detaild_stock_line_comp_rule" model="ir.rule">
+        <field name="name">ETAT DETAIL DES STOCKS LINES multi-company</field>
+        <field name="model_id" ref="model_detail_stock_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+
+	<menuitem name="TAB-20 ETAT DETAIL DES STOCKS" id="menu_detail_stock_id" parent="menu_tables_root" action="action_detail_stock"
+	sequence="21" />
+
+	<!-- pdf report -->
+	<record id="action_report_detail_stock" model="ir.actions.report">
+        <field name="name">ETAT DETAIL DES STOCKS</field>
+        <field name="model">detail.stock</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_detail_stock</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_detail_stock</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_detail_stock"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_detail_stock">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°20
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>ETAT DETAILLE DES STOCKS</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<h1></h1>
+					<h1></h1>
+					<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Nom</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_brut_stock_final" >Montant brut Final</th>
+								<th style="border: 1px solid;text-align: center;" name="th_provisions_stock_final" >Provision pour dépréciation Final</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_net_stock_final">Montant net Final</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_brut_stock_initial">Montant brut Initial</th>
+								<th style="border: 1px solid;text-align: center;" name="th_provisions_stock_initial">Provision pour dépréciation Initial</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_net_stock_initial">Montant net Initial</th>
+								<th style="border: 1px solid;text-align: center;" name="th_variation_stock">Variation de stock</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-foreach="obj.detail_stock_line_ids" t-as="line">
+								<tr>
+									<td name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="text-align: right;" name="td_montant_brut_stock_final">
+										<span t-field="line.montant_brut_stock_final"/>
+									</td>
+									<td style="text-align: right;" name="td_provisions_stock_final">
+										<span t-field="line.provisions_stock_final"/>
+									</td>
+									<td style="text-align: right;" name="td_montant_net_stock_final">
+										<span t-field="line.montant_net_stock_final"/>
+									</td>
+									<td style="text-align: right;" name="td_montant_brut_stock_initial">
+										<span t-field="line.montant_brut_stock_initial"/>
+									</td>
+									<td style="text-align: right;" name="td_provisions_stock_initial">
+										<span t-field="line.provisions_stock_initial"/>
+									</td>
+									<td style="text-align: right;" name="td_montant_net_stock_initial">
+										<span t-field="line.montant_net_stock_initial"/>
+									</td>
+									<td style="text-align: right;" name="td_variation_stock">
+										<span t-field="line.variation_stock"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

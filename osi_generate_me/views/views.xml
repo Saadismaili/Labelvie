@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <record id="liass_fiscal_form" model="ir.ui.view">
+    <field name="name">liass.fiscal.form</field>
+    <field name="model">liass.fiscal</field>
+    <field name="arch" type="xml">
+      <form string="">
+        <sheet>
+          <group>
+            <field name="name"/>
+          </group>
+          <notebook>
+            <page name="lines" string="Lignes">
+              <field name="line_ids">
+                <tree string="Lignes">
+                  <field name="name"/>
+                  <field name="model"/>
+                  <field name="sequence"/>
+                  <field name="group_id" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="liass_fiscal_tree" model="ir.ui.view">
+    <field name="name">liass.fiscal.tree</field>
+    <field name="model">liass.fiscal</field>
+    <field name="arch" type="xml">
+      <tree string="">
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="liass_fiscal_action" model="ir.actions.act_window">
+    <field name="name">Liass Fiscal Maroccain</field>
+    <field name="res_model">liass.fiscal</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+</odoo>

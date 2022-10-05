@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_interets_emprunts_form" model="ir.ui.view">
+	    <field name="name">view.interets.emprunts.form</field>
+	    <field name="model">interets.emprunts</field>
+	    <field name="arch" type="xml">
+	        <form string="ETAT DES INTERETS DES EMPRUNTS">
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<field name="check_line" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="interets_emprunts_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="code"/>
+									<field name="type"/>
+									<field name="name"/>
+									<field name="adresse"/>
+									<field name="n_if"/>
+									<field name="cin"/>
+									<field name="montant_pret"/>
+									<field name="date_pret"/>
+									<field name="duree_pret"/>
+									<field name="taux_interet"/>
+									<field name="charge_financiere"/>
+									<field name="remboursement_exercice_ant_principal"/>
+									<field name="remboursement_exercice_ant_intertet"/>
+									<field name="remboursement_exercice_actuel_principal"/>
+									<field name="remboursement_exercice_actuel_intertet"/>
+									<field name="remboursement_exercice_ant"/>
+									<field name="observations"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_interets_emprunts_tree" model="ir.ui.view">
+	    <field name="name">view.interets.emprunts.tree</field>
+	    <field name="model">interets.emprunts</field>
+	    <field name="arch" type="xml">
+	        <tree string="ETAT DES INTERETS DES EMPRUNTS">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_interets_emprunts" model="ir.actions.act_window">
+	    <field name="name">ETAT DES INTERETS DES EMPRUNTS</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">interets.emprunts</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-18 ETAT DES INTERETS DES EMPRUNTS" id="menu_interets_emprunts_id" parent="menu_tables_root" action="action_interets_emprunts" 
+	sequence="19"/>
+
+	<!-- Ruuules -->
+	<record id="interets_emprunts_comp_rule" model="ir.rule">
+        <field name="name">interets emprunts multi-company</field>
+        <field name="model_id" ref="model_interets_emprunts" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="interets_emprunts_line_comp_rule" model="ir.rule">
+        <field name="name">interets_emprunts LINES multi-company</field>
+        <field name="model_id" ref="model_interets_emprunts_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+
+	<!-- pdf report -->
+	<record id="action_report_interets_emprunts" model="ir.actions.report">
+        <field name="name">ETAT DES INTERETS DES EMPRUNTS</field>
+        <field name="model">interets.emprunts</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_interets_emprunts</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_interets_emprunts</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_interets_emprunts"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_interets_emprunts">
+		<t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°18
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>ETAT DES INTERETS DES EMPRUNTS CONTRACTES AUPRES DES ASSOCIES ET DES TIERS<br/>ETAT DES INTERETS DES EMPRUNTS CONTRACTES AUPRES DES ASSOCIES ET DES TIERS</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<h1></h1>
+					<h1></h1>
+					<table class="small">
+					<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Nom prénoms ou raison sociale</th>
+								<th style="border: 1px solid;text-align: center;" name="th_adresse" >Adresse</th>
+								<th style="border: 1px solid;text-align: center;" name="th_cin" >N° C.I.N.ou Article I.S.</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_pret">Montant du prêt</th>
+								<th style="border: 1px solid;text-align: center;" name="th_date_pret">Date du prêt</th>
+								<th style="border: 1px solid;text-align: center;" name="th_duree_pret">Durée du prêt(en mois)</th>
+								<th style="border: 1px solid;text-align: center;" name="th_taux_interet">Taux d'intérêts</th>
+								<th style="border: 1px solid;text-align: center;" name="th_charge_financiere">Charge financière globlale</th>
+								<th style="border: 1px solid;text-align: center;" name="th_remboursement_exercice_ant_principal">Remboursement Exercice antérieurs principal</th>
+								<th style="border: 1px solid;text-align: center;" name="th_remboursement_exercice_ant_intertet">Remboursement Exercice antérieurs Interêt</th>
+								<th style="border: 1px solid;text-align: center;" name="th_remboursement_exercice_actuel_principal">Remboursement Exercice actuel principal</th>
+								<th style="border: 1px solid;text-align: center;" name="th_remboursement_exercice_actuel_intertet">Remboursement Exercice actuel Interêt</th>
+								<th style="border: 1px solid;text-align: center;" name="th_remboursement_exercice_ant">Remboursement Exercice antérieurs</th>
+								<th style="border: 1px solid;text-align: center;" name="th_observations">Observations</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-if="obj.check_line == True">
+								<t t-foreach="obj.interets_emprunts_line_ids" t-as="line">
+									<tr>
+										<td style="border: 1px solid;" name="td_name">
+											<span t-field="line.name"/>
+										</td>
+										<td style="border: 1px solid;" name="td_adresse">
+											<span t-field="line.adresse"/>
+										</td>
+										<td style="border: 1px solid;" name="td_cin">
+											<span t-field="line.cin"/>
+										</td>
+										<td style="border: 1px solid;" name="td_montant_pret">
+											<span t-field="line.montant_pret"/>
+										</td>
+										<td style="border: 1px solid;" name="td_date_pret">
+											<span t-field="line.date_pret"/>
+										</td>
+										<td style="border: 1px solid;" name="td_duree_pret">
+											<span t-field="line.duree_pret"/>
+										</td>
+										<td style="border: 1px solid;" name="td_taux_interet">
+											<span t-field="line.taux_interet"/>
+										</td>
+										<td style="border: 1px solid;" name="td_charge_financiere">
+											<span t-field="line.charge_financiere"/>
+										</td>
+										<td style="border: 1px solid;" name="td_remboursement_exercice_ant_principal">
+											<span t-field="line.remboursement_exercice_ant_principal"/>
+										</td>
+										<td style="border: 1px solid;" name="td_remboursement_exercice_ant_intertet">
+											<span t-field="line.remboursement_exercice_ant_intertet"/>
+										</td>
+										<td style="border: 1px solid;" name="td_remboursement_exercice_actuel_principal">
+											<span t-field="line.remboursement_exercice_actuel_principal"/>
+										</td>
+										<td style="border: 1px solid;" name="td_remboursement_exercice_actuel_intertet">
+											<span t-field="line.remboursement_exercice_actuel_intertet"/>
+										</td>
+										<td style="border: 1px solid;" name="td_remboursement_exercice_ant">
+											<span t-field="line.remboursement_exercice_ant"/>
+										</td>
+										<td style="border: 1px solid;" name="td_observations">
+											<span t-field="line.observations"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+							<t t-else="obj.check_line == False">
+								<tr>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+									<td style="height: 700px;border: 1px solid;text-align: right;" name="td_resultat_net">
+
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

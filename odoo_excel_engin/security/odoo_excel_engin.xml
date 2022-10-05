@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+
+
+    <record id="group_odoo_excel_engin" model="res.groups">
+        <field name="name">Liasse reporting engine</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <!--<record id="report_group_multi_company_rule" model="ir.rule">-->
+        <!--<field name="name">report group multi company rule</field>-->
+        <!--<field name="model_id" ref="odoo_excel_engin.model_report_group"/>-->
+        <!--<field eval="True" name="global"/>-->
+        <!--<field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>-->
+        <!--<field eval="True" name="active"/>-->
+    <!--</record>-->
+    <!--<record id="report_group_line_multi_company_rule" model="ir.rule">-->
+        <!--<field name="name">report group line multi company rule</field>-->
+        <!--<field name="model_id" ref="odoo_excel_engin.model_report_groupe_line"/>-->
+        <!--<field eval="True" name="global"/>-->
+        <!--<field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>-->
+        <!--<field eval="True" name="active"/>-->
+    <!--</record>-->
+    <!--<record id="report_engin_multi_company_rule" model="ir.rule">-->
+        <!--<field name="name">report engin multi company rule</field>-->
+        <!--<field name="model_id" ref="odoo_excel_engin.model_report_engin"/>-->
+        <!--<field eval="True" name="global"/>-->
+        <!--<field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>-->
+        <!--<field eval="True" name="active"/>-->
+    <!--</record>-->
+    <!--<record id="report_engin_line_multi_company_rule" model="ir.rule">-->
+        <!--<field name="name">report engin line multi company rule</field>-->
+        <!--<field name="model_id" ref="odoo_excel_engin.model_report_engin_line"/>-->
+        <!--<field eval="True" name="global"/>-->
+        <!--<field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>-->
+        <!--<field eval="True" name="active"/>-->
+    <!--</record>-->
+    <!--<record id="report_list_formulas_multi_company_rule" model="ir.rule">-->
+        <!--<field name="name">report list formulas multi company rule</field>-->
+        <!--<field name="model_id" ref="odoo_excel_engin.model_report_list_formulas"/>-->
+        <!--<field eval="True" name="global"/>-->
+        <!--<field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>-->
+        <!--<field eval="True" name="active"/>-->
+    <!--</record>-->
+    <!--<record id="formulas_engine_multi_company_rule" model="ir.rule">-->
+        <!--<field name="name">formulas engine multi company rule</field>-->
+        <!--<field name="model_id" ref="odoo_excel_engin.model_formulas_engine"/>-->
+        <!--<field eval="True" name="global"/>-->
+        <!--<field name="domain_force">['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>-->
+        <!--<field eval="True" name="active"/>-->
+    <!--</record>-->
+
+</data>
+</odoo>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<!-- Taxe Professionnelle tree -->
+        <record id="view_taxe_professionnelle_tree" model="ir.ui.view">
+			<field name="name">taxe.professionnelle.tree</field>
+			<field name="model">taxe.professionnelle</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Taxe Professionnelle">
+					<field name="name"/>
+					<field name="type_declaration"/>
+					<field name="company_id"/>
+					<field name="fiscal_year_id"/>
+					<field name="asset_succursale_id"/>
+					<field name="date"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Taxe Professionnelle form -->
+        <record id="view_taxe_professionnelle_form" model="ir.ui.view">
+			<field name="name">taxe.professionnelle.form</field>
+			<field name="model">taxe.professionnelle</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Taxe Professionnelle">
+					<header>
+                        <button name="generate_data" string="Importer les données" type="object" class="oe_highlight" states="draft"/>
+						<button name="genetare_tp_file" string="Générer fichier Excel" type="object" class="oe_highlight"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<group>
+                        <field name="name"/>
+						<field name="date"/>
+                        <field name="type_declaration"/>
+                        <field name="fiscal_year_id" options="{'no_create': True, 'no_open':True}"/>
+						<field name="company_id" options="{'no_create': True, 'no_open':True}"/>
+                        <field name="asset_succursale_id" options="{'no_create': True, 'no_open':True}"/>
+                        <field name="tp_rapport_excel" readonly="0"/>
+					</group>
+					<notebook colspan="4">
+						<page string="Terrains, constructions, agencements et aménagements">
+							<field name="line_terrains_ids" nolabel="1" colspan="4" readonly="1">
+								<tree editable="bottom" edit="false">
+									<field name="nature"/>
+									<field name="n_titre_foncier"/>
+									<field name="name"/>
+									<field name="superficie"/>
+									<field name="statut"/>
+									<field name="price"/>
+									<field name="date_acquisition"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Matériel et outillage neuf ou d'occasion">
+							<field name="line_materiel_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="state"/>
+									<field name="date_acquisition"/>
+									<field name="date_service"/>
+									<field name="price"/>
+								</tree>
+							</field>
+					    </page>
+						<page string="Retrait(s), cession(s) ou résiliation de bail">
+							<field name="line_cession_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="titre"/>
+									<field name="date_acquisition"/>
+									<field name="date_cession"/>
+									<field name="price_acquision"/>
+									<field name="price_cession"/>
+								</tree>
+							</field>
+					    </page>
+					</notebook>
+					<div class="oe_chatter">
+		              <field name="message_follower_ids" widget="mail_followers"/>
+		              <field name="message_ids" widget="mail_thread"/>
+		            </div>
+				</form>
+			</field>
+		</record>
+
+        <record id="taxe_professionnelle_action" model="ir.actions.act_window">
+			<field name="name">Taxe Professionnelle</field>
+			<field name="res_model">taxe.professionnelle</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="taxe_professionnelle_comp_rule" model="ir.rule">
+			<field name="name">taxe_professionnelle multi-company</field>
+			<field name="model_id" ref="model_taxe_professionnelle" />
+			<field name="domain_force">
+				['|',('company_id', 'in', company_ids),('company_id','=',False)]
+			</field>
+		</record>
+
+		<menuitem id="taxe_professionnelle_menu_root" name="Taxe Professionnelle"/>
+		<menuitem id="taxe_professionnelle_menu" name="Taxe Professionnelle" parent="taxe_professionnelle_menu_root"/>
+		<menuitem id="taxe_professionnelle_menu_id" parent="taxe_professionnelle_menu" action="taxe_professionnelle_action" />
+
+
+    </data>
+</odoo>

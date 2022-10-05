@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_immo_financiere" model="ir.actions.act_window">
+	    <field name="name">IMMOBILISATIONS AUTRES QUE FINANCIERES</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">immo.financiere</field>
+	    <field name="view_mode">tree,search,form</field>
+	</record>
+
+	<menuitem name="TAB-04 IMMOBILISATIONS AUTRES QUE FINANCIERES" id="menu_immo_financiere" parent="liasse_fiscale_tables.menu_tables_root" action="action_immo_financiere"
+	sequence="5" />
+
+    	<record id="action_immo_amortissements" model="ir.actions.act_window">
+	    <field name="name">AMORTISSEMENTS</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">immo.amortissements</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-08 AMORTISSEMENTS" id="menu_immo_amortissements" parent="liasse_fiscale_tables.menu_tables_root" action="action_immo_amortissements"
+	sequence="9" />
+
+    	<record id="action_immo_immobilisation" model="ir.actions.act_window">
+	    <field name="name">IMMOBILISATION</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">immo.immobilisation</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-10 PLUS OU MOINS VALUES SUR CESSIONS OU RETRAITS D'IMMOBILISATIONS" id="menu_immo_immobilisation" parent="liasse_fiscale_tables.menu_tables_root" action="action_immo_immobilisation"
+	sequence="11" />
+
+    	<record id="action_immo_dotation" model="ir.actions.act_window">
+	    <field name="name">ETAT DE DOTATIONS AUX AMORTISSEMENTS</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">immo.dotation</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-16 ETAT DE DOTATIONS AUX AMORTISSEMENTS" id="menu_immo_dotation" parent="liasse_fiscale_tables.menu_tables_root" action="action_immo_dotation"
+	sequence="17" />
+    </data>
+</odoo>

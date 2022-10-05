@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="affectation_resultats_intervenue_line2_tree" model="ir.ui.view">
+		<field name="name">affectation.resultats.intervenue.line2.tree</field>
+		<field name="model">affectation.resultats.intervenue.line2</field>
+		<field name="arch" type="xml">
+			<tree string="" editable="bottom" create="false" delete="false">
+				<field name="name" force_save="1" />
+				<field name="code" invisible="1"/>
+				<field name="montant"/>
+                <field name="code_edi_montant" invisible="1"/>
+				<field name="company_id" invisible="1" groups="base.group_multi_company"
+                options="{'no_create': True}"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="affectation_resultats_intervenue_line1_tree" model="ir.ui.view">
+		<field name="name">affectation.resultats.intervenue.line1.tree</field>
+		<field name="model">affectation.resultats.intervenue.line1</field>
+		<field name="arch" type="xml">
+			<tree string="" editable="bottom" create="false" delete="false">
+				<field name="name" force_save="1"  attrs="{'readonly': [ ('name', '!=', 'Décision du (Date AGOA ....)')]}"/>
+				<field name="code" invisible="1"/>
+				<field name="montant"/>
+                <field name="code_edi_montant" invisible="1"/>
+                <field name="company_id" invisible="1" groups="base.group_multi_company"
+                options="{'no_create': True}"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_affectation_resultats_intervenue_form" model="ir.ui.view">
+	    <field name="name">view.affectation.resultats.intervenue.form</field>
+	    <field name="model">affectation.resultats.intervenue</field>
+	    <field name="arch" type="xml">
+	        <form string="AFFECTATION DES RESULTATS INTERVENUE">
+				<header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+                </header>
+				<group>
+					
+						<field name="name"/>
+						<field name="fy_n_id" required="1"  force_save="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+                        <field name="company_id" invisible="1" groups="base.group_multi_company"
+                        options="{'no_create': True}"/>
+					
+						<group name="line_1" string='ORIGINE DES RESULTATS A AFFECTER'>
+							<field name="affectation_resultats_intervenue_line1_ids" nolabel="1" colspan="4"/>
+						</group>
+						<group name="line_2" string='AFFECTATION DES RESULTATS'>
+							<field name="affectation_resultats_intervenue_line2_ids" nolabel="1" colspan="4"/>
+						</group>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_affectation_resultats_intervenue_tree" model="ir.ui.view">
+	    <field name="name">view.affectation.resultats.intervenue.tree</field>
+	    <field name="model">affectation.resultats.intervenue</field>
+	    <field name="arch" type="xml">
+	        <tree string="AFFECTATION DES RESULTATS INTERVENUE">
+				<field name="name"/>
+				<field name="fy_n_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+                <field name="company_id" invisible="1" groups="base.group_multi_company"
+                options="{'no_create': True}"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_affectation_resultats_intervenue" model="ir.actions.act_window">
+	    <field name="name">AFFECTATION DES RESULTATS INTERVENUE</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">affectation.resultats.intervenue</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+    <record id="affectation_resultats_comp_rule" model="ir.rule">
+        <field name="name">Affectation Resultats Intervenue multi-company</field>
+        <field name="model_id" ref="model_affectation_resultats_intervenue" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+
+    <record id="affectation_resultats_line1_comp_rule" model="ir.rule">
+        <field name="name">Affectation Resultats Intervenue line 1 multi-company</field>
+        <field name="model_id" ref="model_affectation_resultats_intervenue_line1" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+
+    <record id="affectation_resultats_line2_comp_rule" model="ir.rule">
+        <field name="name">Affectation Resultats Intervenue line 2 multi-company</field>
+        <field name="model_id" ref="model_affectation_resultats_intervenue_line2" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+
+	<menuitem name="TAB-14 AFFECTATION DES RESULTATS INTERVENUE" id="menu_affectation_resultats_intervenue_id" parent="menu_tables_root" action="action_affectation_resultats_intervenue"
+	sequence="15" />
+
+	<!-- PDF report -->
+	<record id="action_report_affectation" model="ir.actions.report">
+        <field name="name">Affectation de Resultats</field>
+        <field name="model">affectation.resultats.intervenue</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_affectation</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_affectation</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_affectation_resultats_intervenue"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_affectation">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+                <div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.name" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span style="font-size: 10px;" class="float-right">
+                                TABLEAU N°14
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h6>ETAT D'AFFECTATION DES RESULTATS INTERVENUE AU COURS DE L'EXERCICE</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            <span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span tyle="font-size: 10px;" class="float-right">
+                                <p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+                            </span>
+                        </div>
+                    </div>
+                    <style type="text/css">
+                        .small{
+                            font-size: 15px;
+                            width: 100%;
+                            border: 1px solid;
+                        }
+                    </style>
+                    <h1></h1>
+                    <h1></h1>
+                    <table class="small"> 
+                        <tr> 
+                            <td valign="top">
+                                <table class="table table-sm o_main_table">
+                                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                    <thead style="display: table-row-group">
+                                        <tr>
+                                            <!-- <th></th> -->
+                                            <th style="border: 1px solid;text-align: center;" name="th_origine" colspan="2">ORIGINE DES RESULTATS A AFFECTER</th>
+                                            <!-- <th name="th_affectation" colspan="2" class="text-right">AFFECTATION DES RESULTATS</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody class="sale_tbody">
+                                        <td style="border: 1px solid;">Nom</td>
+                                        <td style="border: 1px solid;">Montant</td>
+                                        <t t-foreach="obj.affectation_resultats_intervenue_line1_ids" t-as="line">
+        
+                                            <tr>
+                                                    <td style="border: 1px solid;" name="td_name">
+                                                        <span t-field="line.name"/>
+                                                    </td>
+                                                    <td style="border: 1px solid;" name="td_montant">
+                                                        <span t-field="line.montant"/>
+                                                    </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td valign="top">
+                                <table class="table table-sm o_main_table">
+                                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                    <thead style="display: table-row-group">
+                                        <tr>
+                                            <!-- <th></th>
+                                            <th name="th_origine"  class="text-right">ORIGINE DES RESULTATS A AFFECTER</th> -->
+                                            <th name="th_affectation" colspan="2" style="border: 1px solid;text-align: center;">AFFECTATION DES RESULTATS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="sale_tbody">
+                                        <td style="border: 1px solid;">Nom</td>
+                                        <td style="border: 1px solid;">Montant</td>
+                                        <t t-foreach="obj.affectation_resultats_intervenue_line2_ids" t-as="line">
+        
+                                            <tr>
+                                                    <td style="border: 1px solid;" name="td_name">
+                                                        <span t-field="line.name"/>
+                                                    </td>
+                                                    <td style="border: 1px solid;" name="td_montant">
+                                                        <span t-field="line.montant"/>
+                                                    </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

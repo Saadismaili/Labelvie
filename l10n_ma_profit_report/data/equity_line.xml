@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- CAPITAUX PROPRES -->
+    <record model="equity.line" id="equity_1111">
+        <field name="name">*  Capital social ou personnel (1)</field>
+        <field name="sequence">10</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","1111%"]]</field>
+        <field name="left_char">F</field>
+    </record>
+    <record model="equity.line" id="equity_1119">
+        <field name="name">*  Moins : actionnaires, capital souscrit non appelé</field>
+        <field name="sequence">20</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","1119%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="equity.line" id="equity_1119_share">
+        <field name="name">Share Equity (Virtual)</field>
+        <field name="sequence">30</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">code</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="code">
+
+year = context['year'] or 0
+lines = env['partner.share'].search([('year','=',year)])
+res = []
+if lines:
+  for line in lines:
+    res.append(("*  Moins : capital appelé", line.total_share_called_value))
+    res.append(("*  Moins : Dont versé", line.total_share_paid_value))
+else:
+  res.append(("*  Moins : capital appelé", 0.0))
+  res.append(("*  Moins : Dont versé", 0.0))
+results = res
+        </field>
+        <field name="left_char">N</field>
+    </record>
+    <record model="equity.line" id="equity_112">
+        <field name="name">*  Prime d'émission, de fusion, d'apport</field>
+        <field name="sequence">40</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","112%"]]</field>
+        <field name="left_char">A</field>
+    </record>
+    <record model="equity.line" id="equity_113">
+        <field name="name">*  Ecarts de réevaluation</field>
+        <field name="sequence">50</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","113%"]]</field>
+        <field name="left_char">N</field>
+    </record>
+    <record model="equity.line" id="equity_114">
+        <field name="name">*  Réserve légale</field>
+        <field name="sequence">60</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","114%"]]</field>
+        <field name="left_char">C</field>
+    </record>
+    <record model="equity.line" id="equity_115">
+        <field name="name">*  Autres réserves</field>
+        <field name="sequence">70</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","115%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="equity.line" id="equity_116">
+        <field name="name">*  Report à nouveau  (2)</field>
+        <field name="sequence">80</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","116%"]]</field>
+        <field name="left_char">M</field>
+    </record>
+    <record model="equity.line" id="equity_118">
+        <field name="name">*  Résultat nets en instance d'affectation (2)</field>
+        <field name="sequence">90</field>
+        <field name="value_type">same</field>
+        <field name="view_type">positive</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="accounts_domain">[["code","=like","118%"]]</field>
+        <field name="subtraction_accounts_domain">[["code","=like","0000%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="equity.line" id="equity_119">
+        <field name="name">*  Résultat net de l'exercice (2)</field>
+        <field name="sequence">95</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_11"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+        
+        <field name="left_char">N</field>
+    </record>
+
+    <!-- CAPITAUX PROPRES ASSIMILES (B) -->
+    <record model="equity.line" id="equity_131">
+        <field name="name">* Subvention d'investissement</field>
+        <field name="sequence">110</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_13"/>
+        <field name="accounts_domain">[["code","=like","131%"]]</field>
+        <field name="left_char">P</field>
+    </record>
+    <record model="equity.line" id="equity_135">
+        <field name="name">* Provisions réglementées</field>
+        <field name="sequence">120</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_13"/>
+        <field name="accounts_domain">[["code","=like","135%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+
+    <!-- DETTES DE FINANCEMENT (C) -->
+     <record model="equity.line" id="equity_141">
+        <field name="name">*  Emprunts obligataires</field>
+        <field name="sequence">210</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_14"/>
+        <field name="accounts_domain">[["code","=like","141%"]]</field>
+        <field name="left_char">M</field>
+    </record>
+    <record model="equity.line" id="equity_148">
+        <field name="name">*  Autres dettes de financement</field>
+        <field name="sequence">220</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_14"/>
+        <field name="accounts_domain">[["code","=like","148%"]]</field>
+        <field name="left_char">A</field>
+    </record>
+
+    <!-- PROVISIONS DURABLES POUR RISQUES ET CHARGES (D) -->
+    <record model="equity.line" id="equity_151">
+        <field name="name">*  Provisions pour risques</field>
+        <field name="sequence">310</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_15"/>
+        <field name="accounts_domain">[["code","=like","151%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="equity.line" id="equity_155">
+        <field name="name">*  Provisions pour charges</field>
+        <field name="sequence">320</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_15"/>
+        <field name="accounts_domain">[["code","=like","155%"]]</field>
+        <field name="left_char">N</field>
+    </record>
+
+    <!-- ECARTS DE CONVERSION - PASSIF (E) -->
+    <record model="equity.line" id="equity_171">
+        <field name="name">*  Augmentation des créances immobilisées</field>
+        <field name="sequence">410</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_17"/>
+        <field name="accounts_domain">[["code","=like","171%"]]</field>
+    </record>
+    <record model="equity.line" id="equity_172">
+        <field name="name">*  Diminution des dettes de financement</field>
+        <field name="sequence">420</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_17"/>
+        <field name="accounts_domain">[["code","=like","172%"]]</field>
+    </record>
+
+    <!-- DETTES DU PASSIF CIRCULANT (F) -->
+    <record model="equity.line" id="equity_441">
+        <field name="name">*  Fournisseurs et comptes rattachés</field>
+        <field name="sequence">510</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","441%"]]</field>
+        <field name="left_char">A</field>
+    </record>
+    <record model="equity.line" id="equity_442">
+        <field name="name">*  Clients créditeurs, avances et acomptes</field>
+        <field name="sequence">520</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","442%"]]</field>
+        <field name="left_char">S</field>
+    </record>
+    <record model="equity.line" id="equity_443">
+        <field name="name">*  Personnel</field>
+        <field name="sequence">530</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","443%"]]</field>
+        <field name="left_char">S</field>
+    </record>
+    <record model="equity.line" id="equity_444">
+        <field name="name">*  Organisme sociaux</field>
+        <field name="sequence">540</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","444%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+    <record model="equity.line" id="equity_445">
+        <field name="name">*  Etat</field>
+        <field name="sequence">550</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","445%"]]</field>
+        <field name="left_char">F</field>
+    </record>
+    <record model="equity.line" id="equity_446">
+        <field name="name">*  Comptes d'associés</field>
+        <field name="sequence">560</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","446%"]]</field>
+    </record>
+    <record model="equity.line" id="equity_448">
+        <field name="name">*  Autres créanciers</field>
+        <field name="sequence">570</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","448%"]]</field>
+        <field name="left_char">C</field>
+    </record>
+    <record model="equity.line" id="equity_449">
+        <field name="name">*  Comptes de regularisation passif</field>
+        <field name="sequence">580</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_44"/>
+        <field name="accounts_domain">[["code","=like","449%"]]</field>
+        <field name="left_char">I</field>
+    </record>
+
+    <!-- TRESORERIE-PASSIF -->
+    <record model="equity.line" id="equity_552">
+        <field name="name">*  Crédits d'escompte</field>
+        <field name="sequence">590</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_55"/>
+        <field name="accounts_domain">[["code","=like","552%"]]</field>
+        <field name="left_char">R</field>
+    </record>
+    <record model="equity.line" id="equity_553">
+        <field name="name">*  Crédits de trésorerie</field>
+        <field name="sequence">600</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_55"/>
+        <field name="accounts_domain">[["code","=like","553%"]]</field>
+        <field name="left_char">E</field>
+    </record>
+    <record model="equity.line" id="equity_554">
+        <field name="name">*  Banques (soldes créditeurs)</field>
+        <field name="sequence">610</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="equity_55"/>
+        <field name="accounts_domain">[["code","=like","554%"]]</field>
+        <field name="left_char">S</field>
+    </record>
+
+</odoo>

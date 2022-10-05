@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_share_form" model="ir.ui.view">
+        <field name="name">partner.share.form</field>
+        <field name="model">partner.share</field>
+        <field name="arch" type="xml">
+            <form string="Partner Shares">
+                <header>
+                    <button name="copy_previous_year_data"
+                            string="Copy Previous Year Data"
+                            class="oe_highlight" type="object"/>
+                    <button name="action_clear_lines"
+                            string="Clear Lines" type="object"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <field name="year"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Partipants">
+                        <field name="line_ids" mode="tree" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="person"/>
+                                <field name="company"/>
+                                <field name="company_number"
+                                    attrs="{'required': [('company', '!=', False)]}"/>
+                                <field name="person_number"
+                                    attrs="{'required': [('person', '!=', False)]}"/>
+                                <field name="n_ce"/>
+                                <field name="address"/>
+                                <field name="partner_shares_previous_year"/>
+                                <field name="total_partner_shares"/>
+                                <field name="nominal_value"/>
+                                <field name="share_subscribe_value"
+                                    sum="Share Subscribe Value"/>
+                                <field name="share_called_value"
+                                       sum="Share Called Value"/>
+                                <field name="share_paid_value"
+                                       sum="Share Paid Value"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_partner_share_tree" model="ir.ui.view">
+        <field name="name">partner.share.tree</field>
+        <field name="model">partner.share</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="year"/>
+                <field name="total_share_subscribe_value"/>
+                <field name="total_share_called_value"/>
+                <field name="total_share_paid_value"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_partner_share_action" model="ir.actions.act_window">
+        <field name="name">Partner Shares</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.share</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

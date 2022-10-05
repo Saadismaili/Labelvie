@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_control_table_form" model="ir.ui.view">
+            <field name="name">view.control.table.form</field>
+            <field name="model">control.table</field>
+            <field name="arch" type="xml">
+                <form string="Control des etats de syntheses">
+                    <header>
+                        <button name="get_lines" type="object" string="Mise à jour des données"/>
+                    </header>
+                    
+                    <group>
+                        <field name="name"/>
+                        <field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+                        <field name="company_id" invisible="1"/>
+                        <notebook colspan="4">
+                            <page string="Lignes">
+                                <field name="line_ids" nolabel="1" colspan="4">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="name" decoration-danger = "second_amount != first_amount" decoration-bf ="second_amount != first_amount"/>
+                                        <field name="first_amount" decoration-danger="second_amount != first_amount" decoration-bf ="second_amount != first_amount"/>
+                                        <field name="second_amount" decoration-danger="second_amount != first_amount" decoration-bf ="second_amount != first_amount"/>
+                                        <field name="diff_amount" decoration-danger="second_amount != first_amount" decoration-bf ="second_amount != first_amount"/>
+                                        <field name="parent_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </form>
+            </field>
+        </record>
+    
+        <record id="view_control_table_tree" model="ir.ui.view">
+            <field name="name">view.control.table.tree</field>
+            <field name="model">control.table</field>
+            <field name="arch" type="xml">
+                <tree string="Control des etats de syntheses">
+                    <field name="name"/>
+                    <field name="fy_n_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="action_control_table" model="ir.actions.act_window">
+            <field name="name">Control des etats de syntheses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">control.table</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    
+        <menuitem name="TAB CONTROLE DES ETATS DE SYNTHESES" id="menu_control_table_id" parent="menu_tables_root_comptable" action="action_control_table" 
+        sequence="120"/>
+
+        <!-- Ruuules -->
+        <record id="control_table_comp_rule" model="ir.rule">
+            <field name="name">Control des etats de syntheses multi-company</field>
+            <field name="model_id" ref="model_control_table" />
+            <field name="domain_force">
+                ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+            </field>
+        </record>
+        <record id="control_table_line_comp_rule" model="ir.rule">
+            <field name="name">Control des etats de synthese LINES multi-company</field>
+            <field name="model_id" ref="model_control_table_line" />
+            <field name="domain_force">
+                ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+            </field>
+        </record>
+        <!-- ___________ -->
+
+        <!-- pdf report -->
+	
+    </data>
+</odoo>

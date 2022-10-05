@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_formulas_engine,access.formulas.engine,odoo_excel_engin.model_formulas_engine,group_odoo_excel_engin,1,1,1,1
+access_formulas_engine,access.formulas.engine,odoo_excel_engin.model_formulas_engine,group_odoo_excel_engin,1,1,1,1
+access_group_code_edi,access.group.code.edi,odoo_excel_engin.model_group_code_edi,group_odoo_excel_engin,1,1,1,1
+access_table_sum,access.table.sum,odoo_excel_engin.model_table_sum,group_odoo_excel_engin,1,1,1,1
+access_report_groupe_line,access.report.groupe.line,odoo_excel_engin.model_report_groupe_line,group_odoo_excel_engin,1,1,1,1
+access_report_group,access.report.group,odoo_excel_engin.model_report_group,group_odoo_excel_engin,1,1,1,1
+access_report_list_formulas,access.report.list.formulas,odoo_excel_engin.model_report_list_formulas,group_odoo_excel_engin,1,1,1,1
+access_report_list_formulas,access.report.list.formulas,odoo_excel_engin.model_report_list_formulas,group_odoo_excel_engin,1,1,1,1
+access_report_engin_row_col,access.report.engin.row.col,odoo_excel_engin.model_report_engin_row_col,group_odoo_excel_engin,1,1,1,1
+access_excel_report_engin_line,access.excel.report.engin.line,odoo_excel_engin.model_excel_report_engin_line,group_odoo_excel_engin,1,1,1,1
+access_report_engin_line,access.report.engin.line,odoo_excel_engin.model_report_engin_line,group_odoo_excel_engin,1,1,1,1
+access_report_pyhton_edi,access.report.pyhton.edi,odoo_excel_engin.model_report_pyhton_edi,group_odoo_excel_engin,1,1,1,1
+access_report_engin,access.report.engin,odoo_excel_engin.model_report_engin,group_odoo_excel_engin,1,1,1,1
+access_report_engin,access.report.engin,odoo_excel_engin.model_report_engin,group_odoo_excel_engin,1,1,1,1
+access_report_engin_print,access.report.engin.print,odoo_excel_engin.model_report_engin_print,group_odoo_excel_engin,1,1,1,1

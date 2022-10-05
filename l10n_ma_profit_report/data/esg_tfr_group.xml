@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="esg.tfr.group" id="tfr_71">
+        <field name="name">  </field>
+        <field name="sequence">1</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <!-- <field name="subtraction_accounts_domain">[["code","=like","1112%"]]</field> -->
+
+    </record>
+    <record model="esg.tfr.group" id="tfr_72">
+        <field name="name">MARGE BRUTES SUR VENTES EN L'ETAT</field>
+        <field name="sequence">10</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","711%"]]</field>
+        <field name="subtraction_accounts_domain">[["code","=like","611%"]]</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_73">
+        <field name="name">'PRODUCTION DE L'EXERCICE (3+4+5)</field>
+        <field name="sequence">15</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_74">
+        <field name="name">'CONSOMMATIONS DE L'EXERCICE(6+7)</field>
+        <field name="sequence">20</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_75">
+        <field name="name"> </field>
+        <field name="sequence">25</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">positive</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_7566">
+        <field name="name">'VALEUR AJOUTEE (I+II-III)</field>
+        <field name="sequence">23</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|","|",["code","=like","711%"],["code","=like","712%"],["code","=like","713%"],["code","=like","714%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","611%"],["code","=like","612%"],["code","=like","613%"],["code","=like","614%"]]</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_76">
+        <field name="name"> </field>
+        <field name="sequence">30</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_7666">
+        <field name="name">EXCEDENT BRUT D'EXPLOITATION (EBE) OU INSUFFISANCE BRUTE D'EXPLOITATION (IBE)</field>
+        <field name="sequence">29</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">["|","|","|","|",["code","=like","711%"],["code","=like","712%"],["code","=like","713%"],["code","=like","714%"],["code","=like","716%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|","|","|",["code","=like","611%"],["code","=like","612%"],["code","=like","613%"],["code","=like","614%"],["code","=like","616%"],["code","=like","617%"]]</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_77">
+        <field name="name">'RESULTAT D'EXPLOITATION(+ou-)</field>
+        <field name="sequence">35</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","71%"]]</field>
+        <field name="subtraction_accounts_domain">[["code","=like","61%"]]</field>
+        
+    </record>
+    <record model="esg.tfr.group" id="tfr_78">
+        <field name="name">RESULTAT FINANCIER</field>
+        <field name="sequence">40</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","73%"]]</field>
+        <field name="subtraction_accounts_domain">[["code","=like","63%"]]</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_79">
+        <field name="name">RESULTAT COURANT</field>
+        <field name="sequence">45</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|",["code","=like","71%"],["code","=like","73%"]]</field>
+        <field name="subtraction_accounts_domain">["|",["code","=like","61%"],["code","=like","63%"]]</field>
+    </record>
+    <record model="esg.tfr.group" id="tfr_80">
+        <field name="name"> RESULTAT NON COURANT(+ou-)</field>
+        <field name="sequence">50</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">[["code","=like","65%"]]</field>
+    </record>
+
+     <record model="esg.tfr.group" id="tfr_81">
+        <field name="name">'RESULTAT NET DE L'EXERCICE</field>
+        <field name="sequence">55</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+    </record>
+    
+</odoo>

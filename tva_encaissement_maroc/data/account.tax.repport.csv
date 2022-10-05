@@ -1,0 +1,96 @@
+id,code,name,cell_base,cell_tax,cell_prorata,cell_calc_tax,type_calcul
+1,10,Montant du chiffre d’affaires réalisé y compris les affaires non imposables (HT),E3,,,,auto
+2,20,- Opérations situées hors champ d’application de la TVA,E4,,,,auto
+3,30,- Opérations exonérées sans droit à déduction (art 91du CGI),E5,,,,auto
+4,40,- Opérations exonérées avec droit à déduction (art 92 du CGI),E6,,,,auto
+5,50,- Opérations faites en suspension de la TVA (art 94 du CGI),E7,,,,auto
+6,60,Chiffre d’affaires imposable à répartir (différence : ligne 10 – (20 + 30 +40 +50) (HT),E8,,,,auto
+9,80,- Opérations de production et de distribution,E11,F11,,,
+10,81,- Prestations de services,E12,F12,,,
+11,82,- Professions libérales visées à l’article 89 - I - 12° - (b) du CGI,E13,F13,,,
+12,83,- Opérations de crédit - bail,E14,F14,,,
+13,87,- Opérations d’entreprises de travaux immobiliers,E15,F15,,,
+14,93,- Opérations de vente et de livraison de biens meubles d’occasion,E16,F16,,,
+15,94,- Opérations de livraison à soi - même de constructions,E17,F17,,,
+16,95,- Régime de marge visé aux articles 125 bis et 125 quater du CGI,E18,F18,,,
+17,102,- Autres,E19,F19,,,
+20,84,- Beurre à l’exclusion du beurre de fabrication artisanale visé à l’article 91 (I - A. 2°),E22,F22,,,
+21,88," - Opérations de transport de voyageurs et de marchandises , à l’exclusion du transport ferroviaire",E23,F23,,,
+22,90,- Energie électrique,E24,F24,,,
+23,104,- Autres,E25,F25,,,
+25,91,- Les prestations de services rendues par tout agent démarcheur ou courtier d’assurances à raison des contrats apportés par lui à une entreprise d’assurances,E27,F27,,,
+27,77,- Chauffe - eau solaires,E29,F29,,,
+28,78,- Les aliments destinés à l’alimentation de bétail et des animaux de basse - cour ainsi que les tourteaux servant à leur fabrication à l'exclusion des autres aliments simples,E30,F30,,,
+29,79,- Les équipements à usage exclusivement agricole,E31,F31,,,
+30,85," - Les bois en grumes, écorcés ou simplement équarris, le liège à l'état naturel, les bois de feu en fagots ou sciés à petite longueur et le charbon de bois",E32,F32,,,
+31,86,- Engins et filets de pêche destinés aux professionnels de la pêche maritime.,E33,F33,,,
+32,89,- Les prestations de restauration fournies directement par l'entreprise à son personnel salarié,E34,F34,,,
+33,92,- Opérations de restauration et de logement dans des hôtels,E35,F35,,,
+34,96,- Le sel de cuisine (gemme ou marin),E36,F36,,,
+35,97,- Riz usiné et les pâtes alimentaires,E37,F37,,,
+36,98,- Huiles fluides alimentaires à l’exclusion de l’huile de palme,E38,F38,,,
+37,99,- les transactions relatives aux valeurs mobilières,E39,F39,,,
+38,100,- Les opérations de banque et de crédit et les commissions de change,E40,F40,,,
+39,101,- Les transactions portant sur les actions et les parts sociales,E41,F41,,,
+40,103,- Péage dans les autoroutes,E42,F42,,,
+41,105," - Les opérations des avocats, interprètes, notaires, adoul, huissiers de justice et vétérinaires",E43,F43,,,
+42,108,- Gaz de pétrole et les autres hydrocarbures gazeux,E44,F44,,,
+43,109," - Les Huiles de pétrole ou de schistes, brutes ou raffinées",E45,F45,,,
+44,112," - Opérations de vente des billets d’entrée aux musées, cinéma et théâtre",E46,F46,,,
+45,118,- Autres,E47,F47,,,
+47,106,- L’eau livrée aux réseaux de distribution publique et les prestations d’assainissement,E49,F49,,,
+48,107,- Location de compteurs d’eau et d’électricité,E50,F50,,,
+49,110," - Produits pharmaceutiques, matières premières et produits entrant dans leurs compositions ainsi que les emballages non récupérables de ces produits et matières.",E51,F51,,,
+50,111," - Les fournitures scolaires, produits et matières entrant dans leur composition",E52,F52,,,
+51,113,- Sucre raffiné ou aggloméré,E53,F53,,,
+52,114,- Conserves de sardines,E54,F54,,,
+53,115,- Lait en poudre,E55,F55,,,
+54,116,- Savon de ménage,E56,F56,,,
+55,117,- Voiture économique et produits et matières entrant dans sa fabrication,E57,F57,,,
+56,119,- Autres,E58,F58,,,
+57,120,"Reversement de la TVA à différents titres (cessation, régularisation,.) ",,F59,,,manuel
+58,121,Retenue à la source sur le montant des commissions allouées par les sociétés d’assurance à leurs courtiers,,F60,,,manuel
+59,122,Retenue à la source sur les intérêts servis par les établissements de crédit,,F61,,,manuel
+60,123,Retenue à la source sur les produits résultant des opérations de titrisation,,F62,,,manuel
+61,124,Retenue à la source sur les opérations effectuées par les non résidentes au profit des clients marocains exclus du champ d’application de la TVA,,F63,,,manuel
+63,129,Opérations réalisées avec des contribuables non résidents (1),E65,F65,,,auto
+64,130,TOTAL de la TVA exigible (2),F66,,,,auto
+67,140,- Prestations de services,,D73,E73,F73,
+68,141,- Transport,D74,,E74,,
+69,142,- Opération de banque,D75,,E75,,
+70,143," - Hôtels de voyageurs, et ensemble immobilier à destination touristique",D76,,E76,,
+71,144," - Les opérations des avocats, interprètes, notaires, adoul, huissiers de justice et vétérinaires",D77,,E77,,
+72,153,- Autres prestations de services,D78,,E78,,
+74,145,- Achat à l’importation,,D80,E80,F80,
+75,146,- Achat à l’intérieur,D81,,E81,,
+76,147,- Achat à l’importation,D82,,E82,,
+77,148,- Achat à l’intérieur,D83,,E83,,
+78,149,- Achat à l’importation,D84,,E84,,
+79,150,- Achat à l’intérieur,D85,,E85,,
+80,151,- Achat à l’importation,D86,,E86,,
+81,152,- Achat à l’intérieur,D87,,E87,,
+82,155,Travaux à façon,D88,,E88,,
+83,156,Sous –traitance ( travaux immobiliers ),D89,,E89,,
+84,158,- TVA non apparente (article 125 ter du CGI),D90,,E90,,
+86,162,- Achat à l’importation,D92,,E92,,
+87,163,- Achat à l’intérieur,D93,,E93,,
+88,164,- Livraison à soi - même autre que les constructions,D94,,E94,,
+89,165,- Installation et pose,D95,,E95,,
+90,166,- Constructions,D96,,E96,,
+91,167,- Livraison à soi - même de constructions,D97,,E97,,
+92,168,- Autres immobilisations,D98,,E98,,
+93,160,- Autres immobilisations,D99,,E99,,
+94,169,- Autres immobilisations,D100,,E100,,
+95,182,Total des déductions (lignes 140 à 169),F101,,,,auto
+96,170,- Crédit de la période précédente,,F102,,,manuel
+97,180,- Déduction complémentaire de la régularisation du prorata,,F103,,,manuel
+98,181,- Fraction du crédit de taxe cumulé (4),,F104,,,manuel
+99,185," - Montant du crédit annulé, demeurant imputable, n’ayant pas donné lieu au remboursement au titre des biens d'investissement (5) ",,F105,,,manuel
+100,186,- Montant demandé en remboursement au titre des biens d'investissement (article 103 bis du CGI),,F106,,,manuel
+101,187,- Montant du remboursement ordonnancé (article 103 du CGI),,F107,,,manuel
+102,190,Total de la TVA déductible [(lignes 182 à 185) - (186 et 187) ],F108,,,,auto
+103,200,- TVA due (130 - 190 ),F109,,,,auto
+104,201,- Crédit à reporter (en rouge ) (190 - 130) .,F110,,,,auto
+105,202,- Réduction de 15% du crédit de la période ((182+180) - 130) × 15%.,F111,,,,auto
+106,203,- Crédit restant cumulé après réduction de 15% (201 - 202).,F112,,,,auto
+107,204," - Crédit accompagné de paiement y compris la TVA due dans le cadre de l'article 115, 116 et 117 du CGI.",F113,,,,auto

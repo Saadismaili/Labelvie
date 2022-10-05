@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <act_window id="action_financial_report_gl_wizard"
+                name="Grand livre"
+                res_model="financial.report"
+                view_mode="form"
+                view_id="financial_report_wizard"
+                target="new"
+                context="{
+                            'default_target_report': 'gl',
+                        }"
+    />
+
+    <act_window id="action_financial_report_balance_wizard"
+                name="Balance"
+                res_model="financial.report"
+                view_mode="form"
+                view_id="financial_report_wizard"
+                target="new"
+                context="{
+                            'default_target_report': 'balance',
+                        }"
+    />
+
+
+     <!--Financial report menu   -->
+
+    <menuitem
+        parent="account.menu_finance_reports"
+        id="menu_financial_reports"
+        name="Rapports Financiers"
+        groups="account.group_account_manager,account.group_account_user"
+        />
+
+    <menuitem
+        parent="menu_financial_reports"
+        action="action_financial_report_gl_wizard"
+        id="menu_financial_report_gl_wizard"
+        name="Grand livre"
+        sequence="10"
+        />
+
+     <menuitem
+        parent="menu_financial_reports"
+        action="action_financial_report_balance_wizard"
+        name="Balance"
+        id="menu_financial_report_balance_wizard"
+        sequence="20"
+        />
+
+    </data>
+</odoo>

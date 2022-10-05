@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="equity.group" id="equity_11">
+        <field name="name">CAPITAUX PROPRES</field>
+        <field name="sequence">10</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <record model="equity.group" id="equity_11_total">
+        <field name="name">TOTAL DES CAPITAUX PROPRES (A)</field>
+        <field name="sequence">15</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",10]]</field>
+        <!-- <field name="subtraction_domain">[["id","=",0]]</field> -->
+        <field name="left_char">T</field>
+    </record>
+    <record model="equity.group" id="equity_13">
+        <field name="name">CAPITAUX PROPRES ASSIMILES (B)</field>
+        <field name="sequence">20</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <record model="equity.group" id="equity_14">
+        <field name="name">DETTES DE FINANCEMENT (C)</field>
+        <field name="sequence">30</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">R</field>
+    </record>
+    <record model="equity.group" id="equity_15">
+        <field name="name">PROVISIONS DURABLES POUR RISQUES ET CHARGES (D)</field>
+        <field name="sequence">40</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">N</field>
+    </record>
+    <record model="equity.group" id="equity_17">
+        <field name="name">ECARTS DE CONVERSION - PASSIF (E)</field>
+        <field name="sequence">50</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">T</field>
+    </record>
+    <record model="equity.group" id="total_equity_i">
+        <field name="name">TOTAL I (A+B+C+D+E)</field>
+        <field name="sequence">100</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">["&amp;",["sequence","&lt;",100],["sequence","&gt;",0]]</field>
+        <field name="subtraction_domain">[["sequence","=",10]]</field>
+    </record>
+
+     <record model="equity.group" id="equity_44">
+        <field name="name">DETTES DU PASSIF CIRCULANT (F)</field>
+        <field name="sequence">110</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">P</field>
+    </record>
+     <record model="equity.group" id="equity_450">
+        <field name="name">AUTRES PROVISIONS POUR RISQUES ET CHARGES (G)</field>
+        <field name="sequence">120</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+         <field name="accounts_domain">[["code","=like","450%"]]</field>
+         <field name="left_char">R</field>
+    </record>
+     <record model="equity.group" id="equity_470">
+        <field name="name">ECARTS DE CONVERSION-PASSIF (Elements circulants) (H)</field>
+        <field name="sequence">130</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+         <field name="accounts_domain">[["code","=like","470%"]]</field>
+         <field name="left_char">C</field>
+    </record>
+     <record model="equity.group" id="total_equity_ii">
+        <field name="name">TOTAL II (F+G+H)</field>
+        <field name="sequence">200</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">["&amp;",["sequence","&lt;",200],["sequence","&gt;",100]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+    </record>
+
+     <record model="equity.group" id="equity_55">
+        <field name="name">TRESORERIE-PASSIF</field>
+        <field name="sequence">210</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">T</field>
+    </record>
+     <record model="equity.group" id="total_equity_iii">
+        <field name="name">TOTAL III</field>
+        <field name="sequence">300</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+         <field name="accounts_domain">["|","|",["code","=like","552%"],["code","=like","553%"],["code","=like","554%"]]</field>
+    </record>
+    <record model="equity.group" id="total_equity_general">
+        <field name="name">TOTAL GENERAL (I+II+III)</field>
+        <field name="sequence">500</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">["|","|",["sequence","=",100],["sequence","=",200],["sequence","=",300]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+    </record>
+</odoo>

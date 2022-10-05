@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_honoraire,access.honoraire,honoraires.model_honoraire,group_honoraire,1,1,1,1
+access_honoraire_line,access.honoraire.line,honoraires.model_honoraire_line,group_honoraire,1,1,1,1

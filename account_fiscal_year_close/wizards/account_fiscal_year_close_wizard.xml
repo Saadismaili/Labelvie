@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_fiscalyear_close" model="ir.ui.view">
+            <field name="name">account.fiscalyear.close.form</field>
+            <field name="model">account.fiscalyear.close</field>
+            <field name="arch" type="xml">
+                <form string="Générer les écritures d'ouverture d'exercice">
+                    <separator string="Générer les écritures d'ouverture d'exercice"/>
+                    <newline/>
+                    <group col="4">
+                        <field name="fy_id" domain="[('type_id.fiscal_period','=',False)]" options="{'no_create': True,'no_open':True}"/>
+                        <field name="fy2_id" domain="[('type_id.fiscal_period','=',False)]" options="{'no_create': True,'no_open':True}" readonly="0" />
+                        <field name="journal_id" options="{'no_create': True,'no_open':True}"/>
+                        <field name="report_name"/>
+                    </group>
+                    <footer>
+                        <button string="Générer" name="data_save" type="object" class="oe_highlight"/>
+                        <button string="Annuler" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_fiscalyear_close" model="ir.actions.act_window">
+            <field name="name">Générer l'écriture d'ouverture</field>
+            <field name="res_model">account.fiscalyear.close</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_account_fiscalyear_close"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem action="action_account_fiscalyear_close"
+            id="menu_wizard_fy_close"
+            parent="account.menu_finance_entries" />
+    </data>
+</odoo>

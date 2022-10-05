@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<!-- Tva declaration form -->
+        <record id="view_simpl_tva_form" model="ir.ui.view">
+			<field name="name">simpl.tva.declaration.form</field>
+			<field name="model">tva.declaration</field>
+			<field name="inherit_id" ref="tva_encaissement_maroc.view_tva_declaration_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='generate_data']"  position="after">
+					<button name="generate_xml_file" states="draft" string="Générer fichier XML" type="object" class="oe_highlight"/>
+				</xpath>
+			</field>
+		</record>
+
+    </data>
+</odoo>

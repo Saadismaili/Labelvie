@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+            <!-- GENERAL LEDGER -->
+    <record id="financial_report_wizard" model="ir.ui.view">
+        <field name="name">Financial Report</field>
+        <field name="model">financial.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <div>
+                    <group name="filters">
+                        <group name="date_range">
+                            <field name="date_range_exercice_id" domain="[('type_id.fiscal_year','=',True)]" options="{'no_create': True}"/>
+                            <field name="date_range_id" domain="[('type_id.fiscal_period','=',True), ('fiscal_year_id', '=', date_range_exercice_id)]" options="{'no_create': True}"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        </group>
+                        <group name="other_filters">
+                            <field name="target_move" widget="radio"/>
+                            <field name="target_accounts" widget="radio"/>
+                            <field name="target_report" widget="radio" invisible="1"/>
+                            <field name="partenaire_detail" attrs="{'invisible': ['|',('target_accounts', '=', 'partners'),('target_report', '=', 'gl')]}"/>
+                            <field name="customers" attrs="{'invisible': [('target_accounts', '=', 'accounts')]}"/>
+                            <field name="suppliers"  attrs="{'invisible': [('target_accounts', '=', 'accounts')]}"/>
+                        </group>
+                    </group>
+
+                    <label for="partner_ids" attrs="{'invisible': [('target_accounts', '=', 'accounts')]}" />
+                    <field name="partner_ids" nolabel="1" options="{'no_create': True}" attrs="{'invisible': [('target_accounts', '=', 'accounts')]}"/>
+
+                    <group/>
+                    <label for="account_ids" attrs="{'invisible': [('target_accounts', '=', 'partners')]}"/>
+
+                    <field name="account_ids" nolabel="1" options="{'no_create': True}" attrs="{'invisible': [('target_accounts', '=', 'partners')]}"/>
+                </div>
+                <footer>
+                    <div>
+                        <button name="button_export_gl" string="Imprimer Grand Livre" type="object" default_focus="1" class="oe_highlight" attrs="{'invisible': [('target_report', '=', 'balance')]}"/>
+                        <button name="button_export_balance" string="Imprimer Balance" type="object" default_focus="1" class="oe_highlight" attrs="{'invisible': [('target_report', '=', 'gl')]}"/>
+                        or
+                        <button string="Annuler" class="oe_link" special="cancel" />
+                    </div>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="aq4" model="account.tax.repport">
+            <field name="cell">E3</field>
+            <field name="code">10</field>
+            <field name="type">base</field>
+            <field name="name">Montant du chiffre d’affaires réalisé y compris les affaires non imposables (HT)</field>
+        </record>
+        <record id="aq6" model="account.tax.repport">
+            <field name="cell">E4</field>
+            <field name="code">20</field>
+            <field name="type">base</field>
+            <field name="name">- Opérations situées hors champ d’application de la TVA</field>
+        </record>
+        <record id="aq8" model="account.tax.repport">
+            <field name="cell">E5</field>
+            <field name="code">30</field>
+            <field name="type">base</field>
+            <field name="name">- Opérations exonérées sans droit à déduction (art 91du CGI)</field>
+        </record>
+        <record id="aq10" model="account.tax.repport">
+            <field name="cell">E6</field>
+            <field name="code">40</field>
+            <field name="type">base</field>
+            <field name="name">- Opérations exonérées avec droit à déduction (art 92 du CGI)</field>
+        </record>
+        <record id="aq12" model="account.tax.repport">
+            <field name="cell">E7</field>
+            <field name="code">50</field>
+            <field name="type">base</field>
+            <field name="name">- Opérations faites en suspension de la TVA (art 94 du CGI)</field>
+        </record>
+         <record id="aq18" model="account.tax.repport">
+            <field name="cell">E11</field>
+            <field name="code">80</field>
+            <field name="type">base</field>
+            <field name="name">-Opérations de production et de distribution</field>
+        </record>
+        <record id="aq21" model="account.tax.repport">
+            <field name="cell">E12</field>
+            <field name="code">81</field>
+            <field name="type">base</field>
+            <field name="name">-Prestations de services</field>
+        </record>
+
+        <record id="aq23" model="account.tax.repport">
+            <field name="cell">E13</field>
+            <field name="code">82</field>
+            <field name="type">base</field>
+            <field name="name">-Professions libérales visées à l’article 89-I-12°-(b) du CGI</field>
+        </record>
+        <record id="aq25" model="account.tax.repport">
+            <field name="cell">E14</field>
+            <field name="code">83</field>
+            <field name="type">base</field>
+            <field name="name">-Opérations de crédit-bail</field>
+        </record>
+        <record id="aq27" model="account.tax.repport">
+            <field name="cell">E15</field>
+            <field name="code">87</field>
+            <field name="type">base</field>
+            <field name="name">-Opérations d’entreprises de travaux immobiliers</field>
+        </record>
+        <record id="aq29" model="account.tax.repport">
+            <field name="cell">E19</field>
+            <field name="code">102</field>
+            <field name="type">base</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="aq34" model="account.tax.repport">
+            <field name="cell">E22</field>
+            <field name="code">84</field>
+            <field name="type">base</field>
+            <field name="name">- Beurre à l’exclusion du beurre de fabrication artisanale visé à l’article 91 (I-A. 2°)</field>
+        </record>
+        <record id="aq36" model="account.tax.repport">
+            <field name="cell">E33</field>
+            <field name="code">86</field>
+            <field name="type">base</field>
+            <field name="name">- Thé (en vrac ou conditionné)</field>
+        </record>
+        <record id="aq38" model="account.tax.repport">
+            <field name="cell">E23</field>
+            <field name="code">88</field>
+            <field name="type">base</field>
+            <field name="name">- Opérations de transport de voyageurs et de marchandises</field>
+        </record>
+        <record id="aq40" model="account.tax.repport">
+            <field name="cell">E22</field>
+            <field name="code">90</field>
+            <field name="type">base</field>
+            <field name="name">- Energie électrique et les chauffe-eau solaires.</field>
+        </record>
+        <record id="aq42" model="account.tax.repport">
+            <field name="cell">E25</field>
+            <field name="code">104</field>
+            <field name="type">base</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="aq44" model="account.tax.repport">
+            <field name="cell">E27</field>
+            <field name="code">91</field>
+            <field name="type">base</field>
+            <field name="name">- Les prestations de services rendues par tout agent démarcheur ou courtier d’assurances à raison des   contrats apportés par lui à une entreprise d’assurances</field>
+        </record>
+        <record id="aq48" model="account.tax.repport">
+            <field name="cell">E28</field>
+            <field name="code">78</field>
+            <field name="type">base</field>
+            <field name="name">- les aliments destinés à l’alimentation de bétail et des animaux de basse-cour ainsi que les tourteaux servant à leur fabrication à l'exclusion des autres aliments simples </field>
+        </record>
+        <record id="aq51" model="account.tax.repport">
+            <field name="cell">E31</field>
+            <field name="code">79</field>
+            <field name="type">base</field>
+            <field name="name">- Les équipements à usage exclusivement agricole</field>
+        </record>
+        <record id="aq53" model="account.tax.repport">
+            <field name="cell">E32</field>
+            <field name="code">85</field>
+            <field name="type">base</field>
+            <field name="name">- Les bois en grumes, écorcés ou simplement équarris, le liège à l'état naturel,  les bois de feu en fagots ou sciés à petite longueur et le charbon de bois</field>
+        </record>
+        <record id="aq56" model="account.tax.repport">
+            <field name="cell">E34</field>
+            <field name="code">89</field>
+            <field name="type">base</field>
+            <field name="name">- Les prestations de restauration fournies directement par l'entreprise à son personnel salarié </field>
+        </record>
+        <record id="aq58" model="account.tax.repport">
+            <field name="cell">E35</field>
+            <field name="code">92</field>
+            <field name="type">base</field>
+            <field name="name">- Opérations de restauration et de logement dans des hôtels</field>
+        </record>
+        <record id="aq60" model="account.tax.repport">
+            <field name="cell">E16</field>
+            <field name="code">93</field>
+            <field name="type">base</field>
+            <field name="name">- Opérations de restauration fournies par les prestataires de services au personnel salarié des entreprises</field>
+        </record>
+        <record id="aq62" model="account.tax.repport">
+            <field name="cell">E17</field>
+            <field name="code">94</field>
+            <field name="type">base</field>
+            <field name="name">- location d'hôtels ou d'ensembles immobiliers à destination touristique.</field>
+        </record>
+        <record id="aq64" model="account.tax.repport">
+            <field name="cell">E18</field>
+            <field name="code">95</field>
+            <field name="type">base</field>
+            <field name="name">- les opérations de vente de denrées ou de boissons à consommer sur place, réalisées dans les restaurants</field>
+        </record>
+        <record id="aq66" model="account.tax.repport">
+            <field name="cell">E36</field>
+            <field name="code">96</field>
+            <field name="type">base</field>
+            <field name="name">- Le sel de cuisine (gemme ou marin)</field>
+        </record>
+        <record id="aq68" model="account.tax.repport">
+            <field name="cell">AQ68</field>
+            <field name="code">97</field>
+            <field name="type">base</field>
+            <field name="name">- Le riz usiné, les farines et semoules de riz et les farines de féculents, les pâtes alimentaires</field>
+        </record>
+        <record id="aq70" model="account.tax.repport">
+            <field name="cell">AQ70</field>
+            <field name="code">98</field>
+            <field name="type">base</field>
+            <field name="name">- Les huiles fluides alimentaires</field>
+        </record>
+        <record id="aq72" model="account.tax.repport">
+            <field name="cell">AQ72</field>
+            <field name="code">99</field>
+            <field name="type">base</field>
+            <field name="name">- les transactions relatives aux valeurs mobilières</field>
+        </record>
+        <record id="aq74" model="account.tax.repport">
+            <field name="cell">AQ74</field>
+            <field name="code">100</field>
+            <field name="type">base</field>
+            <field name="name">- Les opérations de banque et de crédit et les commissions de change</field>
+        </record>
+        <record id="aq76" model="account.tax.repport">
+            <field name="cell">AQ76</field>
+            <field name="code">101</field>
+            <field name="type">base</field>
+            <field name="name">- Les transactions portant sur les actions et les parts sociales</field>
+        </record>
+        <record id="aq78" model="account.tax.repport">
+            <field name="cell">AQ78</field>
+            <field name="code">103</field>
+            <field name="type">base</field>
+            <field name="name">- Péage dans les autoroutes</field>
+        </record>
+        <record id="aq80" model="account.tax.repport">
+            <field name="cell">AQ80</field>
+            <field name="code">105</field>
+            <field name="type">base</field>
+            <field name="name">- Les opérations des avocats, interprètes, notaires, adoul, huissiers de justice et vétérinaires</field>
+        </record>
+        <record id="aq82" model="account.tax.repport">
+            <field name="cell">AQ82</field>
+            <field name="code">108</field>
+            <field name="type">base</field>
+            <field name="name">- Gaz de pétrole et les autres hydrocarbures gazeux</field>
+        </record>
+        <record id="aq84" model="account.tax.repport">
+            <field name="cell">AQ84</field>
+            <field name="code">109</field>
+            <field name="type">base</field>
+            <field name="name">- Les Huiles de pétrole ou de schistes, brutes ou raffinées</field>
+        </record>
+        <record id="aq86" model="account.tax.repport">
+            <field name="cell">AQ86</field>
+            <field name="code">118</field>
+            <field name="type">base</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="aq90" model="account.tax.repport">
+            <field name="cell">AQ90</field>
+            <field name="code">106</field>
+            <field name="type">base</field>
+            <field name="name">- L’eau livrée aux réseaux de distribution publique et les prestations d’assainissement</field>
+        </record>
+        <record id="aq92" model="account.tax.repport">
+            <field name="cell">AQ92</field>
+            <field name="code">107</field>
+            <field name="type">base</field>
+            <field name="name">- Location de compteurs d’eau et d’électricité</field>
+        </record>
+        <record id="aq94" model="account.tax.repport">
+            <field name="cell">AQ94</field>
+            <field name="code">110</field>
+            <field name="type">base</field>
+            <field name="name">- Produits pharmaceutiques, matières premières et produits entrant dans leurs compositions ainsi que les  emballages non récupérables de ces produits et matières</field>
+        </record>
+        <record id="aq97" model="account.tax.repport">
+            <field name="cell">AQ97</field>
+            <field name="code">111</field>
+            <field name="type">base</field>
+            <field name="name">- Les fournitures scolaires, produits et matières entrant dans leur composition</field>
+        </record>
+        <record id="aq99" model="account.tax.repport">
+            <field name="cell">AQ99</field>
+            <field name="code">113</field>
+            <field name="type">base</field>
+            <field name="name">- Sucre raffiné ou aggloméré</field>
+        </record>
+        <record id="aq101" model="account.tax.repport">
+            <field name="cell">AQ101</field>
+            <field name="code">114</field>
+            <field name="type">base</field>
+            <field name="name">- Conserves de sardines</field>
+        </record>
+        <record id="aq103" model="account.tax.repport">
+            <field name="cell">AQ103</field>
+            <field name="code">115</field>
+            <field name="type">base</field>
+            <field name="name">- Lait en poudre</field>
+        </record>
+        <record id="aq105" model="account.tax.repport">
+            <field name="cell">AQ105</field>
+            <field name="code">116</field>
+            <field name="type">base</field>
+            <field name="name">- Savon de ménage</field>
+        </record>
+        <record id="aq107" model="account.tax.repport">
+            <field name="cell">AQ107</field>
+            <field name="code">117</field>
+            <field name="type">base</field>
+            <field name="name">- Voiture économique et produits et matières entrant dans sa fabrication</field>
+        </record>
+        <record id="aq109" model="account.tax.repport">
+            <field name="cell">AQ109</field>
+            <field name="code">119</field>
+            <field name="type">base</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="aq116" model="account.tax.repport">
+            <field name="cell">AQ116</field>
+            <field name="code">129</field>
+            <field name="type">base</field>
+            <field name="name">Opérations réalisées avec des contribuables non résidents</field>
+        </record>
+        <record id="ag131" model="account.tax.repport">
+            <field name="cell">AG131</field>
+            <field name="code">140</field>
+            <field name="type">base</field>
+            <field name="name">- Prestations de services</field>
+        </record>
+        <record id="ag133" model="account.tax.repport">
+            <field name="cell">AG133</field>
+            <field name="code">141</field>
+            <field name="type">base</field>
+            <field name="name">- Transport</field>
+        </record>
+        <record id="ag135" model="account.tax.repport">
+            <field name="cell">AG135</field>
+            <field name="code">142</field>
+            <field name="type">base</field>
+            <field name="name">- Opération de banque</field>
+        </record>
+        <record id="ag138" model="account.tax.repport">
+            <field name="cell">AG138</field>
+            <field name="code">143</field>
+            <field name="type">base</field>
+            <field name="name">- Hôtels de voyageurs, et ensemble immobilier à destination</field>
+        </record>
+        <record id="ag141" model="account.tax.repport">
+            <field name="cell">AG141</field>
+            <field name="code">144</field>
+            <field name="type">base</field>
+            <field name="name">- Les opérations des avocats, interprètes, notaires, adoul,huissiers de justice et vétérinaires</field>
+        </record>
+        <record id="ag143" model="account.tax.repport">
+            <field name="cell">AG143</field>
+            <field name="code">153</field>
+            <field name="type">base</field>
+            <field name="name">- Autres prestations de services</field>
+        </record>
+        <record id="ag145" model="account.tax.repport">
+            <field name="cell">AG145</field>
+            <field name="code">145</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="ag147" model="account.tax.repport">
+            <field name="cell">AG147</field>
+            <field name="code">146</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="ag149" model="account.tax.repport">
+            <field name="cell">AG149</field>
+            <field name="code">147</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="ag151" model="account.tax.repport">
+            <field name="cell">AG151</field>
+            <field name="code">148</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="ag153" model="account.tax.repport">
+            <field name="cell">AG153</field>
+            <field name="code">149</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="ag155" model="account.tax.repport">
+            <field name="cell">AG155</field>
+            <field name="code">150</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="ag157" model="account.tax.repport">
+            <field name="cell">AG157</field>
+            <field name="code">151</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="ag159" model="account.tax.repport">
+            <field name="cell">AG159</field>
+            <field name="code">152</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="ag161" model="account.tax.repport">
+            <field name="cell">AG161</field>
+            <field name="code">155</field>
+            <field name="type">base</field>
+            <field name="name">Travaux à façon</field>
+        </record>
+        <record id="ag163" model="account.tax.repport">
+            <field name="cell">AG163</field>
+            <field name="code">156</field>
+            <field name="type">base</field>
+            <field name="name">Sous –traitance ( travaux immobiliers )</field>
+        </record>
+        <record id="ag165" model="account.tax.repport">
+            <field name="cell">AG165</field>
+            <field name="code">157</field>
+            <field name="type">base</field>
+            <field name="name">- Déduction prévue par l'article 125-VII du CGI (1/5 du montant de la TVA payée au cours du mois de décembre 2013)</field>
+        </record>
+        <record id="ag168" model="account.tax.repport">
+            <field name="cell">AG168</field>
+            <field name="code">162</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="ag170" model="account.tax.repport">
+            <field name="cell">AG170</field>
+            <field name="code">163</field>
+            <field name="type">base</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="ag172" model="account.tax.repport">
+            <field name="cell">AG172</field>
+            <field name="code">164</field>
+            <field name="type">base</field>
+            <field name="name">- Livraison à soi-même autre que les constructions</field>
+        </record>
+        <record id="ag174" model="account.tax.repport">
+            <field name="cell">AG174</field>
+            <field name="code">165</field>
+            <field name="type">base</field>
+            <field name="name">- Installation et pose</field>
+        </record>
+        <record id="ag176" model="account.tax.repport">
+            <field name="cell">AG176</field>
+            <field name="code">166</field>
+            <field name="type">base</field>
+            <field name="name">- Constructions</field>
+        </record>
+        <record id="ag178" model="account.tax.repport">
+            <field name="cell">AG178</field>
+            <field name="code">167</field>
+            <field name="type">base</field>
+            <field name="name">- Livraison à soi-même de constructions</field>
+        </record>
+        <record id="ag180" model="account.tax.repport">
+            <field name="cell">AG180</field>
+            <field name="code">168</field>
+            <field name="type">base</field>
+            <field name="name">-Autres immobilisations</field>
+        </record>
+        <record id="ag182" model="account.tax.repport">
+            <field name="cell">AG182</field>
+            <field name="code">169</field>
+            <field name="type">base</field>
+            <field name="name">-Autres immobilisations</field>
+        </record>
+        <record id="ag184" model="account.tax.repport">
+            <field name="cell">AG184</field>
+            <field name="code">170</field>
+            <field name="type">base</field>
+            <field name="name">- Crédit de la période précédente…………………..</field>
+        </record>
+        <record id="ag186" model="account.tax.repport">
+            <field name="cell">AG186</field>
+            <field name="code">180</field>
+            <field name="type">base</field>
+            <field name="name">- Déduction complémentaire de la régularisation du prorata</field>
+        </record>
+        <record id="bb18" model="account.tax.repport">
+            <field name="cell">BB18</field>
+            <field name="code">80</field>
+            <field name="type">tax</field>
+            <field name="name">-Opérations de production et de distribution</field>
+        </record>
+        <record id="bb21" model="account.tax.repport">
+            <field name="cell">BB21</field>
+            <field name="code">81</field>
+            <field name="type">tax</field>
+            <field name="name">-Prestations de services</field>
+        </record>
+        <record id="bb23" model="account.tax.repport">
+            <field name="cell">BB23</field>
+            <field name="code">82</field>
+            <field name="type">tax</field>
+            <field name="name">-Professions libérales visées à l’article 89-I-12°-(b) du CGI</field>
+        </record>
+        <record id="bb25" model="account.tax.repport">
+            <field name="cell">BB25</field>
+            <field name="code">83</field>
+            <field name="type">tax</field>
+            <field name="name">-Opérations de crédit-bail</field>
+        </record>
+        <record id="bb27" model="account.tax.repport">
+            <field name="cell">BB27</field>
+            <field name="code">87</field>
+            <field name="type">tax</field>
+            <field name="name">-Opérations d’entreprises de travaux immobiliers</field>
+        </record>
+        <record id="bb29" model="account.tax.repport">
+            <field name="cell">BB29</field>
+            <field name="code">102</field>
+            <field name="type">tax</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="bb34" model="account.tax.repport">
+            <field name="cell">BB34</field>
+            <field name="code">84</field>
+            <field name="type">tax</field>
+            <field name="name">- Beurre à l’exclusion du beurre de fabrication artisanale visé à l’article 91 (I-A. 2°)</field>
+        </record>
+        <record id="bb36" model="account.tax.repport">
+            <field name="cell">BB36</field>
+            <field name="code">86</field>
+            <field name="type">tax</field>
+            <field name="name">- Thé (en vrac ou conditionné)</field>
+        </record>
+        <record id="bb38" model="account.tax.repport">
+            <field name="cell">BB38</field>
+            <field name="code">88</field>
+            <field name="type">tax</field>
+            <field name="name">- Opérations de transport de voyageurs et de marchandises</field>
+        </record>
+        <record id="bb40" model="account.tax.repport">
+            <field name="cell">BB40</field>
+            <field name="code">90</field>
+            <field name="type">tax</field>
+            <field name="name">- Energie électrique et les chauffe-eau solaires.</field>
+        </record>
+        <record id="bb42" model="account.tax.repport">
+            <field name="cell">BB42</field>
+            <field name="code">104</field>
+            <field name="type">tax</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="bb44" model="account.tax.repport">
+            <field name="cell">BB44</field>
+            <field name="code">91</field>
+            <field name="type">tax</field>
+            <field name="name">- Les prestations de services rendues par tout agent démarcheur ou courtier d’assurances à raison des   contrats apportés par lui à une entreprise d’assurances</field>
+        </record>
+        <record id="bb48" model="account.tax.repport">
+            <field name="cell">BB48</field>
+            <field name="code">78</field>
+            <field name="type">tax</field>
+            <field name="name">- les aliments destinés à l’alimentation de bétail et des animaux de basse-cour ainsi que les tourteaux servant à leur fabrication à l'exclusion des autres aliments simples</field>
+        </record>
+        <record id="bb51" model="account.tax.repport">
+            <field name="cell">BB51</field>
+            <field name="code">79</field>
+            <field name="type">tax</field>
+            <field name="name">- Les équipements à usage exclusivement agricole</field>
+        </record>
+        <record id="bb53" model="account.tax.repport">
+            <field name="cell">BB53</field>
+            <field name="code">85</field>
+            <field name="type">tax</field>
+            <field name="name">- Les bois en grumes, écorcés ou simplement équarris, le liège à l'état naturel,  les bois de feu en fagots ou sciés à petite longueur et le charbon de bois</field>
+        </record>
+        <record id="bb56" model="account.tax.repport">
+            <field name="cell">BB56</field>
+            <field name="code">89</field>
+            <field name="type">tax</field>
+            <field name="name">- Les prestations de restauration fournies directement par l'entreprise à son personnel salarié</field>
+        </record>
+        <record id="bb58" model="account.tax.repport">
+            <field name="cell">BB58</field>
+            <field name="code">92</field>
+            <field name="type">tax</field>
+            <field name="name">- Opérations de restauration et de logement dans des hôtels</field>
+        </record>
+        <record id="bb60" model="account.tax.repport">
+            <field name="cell">BB60</field>
+            <field name="code">93</field>
+            <field name="type">tax</field>
+            <field name="name">- Opérations de restauration fournies par les prestataires de services au personnel salarié des entreprises</field>
+        </record>
+        <record id="bb62" model="account.tax.repport">
+            <field name="cell">BB62</field>
+            <field name="code">94</field>
+            <field name="type">tax</field>
+            <field name="name">- location d'hôtels ou d'ensembles immobiliers à destination touristique.</field>
+        </record>
+        <record id="bb64" model="account.tax.repport">
+            <field name="cell">BB64</field>
+            <field name="code">95</field>
+            <field name="type">tax</field>
+            <field name="name">- les opérations de vente de denrées ou de boissons à consommer sur place, réalisées dans les restaurants</field>
+        </record>
+        <record id="bb66" model="account.tax.repport">
+            <field name="cell">BB66</field>
+            <field name="code">96</field>
+            <field name="type">tax</field>
+            <field name="name">- Le sel de cuisine (gemme ou marin)</field>
+        </record>
+        <record id="bb68" model="account.tax.repport">
+            <field name="cell">BB68</field>
+            <field name="code">97</field>
+            <field name="type">tax</field>
+            <field name="name">- Le riz usiné, les farines et semoules de riz et les farines de féculents, les pâtes alimentaires</field>
+        </record>
+        <record id="bb70" model="account.tax.repport">
+            <field name="cell">BB70</field>
+            <field name="code">98</field>
+            <field name="type">tax</field>
+            <field name="name">- Les huiles fluides alimentaires</field>
+        </record>
+        <record id="bb72" model="account.tax.repport">
+            <field name="cell">BB72</field>
+            <field name="code">99</field>
+            <field name="type">tax</field>
+            <field name="name">- les transactions relatives aux valeurs mobilières</field>
+        </record>
+        <record id="bb74" model="account.tax.repport">
+            <field name="cell">BB74</field>
+            <field name="code">100</field>
+            <field name="type">tax</field>
+            <field name="name">- Les opérations de banque et de crédit et les commissions de change</field>
+        </record>
+        <record id="bb76" model="account.tax.repport">
+            <field name="cell">BB76</field>
+            <field name="code">101</field>
+            <field name="type">tax</field>
+            <field name="name">- Les transactions portant sur les actions et les parts sociales</field>
+        </record>
+        <record id="bb77" model="account.tax.repport">
+            <field name="cell">BB78</field>
+            <field name="code">103</field>
+            <field name="type">tax</field>
+            <field name="name">- Péage dans les autoroutes</field>
+        </record>
+        <record id="bb80" model="account.tax.repport">
+            <field name="cell">BB80</field>
+            <field name="code">105</field>
+            <field name="type">tax</field>
+            <field name="name">- Les opérations des avocats, interprètes, notaires, adoul, huissiers de justice et vétérinaires</field>
+        </record>
+        <record id="bb82" model="account.tax.repport">
+            <field name="cell">BB82</field>
+            <field name="code">108</field>
+            <field name="type">tax</field>
+            <field name="name">- Gaz de pétrole et les autres hydrocarbures gazeux</field>
+        </record>
+        <record id="bb84" model="account.tax.repport">
+            <field name="cell">BB84</field>
+            <field name="code">109</field>
+            <field name="type">tax</field>
+            <field name="name">- Les Huiles de pétrole ou de schistes, brutes ou raffinées</field>
+        </record>
+        <record id="bb86" model="account.tax.repport">
+            <field name="cell">BB86</field>
+            <field name="code">118</field>
+            <field name="type">tax</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="bb90" model="account.tax.repport">
+            <field name="cell">BB90</field>
+            <field name="code">106</field>
+            <field name="type">tax</field>
+            <field name="name">- L’eau livrée aux réseaux de distribution publique et les prestations d’assainissement</field>
+        </record>
+        <record id="bb92" model="account.tax.repport">
+            <field name="cell">BB92</field>
+            <field name="code">107</field>
+            <field name="type">tax</field>
+            <field name="name">- Location de compteurs d’eau et d’électricité</field>
+        </record>
+        <record id="bb94" model="account.tax.repport">
+            <field name="cell">BB94</field>
+            <field name="code">110</field>
+            <field name="type">tax</field>
+            <field name="name">- Produits pharmaceutiques, matières premières et produits entrant dans leurs compositions ainsi que les  emballages non récupérables de ces produits et matières</field>
+        </record>
+        <record id="bb97" model="account.tax.repport">
+            <field name="cell">BB97</field>
+            <field name="code">111</field>
+            <field name="type">tax</field>
+            <field name="name">- Les fournitures scolaires, produits et matières entrant dans leur composition</field>
+        </record>
+        <record id="bb99" model="account.tax.repport">
+            <field name="cell">BB99</field>
+            <field name="code">113</field>
+            <field name="type">tax</field>
+            <field name="name">- Sucre raffiné ou aggloméré</field>
+        </record>
+        <record id="bb101" model="account.tax.repport">
+            <field name="cell">BB101</field>
+            <field name="code">114</field>
+            <field name="type">tax</field>
+            <field name="name">- Conserves de sardines</field>
+        </record>
+        <record id="bb103" model="account.tax.repport">
+            <field name="cell">BB103</field>
+            <field name="code">115</field>
+            <field name="type">tax</field>
+            <field name="name">- Lait en poudre</field>
+        </record>
+        <record id="bb105" model="account.tax.repport">
+            <field name="cell">BB105</field>
+            <field name="code">116</field>
+            <field name="type">tax</field>
+            <field name="name">- Savon de ménage</field>
+        </record>
+        <record id="bb107" model="account.tax.repport">
+            <field name="cell">BB107</field>
+            <field name="code">117</field>
+            <field name="type">tax</field>
+            <field name="name">- Voiture économique et produits et matières entrant dans sa fabrication</field>
+        </record>
+        <record id="bb109" model="account.tax.repport">
+            <field name="cell">BB109</field>
+            <field name="code">119</field>
+            <field name="type">tax</field>
+            <field name="name">-Autres</field>
+        </record>
+        <record id="bb133" model="account.tax.repport">
+            <field name="cell">BB133</field>
+            <field name="code">120</field>
+            <field name="type">tax</field>
+            <field name="name">Reversement de la TVA à différents titres (cessation, régularisation,….)</field>
+        </record>
+        <record id="bb116" model="account.tax.repport">
+            <field name="cell">BB116</field>
+            <field name="code">129</field>
+            <field name="type">tax</field>
+            <field name="name">Opérations réalisées avec des contribuables non résidents</field>
+        </record>
+        <record id="av131" model="account.tax.repport">
+            <field name="cell">AV131</field>
+            <field name="code">140</field>
+            <field name="type">tax</field>
+            <field name="name">- Prestations de services</field>
+        </record>
+        <record id="av133" model="account.tax.repport">
+            <field name="cell">AV133</field>
+            <field name="code">141</field>
+            <field name="type">tax</field>
+            <field name="name">- Transport</field>
+        </record>
+        <record id="av135" model="account.tax.repport">
+            <field name="cell">AV135</field>
+            <field name="code">142</field>
+            <field name="type">tax</field>
+            <field name="name">- Opération de banque</field>
+        </record>
+        <record id="av138" model="account.tax.repport">
+            <field name="cell">AV138</field>
+            <field name="code">143</field>
+            <field name="type">tax</field>
+            <field name="name">- Hôtels de voyageurs, et ensemble immobilier à destination</field>
+        </record>
+        <record id="av141" model="account.tax.repport">
+            <field name="cell">AV141</field>
+            <field name="code">144</field>
+            <field name="type">tax</field>
+            <field name="name">- Les opérations des avocats, interprètes, notaires, adoul,huissiers de justice et vétérinaires</field>
+        </record>
+        <record id="av143" model="account.tax.repport">
+            <field name="cell">AV143</field>
+            <field name="code">153</field>
+            <field name="type">tax</field>
+            <field name="name">- Autres prestations de services</field>
+        </record>
+        <record id="av145" model="account.tax.repport">
+            <field name="cell">AV145</field>
+            <field name="code">145</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="av147" model="account.tax.repport">
+            <field name="cell">AV147</field>
+            <field name="code">146</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="av149" model="account.tax.repport">
+            <field name="cell">AV149</field>
+            <field name="code">147</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="av151" model="account.tax.repport">
+            <field name="cell">AV151</field>
+            <field name="code">148</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="av153" model="account.tax.repport">
+            <field name="cell">AV153</field>
+            <field name="code">149</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="av155" model="account.tax.repport">
+            <field name="cell">AV155</field>
+            <field name="code">150</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="av157" model="account.tax.repport">
+            <field name="cell">AV157</field>
+            <field name="code">151</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="av159" model="account.tax.repport">
+            <field name="cell">AV159</field>
+            <field name="code">152</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="av161" model="account.tax.repport">
+            <field name="cell">AV161</field>
+            <field name="code">155</field>
+            <field name="type">tax</field>
+            <field name="name">Travaux à façon</field>
+        </record>
+        <record id="av163" model="account.tax.repport">
+            <field name="cell">AV163</field>
+            <field name="code">156</field>
+            <field name="type">tax</field>
+            <field name="name">Sous –traitance ( travaux immobiliers )</field>
+        </record>
+        <record id="av165" model="account.tax.repport">
+            <field name="cell">AV165</field>
+            <field name="code">157</field>
+            <field name="type">tax</field>
+            <field name="name">- Déduction prévue par l'article 125-VII du CGI (1/5 du montant de la TVA payée au cours du mois de décembre 2013)</field>
+        </record>
+        <record id="av168" model="account.tax.repport">
+            <field name="cell">AV168</field>
+            <field name="code">162</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’importation</field>
+        </record>
+        <record id="av170" model="account.tax.repport">
+            <field name="cell">AV170</field>
+            <field name="code">163</field>
+            <field name="type">tax</field>
+            <field name="name">- Achat à l’intérieur</field>
+        </record>
+        <record id="av172" model="account.tax.repport">
+            <field name="cell">AV172</field>
+            <field name="code">164</field>
+            <field name="type">tax</field>
+            <field name="name">- Livraison à soi-même autre que les constructions</field>
+        </record>
+        <record id="av174" model="account.tax.repport">
+            <field name="cell">AV174</field>
+            <field name="code">165</field>
+            <field name="type">tax</field>
+            <field name="name">- Installation et pose</field>
+        </record>
+        <record id="av176" model="account.tax.repport">
+            <field name="cell">AV176</field>
+            <field name="code">166</field>
+            <field name="type">tax</field>
+            <field name="name">- Constructions</field>
+        </record>
+        <record id="av178" model="account.tax.repport">
+            <field name="cell">AV178</field>
+            <field name="code">167</field>
+            <field name="type">tax</field>
+            <field name="name">- Livraison à soi-même de constructions</field>
+        </record>
+        <record id="av180" model="account.tax.repport">
+            <field name="cell">AV180</field>
+            <field name="code">168</field>
+            <field name="type">tax</field>
+            <field name="name">-Autres immobilisations</field>
+        </record>
+         <record id="av182" model="account.tax.repport">
+            <field name="cell">AV182</field>
+            <field name="code">169</field>
+            <field name="type">tax</field>
+            <field name="name">-Autres immobilisations</field>
+        </record>
+         <record id="av184" model="account.tax.repport">
+            <field name="cell">AV184</field>
+            <field name="code">170</field>
+            <field name="type">tax</field>
+            <field name="name">- Crédit de la période précédente…………………..</field>
+        </record>
+         <record id="av196" model="account.tax.repport">
+            <field name="cell">AV196</field>
+            <field name="code">202</field>
+            <field name="type">tax</field>
+            <field name="name">- Réduction de 15% du crédit de la période ((190 - 170) - 130) × 15%…………………………………….............</field>
+        </record>
+         <record id="av198" model="account.tax.repport">
+            <field name="cell">AV198</field>
+            <field name="code">203</field>
+            <field name="type">tax</field>
+            <field name="name">- Crédit restant cumulé après réduction de 15% (201- 202)…...………………..…………………………………</field>
+        </record>
+
+
+
+
+
+
+
+
+    </data>
+</odoo>

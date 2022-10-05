@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_plus_values_fusion_form" model="ir.ui.view">
+	    <field name="name">view.plus.values.fusion.form</field>
+	    <field name="model">plus.values.fusion</field>
+	    <field name="arch" type="xml">
+	        <form string="PLUS-VALUES CONSTATEES EN CAS DE FUSION">
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<!-- Code edi -->
+					
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="plus_values_fusion_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom"  create="false">
+									<field name="code"/>
+									<field name="name"/>
+									<field name="valeur_apport"/>
+									<field name="valeur_nette_comptable"/>
+									<field name="plus_value_constatee"/>
+									<field name="fraction_exercice_ant"/>
+									<field name="fraction_exercice_actuel"/>
+									<field name="cumul_plus_value_rapportee"/>
+									<field name="solde_plus_value_non_rapportee"/>
+									<field name="observations"/>
+									<field name="edi_valeur_apport" invisible="1"/>
+									<field name="edi_valeur_nette_comptable" invisible="1"/>
+									<field name="edi_plus_value_constatee" invisible="1"/>
+									<field name="edi_fraction_exercice_ant" invisible="1"/>
+									<field name="edi_fraction_exercice_actuel" invisible="1"/>
+									<field name="edi_cumul_plus_value_rapportee" invisible="1"/>
+									<field name="edi_solde_plus_value_non_rapportee" invisible="1"/>
+									<field name="edi_observations" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_plus_values_fusion_tree" model="ir.ui.view">
+	    <field name="name">view.plus.values.fusion.tree</field>
+	    <field name="model">plus.values.fusion</field>
+	    <field name="arch" type="xml">
+	        <tree string="PLUS-VALUES CONSTATEES EN CAS DE FUSION">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_plus_values_fusion" model="ir.actions.act_window">
+	    <field name="name">PLUS-VALUES CONSTATEES EN CAS DE FUSION</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">plus.values.fusion</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-17 PLUS-VALUES CONSTATEES EN CAS DE FUSION" id="menu_plus_values_fusion_id" parent="menu_tables_root" action="action_plus_values_fusion" 
+	sequence="18"/>
+
+	<!-- Ruuules -->
+	<record id="plus_values_fusion_comp_rule" model="ir.rule">
+        <field name="name">plus_values_fusion multi-company</field>
+        <field name="model_id" ref="model_plus_values_fusion" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<record id="plus_values_fusion_line_comp_rule" model="ir.rule">
+        <field name="name">plus_values_fusion LINES multi-company</field>
+        <field name="model_id" ref="model_plus_values_fusion_line" />
+        <field name="domain_force">
+            ['|',('company_id', 'in', company_ids),('company_id','=',False)]
+        </field>
+    </record>
+	<!-- ___________ -->
+	<!-- PDF report -->
+	<record id="action_report_plus_values_fusion" model="ir.actions.report">
+        <field name="name">Plus Values Fusion</field>
+        <field name="model">plus.values.fusion</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_plus_values_fusion</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_plus_values_fusion</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_plus_values_fusion"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_plus_values_fusion">
+		<t t-foreach="docs" t-as="doc">
+			<t t-call="web.basic_layout">
+				<div >
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°17
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>ETAT DES PLUS VALUES CONSTATEES EN CAS DE FUSION</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<h1></h1>
+					<h1></h1>
+					<h1></h1>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+							font-style: italic;
+						}
+					</style>
+					<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead >
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Eléments</th>
+								<th style="border: 1px solid;text-align: center;" name="date_in" >Valeur d'apport</th>
+								<th style="border: 1px solid;text-align: center;" name="acquisition_price" >Valeur nette comptable</th>
+								<th style="border: 1px solid;text-align: center;" name="revaluation_value">Plus-value constatée et différée</th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_internal">Fraction de la plus-value rapportée aux exercices antérieurs(cumul)</th>
+								<th style="border: 1px solid;text-align: center;" name="taux">Fraction de la plus-value rapportée à l'exercice actuel</th>
+								<th style="border: 1px solid;text-align: center;" name="duration">Cumul des plus-value rapportées</th>
+								<th style="border: 1px solid;text-align: center;" name="normal_amortissement">Solde des plus-values non-imputées</th>
+								<th style="border: 1px solid;text-align: center;" name="observation">Observations</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-foreach="doc.plus_values_fusion_line_ids" t-as="line">
+								<tr>
+									<td style="border: 1px solid;" name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="border: 1px solid;" name="date_in">
+										<span t-field="line.valeur_apport"/>
+									</td>
+									<td style="border: 1px solid;" name="acquisition_price">
+										<span t-field="line.valeur_nette_comptable"/>
+									</td>
+									<td style="border: 1px solid;" name="revaluation_value">
+										<span t-field="line.plus_value_constatee"/>
+									</td>
+									<td style="border: 1px solid;" name="amortissement_internal">
+										<span t-field="line.fraction_exercice_ant"/>
+									</td>
+									<td style="border: 1px solid;" name="fraction_exercice_actuel">
+										<span t-field="line.fraction_exercice_actuel"/>
+									</td>
+									<td style="border: 1px solid;" name="cumul_plus_value_rapportee">
+										<span t-field="line.cumul_plus_value_rapportee"/>
+									</td>
+									<td style="border: 1px solid;" name="solde_plus_value_non_rapportee">
+										<span t-field="line.solde_plus_value_non_rapportee"/>
+									</td>
+									<td style="border: 1px solid;" name="observations">
+										<span t-field="line.observations"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+				</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

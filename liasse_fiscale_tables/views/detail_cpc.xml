@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_detail_cpc_form" model="ir.ui.view">
+	    <field name="name">view.detail.cpc.form</field>
+	    <field name="model">detail.cpc</field>
+	    <field name="arch" type="xml">
+	        <form string="Detail CPC">
+				<header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+                </header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" create="false" colspan="4">
+								<tree editable="bottom" create="false" delete="false">
+									<field name="name"/>
+									<field name="net"/>
+									<field name="prev_net"/>
+									<field name="code_edi_net" invisible="1"/>
+									<field name="code_edi_prev_net" invisible="1"/>
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_detail_cpc_tree" model="ir.ui.view">
+	    <field name="name">view.detail.cpc.tree</field>
+	    <field name="model">detail.cpc</field>
+	    <field name="arch" type="xml">
+	        <tree string="Detail CPC">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_detail_cpc" model="ir.actions.act_window">
+	    <field name="name">Detail CPC</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">detail.cpc</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- <menuitem name="Detail CPC" id="menu_detail_cpc_id" parent="menu_tables_root" action="action_detail_cpc"
+	sequence="4" /> -->
+
+	<!-- PDF report -->
+	<record id="action_report_bdetail_cpc" model="ir.actions.report">
+        <field name="name">Detail CPC</field>
+        <field name="model">detail.cpc</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_detail_cpc</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_detail_cpc</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_detail_cpc"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_detail_cpc">
+		<t t-foreach="docs" t-as="doc">
+        	<t t-call="web.basic_layout">
+                <div style="page-break-before:always;">
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°6
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>DETAIL DES POSTES DU C . P . C .</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 11px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead >
+							<tr>
+								<th style="text-align: center;" colspan="1"></th>
+								<th style="border: 1px solid;text-align: center;" colspan="1" >EXERCICE</th>
+								<th style="border: 1px solid;text-align: center;" colspan="1" >EXERCICE PREC.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="doc.line_ids" t-as="line">
+								<tr>
+									<td  name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_sortie">
+										<span t-field="line.net"/>
+									</td>
+									<td style="text-align: right;" name="amortissement_entree">
+										<span t-field="line.prev_net"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+				</div>
+        	</t>
+        </t>
+    </template>
+  </data>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <record id="simpl_isreport_engin_print_view" model="ir.ui.view">
+            <field name="name">simpl_is.report.engin.print.form</field>
+            <field name="model">report.engin.print</field>
+            <field name="inherit_id" ref="odoo_excel_engin.report_engin_print_view"/>
+            <field name="arch" type="xml">
+                <field name="fy_n_id" position="after">
+                        <field name="xml_file" filename="name" readonly="1" attrs="{'invisible':[('selection','=',True)]}"/>
+                    </field>
+                    <button name="print_report" position="after">
+                        <button string="Générer (XML)" name="generate_xml"  attrs="{'invisible':[('selection','=',True)], 'required':[('selection','=',False)]}" type="object" class="btn-primary"/>
+                    </button>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

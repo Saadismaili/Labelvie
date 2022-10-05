@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<!-- Partner form view inherte-->
+		<record id="inherit_res_partner_form" model="ir.ui.view">
+			<field name="name">inherit.res.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<field name="ref" position="after">
+					<field name="honoraire"/>
+				</field>
+				<notebook position="inside">
+                    <page string="Autres infos" attrs="{'invisible': [('is_company','=', False)],'required': [('is_company','=', True)]}">
+                        <group col="4">
+                            <field name="id_fisc" attrs="{'required': [('honoraire','=', True)]}"/>
+                            <field name="rc" attrs="{'required': [('honoraire','=', True)]}" />
+                            <field name="cnss" attrs="{'required': [('honoraire','=', True)]}"/>
+                            <field name="capital_social" attrs="{'required': [('honoraire','=', True)]}"/>
+                            <field name="ice" attrs="{'required': [('honoraire','=', True)]}"/>
+                            <field name="itp" attrs="{'required': [('honoraire','=', True)]}"/>
+                            <field name="activites" attrs="{'required': [('honoraire','=', True)]}"/>
+                            <field name="nationalite" attrs="{'required': [('honoraire','=', True)]}"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+		</record>
+    </data>
+</odoo>

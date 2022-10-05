@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_provisions_form" model="ir.ui.view">
+	    <field name="name">view.provisions.form</field>
+	    <field name="model">provisions</field>
+	    <field name="arch" type="xml">
+	        <form string="Provisions">
+				<header>
+                        <button name="get_lines" type="object" string="Mise à jour des données"/>
+				</header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="provisions_line_ids" nolabel="1" colspan="4">
+								<tree editable="bottom" create="false" delete="false">
+									<field name="code" invisible="1"/>
+									<field name="name"/>
+									<field name="montant_debut"/>
+									<field name="dotation_exploitation" attrs="{'readonly': [ ('name','not in',['2. Provisions réglementées','6. Provisions pour dépréciation des comptes de trésorerie'])]}"/>
+									<field name="dotation_financiere" attrs="{'readonly': [ ('name','not in',['2. Provisions réglementées','5. Autres Provisions pour risques et charge'])]}"/>
+									<field name="dotation_non_courante" attrs="{'readonly': [ ('name','not in',['6. Provisions pour dépréciation des comptes de trésorerie'])]}"/>
+									<field name="reprises_exploitation" attrs="{'readonly': [ ('name','not in',['2. Provisions réglementées','5. Autres Provisions pour risques et charge','6. Provisions pour dépréciation des comptes de trésorerie'])]}"/>
+									<field name="reprises_financiere" attrs="{'readonly': [ ('name','not in',['2. Provisions réglementées','5. Autres Provisions pour risques et charge'])]}"/>
+									<field name="reprises_non_courante" attrs="{'readonly': [ ('name','not in',['6. Provisions pour dépréciation des comptes de trésorerie'])]}"/>
+									<field name="montant_fin" />
+
+									<field name="edi_montant_debut" invisible="1"/>
+									<field name="edi_dotation_exploitation" invisible="1"/>
+									<field name="edi_dotation_financiere"  invisible="1"/>
+									<field name="edi_dotation_non_courante"  invisible="1"/>
+									<field name="edi_reprises_exploitation"  invisible="1"/>
+									<field name="edi_reprises_financiere"  invisible="1"/>
+									<field name="edi_reprises_non_courante"  invisible="1"/>
+									<field name="edi_montant_fin"  invisible="1"/>
+									
+									<field name="provisions_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_provisions_tree" model="ir.ui.view">
+	    <field name="name">view.provisions.tree</field>
+	    <field name="model">provisions</field>
+	    <field name="arch" type="xml">
+	        <tree string="Provisions">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id"  />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_provisions" model="ir.actions.act_window">
+	    <field name="name">PROVISIONS</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">provisions</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="TAB-09 PROVISIONS" id="menu_provisions_id" parent="menu_tables_root" action="action_provisions" 
+	sequence="10"/>
+	<!-- Ruuules -->
+	<record id="provisions_comp_rule" model="ir.rule">
+		<field name="name">Provision multi-company</field>
+		<field name="model_id" ref="model_provisions" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<record id="provisions_line_comp_rule" model="ir.rule">
+		<field name="name">Provision LINES multi-company</field>
+		<field name="model_id" ref="model_provisions_line" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<!-- ___________ -->
+
+	<!-- pdf report -->
+	<record id="action_report_provisions" model="ir.actions.report">
+        <field name="name">PROVISIONS</field>
+        <field name="model">provisions</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_provisions</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_provisions</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_provisions"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_provisions">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°9
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>TABLEAU DES PROVISIONS</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<h1></h1>
+					<h1></h1>
+						<table class="small">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead style="display: table-row-group">
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" >Nom</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_debut" >Montant début exercice</th>
+								<th style="border: 1px solid;text-align: center;" name="th_dotation_exploitation" >Dotation d'exploitation</th>
+								<th style="border: 1px solid;text-align: center;" name="th_dotation_financiere">Dotation financières</th>
+								<th style="border: 1px solid;text-align: center;" name="th_dotation_non_courante">Dotation Non courantes</th>
+								<th style="border: 1px solid;text-align: center;" name="th_reprises_exploitation">Reprises d'exploitation</th>
+								<th style="border: 1px solid;text-align: center;" name="th_reprises_financiere">Reprises financières</th>
+								<th style="border: 1px solid;text-align: center;" name="th_reprises_non_courante">Reprises Non courantes</th>
+								<th style="border: 1px solid;text-align: center;" name="th_montant_fin">Montant fin exercice</th>
+							</tr>
+						</thead>
+						<tbody class="sale_tbody">
+							<t t-foreach="obj.provisions_line_ids" t-as="line">
+								<tr>
+									<td style="height: 50px;border: 1px solid;" name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_montant_debut">
+										<span t-field="line.montant_debut"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_dotation_exploitation">
+										<span t-field="line.dotation_exploitation"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_dotation_financiere">
+										<span t-field="line.dotation_financiere"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_dotation_non_courante">
+										<span t-field="line.dotation_non_courante"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_reprises_exploitation">
+										<span t-field="line.reprises_exploitation"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_reprises_financiere">
+										<span t-field="line.reprises_financiere"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_reprises_non_courante">
+										<span t-field="line.reprises_non_courante"/>
+									</td>
+									<td style="height: 50px;border: 1px solid;text-align: right;" name="td_montant_fin">
+										<span t-field="line.montant_fin"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+            	</div>
+        	</t>
+        </t>
+    </template>
+</odoo>

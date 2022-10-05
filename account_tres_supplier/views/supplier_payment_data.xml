@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data  noupdate="1">
+
+        <record id="paiement_effet_model_supplier_1" model="paiement.effet.model.supplier">
+            <field name="name">Modèle Effet Fournisseur</field>
+            <field name="delivred_account" search="[('code','like','4415%')]"/>
+        </record>
+
+    </data>
+</odoo>

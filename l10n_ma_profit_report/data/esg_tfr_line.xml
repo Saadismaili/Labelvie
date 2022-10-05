@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="esg.tfr.line" id="tfr_711">
+        <field name="name">*  Ventes de marchandises (en l'état)</field>
+        <field name="sequence">10</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","711%"]]</field>
+        <!-- <field name="subtraction_accounts_domain">[["code","=like","1112%"]]</field> -->
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_712">
+        <field name="name">*  Achats revendus de marchandises</field>
+        <field name="sequence">20</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_71"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","611%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_731">
+        <field name="name">*  Ventes de biens et services produits</field>
+        <field name="sequence">30</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_73"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","712%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_732">
+        <field name="name">*  Variation stocks produits</field>
+        <field name="sequence">40</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_73"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","713%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_733">
+        <field name="name">*  Immobilisations produites par l'entreprise pour elle même</field>
+        <field name="sequence">50</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_73"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","714%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_741">
+        <field name="name">*  Achats consommés de matières et fournitures</field>
+        <field name="sequence">60</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_74"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","612%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_742">
+        <field name="name">*  Autres charges externes</field>
+        <field name="sequence">70</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_74"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <!-- <field name="accounts_domain">[]</field> -->
+        <field name="accounts_domain">["|",["code","=like","614%"],["code","=like","613%"]]</field>
+    </record>
+    <record model="esg.tfr.line" id="tfr_751">
+        <field name="name">*  Subventions d'exploitation</field>
+        <field name="sequence">80</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","716%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+
+    <record model="esg.tfr.line" id="tfr_752">
+        <field name="name">*  Impôts et taxes</field>
+        <field name="sequence">110</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","616%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_753">
+        <field name="name">*  Charges de personnel</field>
+        <field name="sequence">120</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_75"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","617%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_761">
+        <field name="name">*  Autres produits d'exploitation</field>
+        <field name="sequence">130</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_76"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","718%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_762">
+        <field name="name">*  Autres charges d'exploitation</field>
+        <field name="sequence">140</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_76"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","618%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_763">
+        <field name="name">*  Reprises d'exploitation, transferts de charges</field>
+        <field name="sequence">150</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_76"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","719%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_764">
+        <field name="name">*  Dotations d'exploitation</field>
+        <field name="sequence">160</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_76"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","619%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+    <record model="esg.tfr.line" id="tfr_801">
+        <field name="name">*  Impôts sur les résultats</field>
+        <field name="sequence">170</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="group_id" ref="tfr_80"/>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">[["code","=like","67%"]]</field>
+        <!-- <field name="accounts2_domain">[]</field> -->
+    </record>
+</odoo>

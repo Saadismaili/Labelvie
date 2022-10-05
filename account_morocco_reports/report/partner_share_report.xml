@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="action_partner_share_report"
+            model="partner.share"
+            string="Partner Share"
+            report_type="qweb-pdf"
+            name="account_morocco_reports.partner_share_report"
+            file="account_morocco_reports.partner_share_report"
+            menu="True"
+    />
+
+    <template id="partner_share_report">
+        <t t-set="data_report_landscape" t-value="True"/>
+        <t t-set="full_width" t-value="True"/>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="row">
+                        <div class="col-4 float-left">
+                            Raison sociale :
+                            <br/>
+                            Tableau n° 13
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4 float-right">
+                            <span class="float-right">
+                                Exercice:
+                                <span t-field="o.date"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            ETAT DE REPARTITION DU CAPITAL SOCIAL
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 float-right">
+                            <span class="float-right">
+                                MONTANT DU CAPITAL:
+                                <span t-field="o.total_share_subscribe_value"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <table class="table table-condensed table-bordered">
+                            <thead class="font-weight-bold">
+                                <tr>
+                                    <th class="text-center text-nowrap"
+                                        colspan="12">
+                                        <span t-esc="o.year"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2"
+                                        class="align-top text-center text-nowrap">
+                                        NOM ET PRENOM
+                                        <br/>
+                                        DES PRINCIPAUX
+                                        <br/>
+                                        ASSOCIES (1)
+                                    </th>
+                                    <th rowspan="2"
+                                        class="align-top text-center text-nowrap">
+                                        RAISON SOCIAL
+                                        <br/>
+                                        DES PRINCIPAUX
+                                        <br/>
+                                        ASSOCIES (1)
+                                    </th>
+                                    <th class="text-center text-nowrap">
+                                    </th>
+                                    <th class="text-center text-nowrap">
+                                    </th>
+                                    <th class="text-center text-nowrap">
+                                    </th>
+                                    <th class="text-center text-nowrap">
+                                    </th>
+                                    <th class="text-center text-nowrap"
+                                        colspan="2">
+                                        NOMBRE TITRES
+                                    </th>
+                                    <th class="text-center text-nowrap">VALEUR
+                                    </th>
+                                    <th class="text-center text-nowrap"
+                                        colspan="3">
+                                        MONTANT DU CAPITAL
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center text-nowrap">N° IF
+                                    </th>
+                                    <th class="text-center text-nowrap">N° CNI
+                                    </th>
+                                    <th class="text-center text-nowrap">N° CE
+                                    </th>
+                                    <th class="text-center text-nowrap">
+                                        ADRESSE
+                                    </th>
+                                    <th class="text-center text-nowrap">N-1</th>
+                                    <th class="text-center text-nowrap">N</th>
+                                    <th class="text-center text-nowrap">NOMINALE
+                                    </th>
+                                    <th class="text-center text-nowrap">SOUSCRIT
+                                    </th>
+                                    <th class="text-center text-nowrap">APPELE
+                                    </th>
+                                    <th class="text-center text-nowrap">LIBERE
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center text-nowrap">1</th>
+                                    <th class="text-center text-nowrap">2</th>
+                                    <th class="text-center text-nowrap">3</th>
+                                    <th class="text-center text-nowrap">4</th>
+                                    <th class="text-center text-nowrap">5</th>
+                                    <th class="text-center text-nowrap">6</th>
+                                    <th class="text-center text-nowrap">7</th>
+                                    <th class="text-center text-nowrap">8</th>
+                                    <th class="text-center text-nowrap">9</th>
+                                    <th class="text-center text-nowrap">10</th>
+                                    <th class="text-center text-nowrap">11</th>
+                                    <th class="text-center text-nowrap">12</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr>
+                                        <td class="text-center">
+                                            <span t-field="line.person"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.company"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.company_number"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.person_number"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.n_ce"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.address"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.partner_shares_previous_year"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.total_partner_shares"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.nominal_value"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.share_subscribe_value"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.share_called_value"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.share_paid_value"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="10" class="text-center">
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.total_share_called_value"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.total_share_paid_value"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

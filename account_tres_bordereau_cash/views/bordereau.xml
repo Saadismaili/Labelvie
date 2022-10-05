@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+        <record model="ir.ui.view" id="cash_client_tree_view_inherit">
+            <field name="name">cash.client.tree.view.inherit</field>
+            <field name="model">paiement.cash.client</field>
+            <field name="inherit_id" ref="account_tres_customer.cash_form_client_view"/>
+            <field name="arch" type="xml">
+                <field name="amount" position="after">
+                    <field name="bordereau_cash_id" readonly="1"/>
+                </field>
+                <xpath expr="//button[@name='action_caisse_centrale']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- bordereau  Search View -->
+
+        <record id="paiement_bordereau_cash_search_view" model="ir.ui.view">
+            <field name="name">paiement.bordereau.cash.search.view</field>
+            <field name="model">paiement.bordereau.cash</field>
+            <field name="arch" type="xml">
+                <search string="bordereau">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="journal_id"/>
+                    <field name="courssier_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <group expand="0" string="Group By..." groups="base.group_extended">
+                        <filter string="Date" name="date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Société" name="company" domain="[]" context="{'group_by':'company_id'}"
+                                groups="base.group_multi_company"/>
+                        <filter string="Cousrier" name="coursier" domain="[]" context="{'group_by':'courssier_id'}"/>
+                        <filter string="Banque" name="banque" domain="[]" context="{'group_by':'journal_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- bordereau Tree View -->
+
+        <record id="paiement_bordereau_cash_tree_view" model="ir.ui.view">
+            <field name="name">paiement.bordereau.cash.tree.view</field>
+            <field name="model">paiement.bordereau.cash</field>
+            <field name="arch" type="xml">
+                <tree string="bordereau">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="courssier_id"/>
+                    <field name="journal_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- bordereau Form View -->
+
+        <record id="paiement_bordereau_cash_form_view" model="ir.ui.view">
+            <field name="name">paiement.bordereau.cash.form.view</field>
+            <field name="model">paiement.bordereau.cash</field>
+            <field name="arch" type="xml">
+                <form string="bordereau">
+                    <header>
+                        <button name="valider_bordereau" states="draft" string="Valider" type="object"
+                                class="oe_highlight"/>
+                        <button name="encaisser_cash" states="bordereau" string="Encaisser" type="object"
+                                class="oe_highlight"/>
+                        <button name="back_to_draft" states="done" string="Brouillon" type="object" class="oe_highlight"
+                                groups="account_tres_bordereau_cash.bordereau_cash_back_to_draft"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <!--<field name="period_id"/>-->
+                            <field name="courssier_id" domain="[('share','=',False)]" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="journal_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="date_encaissement"/>
+                            <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state','!=','draft')]}"/>
+
+                        </group>
+                        <notebook>
+                            <page string="Espèces">
+                                <field colspan="4" name="cash_lines" nolabel="1" widget="many2many" attrs="{'readonly':[('state','!=','draft')]}"
+                                       domain="[('state','in',['caisse','caisse_centrale']),('bordereau_cash_id','=',False)]"/>
+                            </page>
+                            <page string="Ecritures comptables" >
+                                <field name="move_lines" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </page>
+
+                        </notebook>
+                        <group>
+                            <field name="total" invisible="1"/>
+                            <field name="total_amount"/>
+                            <field name="nb_cash"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- bordereaux effet action -->
+
+        <record model="ir.actions.act_window" id="paiement_bordereau_cash_action">
+            <field name="name">Bordereaux Espèces</field>
+            <field name="res_model">paiement.bordereau.cash</field>
+            <field name="view_mode">tree,form</field>
+
+        </record>
+
+
+        <!-- bordereaux  menu -->
+
+        <menuitem action="paiement_bordereau_cash_action" id="paiement_bordereau_cash_menu"
+                  parent="account_tres_customer.bordereaux_menu_root"/>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_liass_fiscal,liass_fiscal.liass_fiscal,model_liass_fiscal,base.group_user,1,1,1,1
+access_liass_fiscal_line,liass_fiscal_line.liass_fiscal_line,model_liass_fiscal_line,base.group_user,1,1,1,1
+access_report_generator,report_generator.report_generator,model_report_generator,base.group_user,1,1,1,1

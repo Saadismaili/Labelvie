@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="profit.group" id="profit_71">
+        <field name="name">PRODUITS D'EXPLOITATION</field>
+        <field name="sequence">10</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <!-- <record model="profit.group" id="profit_71_total">
+        <field name="name">TOTAL I</field>
+        <field name="sequence">15</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;","&amp;","&amp;","&amp;","&amp;","&amp;",["code","=like","71%"],["code","not like","7118%"],["code","not like","7128%"],["code","not like","7148%"],["code","not like","7168%"],["code","not like","7188%"],["code","not like","7198%"]]</field>
+        <field name="accounts2_domain">["|","|","|","|","|",["code","=like","7118%"],["code","=like","7128%"],["code","=like","7148%"],["code","=like","7168%"],["code","=like","7188%"],["code","=like","7198%"]]</field>
+        <field name="left_char">A</field>
+    </record> -->
+    <record model="profit.group" id="profit_61">
+        <field name="name">CHARGES D'EXPLOITATION</field>
+        <field name="sequence">20</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">T</field>
+    </record>
+     <!-- <record model="profit.group" id="profit_61_total">
+        <field name="name">TOTAL II</field>
+        <field name="sequence">25</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;","&amp;","&amp;","&amp;","&amp;","&amp;","&amp;",["code","=like","61%"],["code","not like","6118%"],["code","not like","6128%"],["code","not like","6148%"],["code","not like","6168%"],["code","not like","6178%"],["code","not like","6188%"],["code","not like","6198%"]]</field>
+        <field name="accounts2_domain">["|","|","|","|","|","|",["code","=like","6118%"],["code","=like","6128%"],["code","=like","6148%"],["code","=like","6168%"],["code","=like","6178%"],["code","=like","6188%"],["code","=like","6198%"]]</field>
+    </record> -->
+    <record model="profit.group" id="profit_81">
+        <field name="name">RESULTAT D'EXPLOITATION (I-II)</field>
+        <field name="sequence">100</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",10]]</field>
+        <field name="subtraction_domain">[["sequence","=",20]]</field>
+    </record>
+    <record model="profit.group" id="profit_73">
+        <field name="name">PRODUITS FINANCIERS</field>
+        <field name="sequence">110</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <!-- <record model="profit.group" id="profit_73_total">
+        <field name="name">TOTAL IV</field>
+        <field name="sequence">120</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;","&amp;","&amp;","&amp;",["code","=like","73%"],["code","not like","7328%"],["code","not like","7338%"],["code","not like","7388%"],["code","not like","7398%"]]</field>
+        <field name="accounts2_domain">["|","|","|",["code","=like","7328%"],["code","=like","7338%"],["code","=like","7388%"],["code","=like","7398%"]]</field>
+        <field name="left_char">N</field>
+    </record> -->
+    <record model="profit.group" id="profit_63">
+        <field name="name">CHARGES FINANCIERES</field>
+        <field name="sequence">210</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">C</field>
+    </record>
+    <!-- <record model="profit.group" id="profit_63_total">
+        <field name="name"> TOTAL V</field>
+        <field name="sequence">220</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["&amp;","&amp;","&amp;","&amp;","&amp;",["code","=like","63%"],["code","not like","6318%"],["code","not like","6338%"],["code","not like","6388%"],["code","not like","6388%"],["code","not like","6398%"]]</field>
+        <field name="accounts2_domain">["|","|","|","|",["code","=like","6318%"],["code","=like","6338%"],["code","=like","6388%"],["code","=like","6388%"],["code","=like","6398%"]]</field>
+    </record> -->
+
+     <record model="profit.group" id="profit_83">
+        <field name="name">RESULTAT FINANCIER (IV-V)</field>
+        <field name="sequence">300</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">positive</field>
+        <field name="summation_domain">[["sequence","=",110],]</field>
+        <field name="subtraction_domain">[["sequence","=",210]]</field>
+    </record>
+    <record model="profit.group" id="profit_84">
+        <field name="name">RESULTAT COURANT (III+VI)</field>
+        <field name="sequence">400</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">["|",["sequence","=",100],["sequence","=",300]]</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="date_range_inheritance_form">
+            <field name="name">date.range.form</field>
+            <field name="model">date.range</field>
+            <field name="inherit_id" ref="date_range.view_date_range_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_id']" position="before">
+                    <field name="is_config" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="date_range_tree">
+            <field name="name">date.range.tree</field>
+            <field name="model">date.range</field>
+            <field name="inherit_id" ref="date_range.view_date_range_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_id']" position="before">
+                    <field name="is_config" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Wizard -->
+        <record id="default_date_wizard" model="ir.ui.view">
+            <field name="name">default.date</field>
+            <field name="model">default.date</field>
+            <field name="arch" type="xml">
+                <form string="Date par defaut">
+                    <group>
+                        <group>
+                            <field name="range_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                            name="set_function"
+                            string="Confirmer"
+                            type="object"
+                            class="btn-primary"
+                        />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="default_date_action" model="ir.actions.act_window">
+            <field name="name">Date par defaut</field>
+            <field name="res_model">default.date</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="default_date_wizard" />
+            <field name="target">new</field>
+        </record>
+    
+    
+        <menuitem id="default_date_menu"
+            name="Date par defaut"
+            action="default_date_action"
+            parent="account_accountant.menu_accounting"
+            sequence='5'/>
+    </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_paiement_cash,access_paiement_cash,model_paiement_bordereau_cash,account_tres_customer.account_tres_user,1,0,0,0
+access_paiement_cash,access_paiement_cash,model_paiement_bordereau_cash,account_tres_customer.account_tres_responsable,1,1,1,1

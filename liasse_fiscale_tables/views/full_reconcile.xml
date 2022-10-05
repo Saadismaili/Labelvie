@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="full_reconcile_inherit_form">
+            <field name="name">account.full.reconcile.form</field>
+            <field name="model">account.full.reconcile</field>
+            <field name="inherit_id" ref="account.view_full_reconcile_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="company_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

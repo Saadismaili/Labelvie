@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_tax_repport_formulas_line,access.account.tax.repport.formulas.line,tva_encaissement_maroc.model_account_tax_repport_formulas_line,group_tva_encaissement_maroc,1,1,1,1
+access_account_tax_repport_formulas,access.account.tax.repport.formulas,tva_encaissement_maroc.model_account_tax_repport_formulas,group_tva_encaissement_maroc,1,1,1,1
+access_account_tax_repport,access.account.tax.repport,tva_encaissement_maroc.model_account_tax_repport,group_tva_encaissement_maroc,1,1,1,1
+access_tva_line,access.tva.line,tva_encaissement_maroc.model_tva_line,group_tva_encaissement_maroc,1,1,1,1
+access_tva_declaration_line,access.tva.declaration.line,tva_encaissement_maroc.model_tva_declaration_line,group_tva_encaissement_maroc,1,1,1,1
+access_tva_declaration,access.tva.declaration,tva_encaissement_maroc.model_tva_declaration,group_tva_encaissement_maroc,1,1,1,1
+access_tva_compute_manual_line,access.tva.compute.manual_line,tva_encaissement_maroc.model_tva_compute_manual_line,group_tva_encaissement_maroc,1,1,1,1
+access_tva_compute_auto_line,access.tva.compute.auto_line,tva_encaissement_maroc.model_tva_compute_auto_line,group_tva_encaissement_maroc,1,1,1,1

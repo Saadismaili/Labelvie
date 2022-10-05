@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<odoo>
+
+    <!-- <record id="account_temp_ma_profit" model="account.chart.template">
+        <field name="name">Plan comptable marocain</field>
+        <field name="code_digits">6</field>
+        <field name="currency_id" ref="base.MAD"/>
+        <field name="bank_account_code_prefix">5141</field>
+        <field name="cash_account_code_prefix">5161</field>
+        <field name="transfer_account_code_prefix">5115</field>
+    </record> -->
+
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_tva_declaration_form_inherited" model="ir.ui.view">
+            <field name="name">tva.declaration.form.inherited</field>
+            <field name="model">tva.declaration</field>
+            <field name="inherit_id" ref="tva_encaissement_maroc.view_tva_declaration_form"/>
+            <field name="arch" type="xml">
+                <field name='period' position='after' >
+                    <field name='statement_ids' domain="[('journal_id.type','=','bank')]" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

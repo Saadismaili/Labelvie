@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_esg_tfr_form" model="ir.ui.view">
+	    <field name="name">view.esg.tfr.form</field>
+	    <field name="model">esg.tfr</field>
+	    <field name="arch" type="xml">
+	        <form string="Etat des Soldes de Gestion (E.S.G) TFR">
+				<header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+        		</header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<field name="company_id" invisible="1"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" create="false" colspan="4">
+								<tree editable="bottom" create="false">
+									<field name="name"/>
+									<field name="net"/>
+									<field name="prev_net"/>
+									<!-- Code Edi -->
+									<field name="code_edi_net" invisible="1"/>
+									<field name="code_edi_prev_net" invisible="1"/>
+									<field name="parent_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_esg_tfr_tree" model="ir.ui.view">
+	    <field name="name">view.esg.tfr.tree</field>
+	    <field name="model">esg.tfr</field>
+	    <field name="arch" type="xml">
+	        <tree string="Etat des Soldes de Gestion (E.S.G) TFR">
+				<field name="name"/>
+				<field name="fy_n_id"/>
+				<field name="company_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_esg_tfr" model="ir.actions.act_window">
+	    <field name="name">Etat des Soldes de Gestion (E.S.G) TFR</field>
+	    <field name="type">ir.actions.act_window</field>
+	    <field name="res_model">esg.tfr</field>
+	    <field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- <menuitem name="ESG TFR" id="menu_esg_tfr_id" parent="menu_tables_root" action="action_esg_tfr"
+	sequence="4" /> -->
+
+	<!-- PDF report -->
+	<record id="action_report_esg_tfr" model="ir.actions.report">
+        <field name="name">Etat des Soldes de Gestion (E.S.G) TFR</field>
+        <field name="model">esg.tfr</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">liasse_fiscale_tables.repport_report_esg_tfr</field>
+        <field name="report_file">liasse_fiscale_tables.repport_report_esg_tfr</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_esg_tfr"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_esg_tfr">
+		<t t-foreach="docs" t-as="doc">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°5
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>ETAT DES SOLDES DE GESTION ( E.S.G. )</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="doc.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="doc.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<h1></h1>
+					<h1></h1>
+					<div class="row">
+						<div class="col-12 text-left">
+							<h6>I . TABLEAU DE FORMATION DES RESULTATS ( T.F.R. )</h6>
+						</div>
+					</div>
+					<style type="text/css">
+						.small_tfr{
+							font-size: 13px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<table class="small_tfr">
+						<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+						<thead >
+							<tr>
+								<!-- <th></th> -->
+								<th style="border: 1px solid;text-align: center;" name="th_name" ></th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_sortie">EXERCICE</th>
+								<th style="border: 1px solid;text-align: center;" name="amortissement_entree">EXERCICE PREC</th>
+							</tr>
+						</thead>
+						<tbody >
+							<t t-foreach="doc.line_ids" t-as="line">
+								<tr>
+									<td  name="td_name">
+										<span t-field="line.name"/>
+									</td>
+									<td  style="text-align: right;" name="amortissement_sortie">
+										<span t-field="line.net"/>
+									</td>
+									<td  style="text-align: right;"  name="amortissement_entree">
+										<span t-field="line.prev_net"/>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+					<div class="row">
+						<div class="col-12 text-left">
+							<h6>II . CAPACITE D'AUTOFINANCEMENT (C. A. F.) - AUTOFINANCEMENT</h6>
+						</div>
+					</div>
+					<t t-foreach="request.env['esg.caf'].search([])"  t-as="obj">
+						<t t-if="obj.fy_n_id.id == doc.fy_n_id.id">
+							<style type="text/css">
+								.small_caf{
+									font-size: 13px;
+									width: 100%;
+									border: 1px solid;
+								}
+							</style>
+							<table class="small_caf">
+								<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+								<thead >
+									<tr>
+										<!-- <th></th> -->
+										<th  name="th_name" ></th>
+										<th  name="amortissement_sortie"></th>
+										<th  name="amortissement_entree"></th>
+									</tr>
+								</thead>
+								<tbody class="sale_tbody">
+									<t t-foreach="obj.line_ids" t-as="line">
+										<tr>
+											<td name="td_name">
+												<span t-field="line.name"/>
+											</td>
+											<td  style="text-align: right;"  name="amortissement_sortie">
+												<span t-field="line.net"/>
+											</td>
+											<td  style="text-align: right;"  name="amortissement_entree">
+												<span t-field="line.prev_net"/>
+											</td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+						</t>
+					</t>
+				</div>
+        	</t>
+        </t>
+    </template>
+  </data>
+</odoo>

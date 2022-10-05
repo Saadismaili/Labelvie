@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="loss.group" id="loss_84_report">
+        <field name="name">RESULTAT COURANT (reports)</field>
+        <field name="sequence">10</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|",["code","=like","711%"],["code","=like","713%"],["code","=like","6128%"],["code","=like","739%"],["code","=like","6318%"],["code","=like","6338%"],["code","=like","6398%"],["code","=like","738%"],["code","=like","733%"],["code","=like","732%"],["code","=like","6188%"],["code","=like","6198%"],["code","=like","6178%"],["code","=like","6168%"],["code","=like","6148%"],["code","=like","6118%"],["code","=like","719%"],["code","=like","718%"],["code","=like","716%"],["code","=like","714%"],["code","=like","712%"],["code","=like","711%"],["code","=like","712%"],["code","like","6338%"],["code","like","6398%"],["code","like","6388%"],["code","like","6318%"],["code","like","6198%"],["code","like","6188%"],["code","like","6178%"],["code","like","6168%"],["code","like","6148%"],["code","like","6128%"],["code","like","6118%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|",["code","like","7168%"],["code","like","7188%"],["code","like","7198%"],["code","like","7118%"],["code","like","7398%"],["code","like","7388%"],["code","like","7338%"],["code","like","7328%"],["code","like","7128%"],["code","like","7148%"],["code","like","7118%"],["code","like","7128%"],["code","=like","7118%"],["code","=like","7128%"],["code","=like","7118%"],["code","=like","633%"],["code","=like","6388%"],["code","=like","639%"],["code","=like","7398%"],["code","=like","638%"],["code","=like","631%"],["code","=like","7388%"],["code","=like","7338%"],["code","=like","7328%"],["code","=like","619%"],["code","=like","618%"],["code","=like","617%"],["code","=like","616%"],["code","=like","613%"],["code","=like","614%"],["code","=like","612%"],["code","=like","611%"],["code","=like","7198%"],["code","=like","7188%"],["code","=like","7168%"],["code","=like","7148%"],["code","=like","7128%"]]</field>
+    </record>
+    <record model="loss.group" id="loss_75">
+        <field name="name">PRODUITS NON COURANTS</field>
+        <field name="sequence">20</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+    </record>
+    <!-- <record model="loss.group" id="loss_75_total">
+        <field name="name">TOTAL VIII</field>
+        <field name="sequence">25</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+         <field name="summation_domain">[["sequence","=",20]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+        <field name="left_char">C</field>
+    </record> -->
+    <record model="loss.group" id="loss_65">
+        <field name="name">CHARGES NON COURANTES</field>
+        <field name="sequence">30</field>
+        <field name="group_type">lines</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="left_char">O</field>
+    </record>
+    <record model="loss.group" id="loss_65_total">
+        <field name="name"> TOTAL IX</field>
+        <field name="sequence">35</field>
+        <field name="group_type">sum</field>
+       <field name="value_type">same</field>
+        <field name="view_type">same</field>
+         <field name="summation_domain">[["sequence","=",30]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+        <field name="left_char">T</field>
+    </record>
+
+    <record model="loss.group" id="loss_85">
+        <field name="name">RESULTAT NON COURANT (VIII-IX)</field>
+        <field name="sequence">100</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",20]]</field>
+        <field name="subtraction_domain">[["sequence","=",30]]</field>
+    </record>
+
+    <record model="loss.group" id="loss_86">
+        <field name="name">RESULTAT AVANT IMPOTS (VII+X)</field>
+        <field name="sequence">200</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">["|",["sequence","=",100],["sequence","=",10]]</field>
+        <field name="subtraction_domain">[["id","=",0]]</field>
+    </record>
+
+    <record model="loss.group" id="loss_67">
+        <field name="name">IMPOTS SUR LES RESULTATS</field>
+        <field name="sequence">210</field>
+        <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="account_source_method">domain</field>
+        <field name="accounts_domain">[["code","=like","67%"]]</field>
+    </record>
+
+    <record model="loss.group" id="loss_88">
+        <field name="name">RESULTAT NET (XI-XII)</field>
+        <field name="sequence">300</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",200]]</field>
+        <field name="subtraction_domain">[["sequence","=",210]]</field>
+    </record>
+
+    <record model="loss.group" id="loss_total_6">
+        <field name="name">TOTAL DES PRODUITS (I+IV+VIII)</field>
+        <field name="sequence">400</field>
+       <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|",["code","=like","71%"],["code","=like","73%"],["code","=like","75%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|","|","|","|","|","|","|","|","|","|","|","|",["code","=like","7118%"],["code","=like","7128%"],["code","=like","7148%"],["code","=like","7168%"],["code","=like","7188%"],["code","=like","7198%"],["code","=like","7328%"],["code","=like","7338%"],["code","=like","7388%"],["code","=like","7398%"],["code","=like","7518%"],["code","=like","7568%"],["code","=like","7578%"],["code","=like","7588%"],["code","=like","7598%"]]</field>
+        <field name="accounts2_domain">["|","|","|","|","|","|","|","|","|","|","|","|","|","|",["code","=like","7118%"],["code","=like","7128%"],["code","=like","7148%"],["code","=like","7168%"],["code","=like","7188%"],["code","=like","7198%"],["code","=like","7328%"],["code","=like","7338%"],["code","=like","7388%"],["code","=like","7398%"],["code","=like","7518%"],["code","=like","7568%"],["code","=like","7578%"],["code","=like","7588%"],["code","=like","7598%"]]</field>
+    </record>
+
+    <record model="loss.group" id="loss_total_7">
+        <field name="name">TOTAL DES CHARGES (II+V+IX+XII)</field>
+        <field name="sequence">500</field>
+       <field name="group_type">one_line</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="account_source_method">domain</field>
+        <field name="period_fiscal_year" eval="True"/>
+        <field name="accounts_domain">["|","|","|",["code","=like","61%"],["code","=like","63%"],["code","=like","65%"],["code","=like","67%"]]</field>
+        <field name="subtraction_accounts_domain">["|","|","|","|","|","|","|","|","|","|","|","|","|","|","|",["code","=like","6118%"],["code","=like","6128%"],["code","=like","6148%"],["code","=like","6148%"],["code","=like","6168%"],["code","=like","6178%"],["code","=like","6188%"],["code","=like","6198%"],["code","=like","6318%"],["code","=like","6338%"],["code","=like","6388%"],["code","=like","6398%"],["code","=like","6518%"],["code","=like","6568%"],["code","=like","6588%"],["code","=like","6598%"]]</field>
+        <field name="accounts2_domain">["|","|","|","|","|","|","|","|","|","|","|","|","|","|","|",["code","=like","6118%"],["code","=like","6128%"],["code","=like","6148%"],["code","=like","6148%"],["code","=like","6168%"],["code","=like","6178%"],["code","=like","6188%"],["code","=like","6198%"],["code","=like","6318%"],["code","=like","6338%"],["code","=like","6388%"],["code","=like","6398%"],["code","=like","6518%"],["code","=like","6568%"],["code","=like","6588%"],["code","=like","6598%"]]</field>
+    </record>
+
+    <record model="loss.group" id="loss_result_net">
+        <field name="name">RESULTAT NET (total des produits-total des charges)</field>
+        <field name="sequence">1000</field>
+        <field name="group_type">sum</field>
+        <field name="value_type">same</field>
+        <field name="view_type">same</field>
+        <field name="summation_domain">[["sequence","=",400]]</field>
+        <field name="subtraction_domain">[["sequence","=",500]]</field>
+    </record>
+
+</odoo>

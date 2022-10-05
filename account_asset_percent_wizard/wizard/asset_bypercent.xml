@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record model="ir.ui.view" id="assets_bypercent_wizard_view">
+			<field name="name">assets.bypercent.wizard.form</field>
+			<field name="model">asset.bypercent</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+			<form string="Calcul des amortissements">
+                <group >
+					<field name="percent" required="True" />
+
+                 </group>
+             <footer>
+			      <button  name="compute_depreciation_bypercent" string="Génerer les amortissements"  type="object" class="oe_highlight"/>
+                   <button icon="gtk-cancel" special="cancel" string="Annuler"/>
+			 </footer>
+			 </form>
+			</field>
+		</record>
+        <record id="compute_depreciation_bypercent_action" model="ir.actions.act_window">
+         <field name="name">Calcul des amortissements en pourcentage</field>
+         <field name="res_model">asset.bypercent</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,form</field>
+         <field name="view_id" ref="assets_bypercent_wizard_view"/>
+         <field name="target">new</field>
+   </record>
+    </data>
+</odoo>

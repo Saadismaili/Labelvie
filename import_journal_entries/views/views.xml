@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="account_move_inherit_form">
+      <field name="name">account.move.form</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='move_type']" position="before">
+          <field name="is_imported" invisible="1"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

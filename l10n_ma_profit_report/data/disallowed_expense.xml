@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- <record model="account.disallowed.expenses.category" id="passage_00">
+        <field name="name">* BÈnÈfice net</field>
+        <field name="code">000</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_10">
+        <field name="name">*  Perte netts</field>
+        <field name="code">001</field>
+    </record> -->
+
+    <record model="account.disallowed.expenses.category" id="passage_30">
+        <field name="name">- Achats, Travaux et prestations de service non justifiés par une pièce probante</field>
+        <field name="code">011</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_40">
+        <field name="name">- Charges n'incombant pas à la société.</field>
+        <field name="code">100</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_50">
+        <field name="name">- Cadeaux publicitaires dépassant la valeur unitaire 100 dh TTC et/ou ne portant pas la raison sociale</field>
+        <field name="code">101</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_60">
+        <field name="name">Excédent non déductible sur les intérêts des comptes courants d'associés.</field>
+        <field name="code">110</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_70">
+        <field name="name">- Limite de (10.000) DH par jour et sans dépasser 100.000 DH par mois par fournisseur.
+            Règlement non justifié par chèque barré non endossable, effet de commerce, moyen magnétique,
+            virement bancaire, procédé électronique ou par compensation.</field>
+        <field name="code">111</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_80">
+        <field name="name">- Dotations aux amortissements/ immobilisations dont le prix d’acquisition dépasse 10.000 DH
+            Règlement non justifié par chèque barré non endossable, effet de commerce, moyen magnétique,
+            virement bancaire, procédé électronique ou par compensation.</field>
+        <field name="code">002</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_90">
+        <field name="name">- Excédent d'amortissement courant (Taux excessifs)</field>
+        <field name="code">020</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_100">
+        <field name="name">- Excédent d'amortissement / Redevances crédit bail (voitures de tourisme)</field>
+        <field name="code">022</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_110">
+        <field name="name">- Amortissement des exercices antérieurs (omissions)</field>
+        <field name="code">200</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_210">
+        <field name="name">- Provisions courantes non déductibles.</field>
+        <field name="code">202</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_220">
+        <field name="name">- Dons courants non déductibles.</field>
+        <field name="code">220</field>
+    </record>
+    
+    <record model="account.disallowed.expenses.category" id="passage_230">
+        <field name="name">- Profit latent de change (Ecarts de conversion) solde au 31-12-N (Comptes : 17 et 47)</field>
+        <field name="code">222</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_130">
+        <field name="name">- Indemnités de retard Comptabilisées non encaissées au 31/12/N-1 (compte 73811)</field>
+        <field name="code">003</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_140">
+        <field name="name">- Indemnités de retard Comptabilisées non payées au 31/12/N (compte 63118)</field>
+        <field name="code">030</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_150">
+        <field name="name">- VNA des immobilisations cédées sur exercices antérieurs</field>
+        <field name="code">033</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_160">
+        <field name="name">- Dotations non courantes des exercices antérieurs</field>
+        <field name="code">300</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_170">
+        <field name="name">- Amendes et intérêts de retard afférents aux impôts</field>
+        <field name="code">303</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_180">
+        <field name="name">- Amendes pénalités et majorations de toutes natures et majoration non déductibles</field>
+        <field name="code">330</field>
+    </record>
+    
+    <record model="account.disallowed.expenses.category" id="passage_190">
+        <field name="name">- Revenu des titres de participation compte 7321 si exonérés, (art. 6 du CGI).</field>
+        <field name="code">333</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_200">
+        <field name="name">- Revenu des titres immobilisés Compte 7325 si exonérés, (art. 6 du CGI).</field>
+        <field name="code">004</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_210">
+        <field name="name">- Profit latent de change (Ecarts de conversion) solde au 31-12-N-1 (Comptes : 17 et 47)</field>
+        <field name="code">040</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_210">
+        <field name="name">- Indemnités de retard Comptabilisées non encaissées au 31/12/N (compte 73811)</field>
+        <field name="code">044</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_230">
+        <field name="name">- Indemnités de retard Comptabilisées non payées au 31/12/N-1 (compte 63118)</field>
+        <field name="code">400</field>
+    </record>
+
+    <!-- <record model="account.disallowed.expenses.category" id="passage_240">
+        <field name="name">* BÈnÈfice brut Si T1 > T2 (A)</field>
+        <field name="code">404</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_250">
+        <field name="name">* DÈficit brut fiscal Si T2 > T1 (B)</field>
+        <field name="code">440</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_260">
+        <field name="name">Reven</field>
+        <field name="code">444</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_270">
+        <field name="name">Reven</field>
+        <field name="code">005</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_280">
+        <field name="name">Reven</field>
+        <field name="code">050</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_290">
+        <field name="name">Reven</field>
+        <field name="code">055</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_300">
+        <field name="name">Reven</field>
+        <field name="code">500</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_310">
+        <field name="name">Reven</field>
+        <field name="code">505</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_320">
+        <field name="name">Reven</field>
+        <field name="code">550</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_330">
+        <field name="name">Reven</field>
+        <field name="code">555</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_340">
+        <field name="name">Reven</field>
+        <field name="code">006</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_350">
+        <field name="name">Reven</field>
+        <field name="code">060</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_360">
+        <field name="name">Reven</field>
+        <field name="code">066</field>
+    </record>
+
+    <record model="account.disallowed.expenses.category" id="passage_370">
+        <field name="name">Reven</field>
+        <field name="code">600</field>
+    </record> -->
+</odoo>

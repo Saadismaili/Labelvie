@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_external_supplier_settings_tree" model="ir.ui.view">
+        <field name="name">account.external.supplier.settings.tree</field>
+        <field name="model">external.supplier.settings</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+                <field name="type" />
+                <field name="account_id" />
+                <field name="actif" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_view_external_supplier_accounts_tree">
+        <field name="name">Configuration des Comptes fournisseurs étrangers </field>
+        <field name="res_model">external.supplier.settings</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Configuration"
+              parent="menu_external_supplier_root_parent"
+              id="menu_external_supplier_settings_root"
+              action="action_view_external_supplier_accounts_tree"
+    />
+</odoo>

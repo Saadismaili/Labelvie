@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="account_tres_supplier" model="res.groups">
+            <field name="category_id" ref="l10n_maroc.categorie_security_andema"/>
+            <field name="name">Réglement fournisseurs</field>
+        </record>
+
+         <record id="account_tres_supplier_cancel" model="res.groups">
+            <field name="category_id" ref="l10n_maroc.categorie_security_andema"/>
+            <field name="name">Trésorerie fournisseur/Annulation</field>
+        </record>
+
+        <record id="supplier_payment_rule_multi-company" model="ir.rule">
+            <field name="name">Supplier payment multi-company</field>
+            <field name="model_id" ref="account_tres_supplier.model_supplier_payment"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force"> ['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+            <field eval="True" name="active"/>
+        </record>
+
+        <record id="paiement_cheque_supplier_rule_multi-company" model="ir.rule">
+            <field name="name">Paiement chèque supplier multi-company</field>
+            <field name="model_id" ref="account_tres_supplier.model_paiement_cheque_supplier"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force"> ['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+            <field eval="True" name="active"/>
+        </record>
+
+        <record id="paiement_effet_supplier_rule_multi-company" model="ir.rule">
+            <field name="name">Paiement effet model fournisseur multi-company</field>
+            <field name="model_id" ref="account_tres_supplier.model_paiement_effet_supplier"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force"> ['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+            <field eval="True" name="active"/>
+        </record>
+
+        <record id="paiement_ov_model_supplier_rule_multi-company" model="ir.rule">
+            <field name="name">Paiement ov model fournisseur multi-company</field>
+            <field name="model_id" ref="account_tres_supplier.model_paiement_ov_supplier"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force"> ['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+            <field eval="True" name="active"/>
+        </record>
+
+        <record id="model_paiement_effet_model_supplier_rule_multi-company" model="ir.rule">
+            <field name="name">Modele paiement effet fournisseur multi-company</field>
+            <field name="model_id" ref="account_tres_supplier.model_paiement_effet_model_supplier"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force"> ['|',('company_id','=',user.company_id.id),('company_id','=',False)]</field>
+            <field eval="True" name="active"/>
+        </record>
+    </data>
+</odoo>

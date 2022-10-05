@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_external_supplier_tree" model="ir.ui.view">
+        <field name="name">account.external.supplier.tree</field>
+        <field name="model">account.external.supplier</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="supplier_id"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="account_external_supplier_form" model="ir.ui.view">
+        <field name="name">account.external.supplier.form</field>
+        <field name="model">account.external.supplier</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Comptabiliser" name="action_send" states="draft" type="object"
+                            class="oe_highlight"/>
+                    <button string="Payer" name="action_pay" states="posted" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,paid"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1" attrs="{ 'readonly': [('state', '!=', 'draft')] }"/>
+                            <field name="supplier_id" required="1" attrs="{ 'readonly': [('state', '!=', 'draft')] }"/>
+                            <field name="date" required="1" attrs="{ 'readonly': [('state', '!=', 'draft')] }"/>
+                            <field name="journal_id" required="1" attrs="{ 'readonly': [('state', '!=', 'draft')] }"
+                                   domain="[('type', '=', 'purchase')]" options="{'no_create': True}"/>
+                            <field name="type" required="1" attrs="{ 'readonly': [('state', '!=', 'draft')] }"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Montants">
+                            <group>
+                                <field name="mt_ttc"
+                                       attrs="{ 'readonly': ['|', ('type', '!=', 'ttc'), ('state', '!=', 'draft')] }"/>
+                                <field name="mt_tva" readonly="1"/>
+                                <field name="mt_ras" readonly="1"/>
+                                <field name="mt_ht" readonly="1"/>
+                                <field name="mt_net"
+                                       attrs="{ 'readonly': ['|', ('type', '!=', 'net'), ('state', '!=', 'draft')] }"/>
+                                <field name="mt_global" readonly="1"/>
+                                <field name="mt_du" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Écritures comptables">
+                            <field name="move_line_ids" readonly="1"/>
+                        </page>
+                        <page string="Paiements" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <field name="payment_line_ids" context="{
+                                'default_payment_type': 'outbound', 'default_partner_id': supplier_id, 'default_partner_type': 'supplier',
+                                'default_communication': name, 'form_view_ref': 'account_external_supplier.view_account_payment_form_filtered'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--<record model="ir.ui.view" id="view_account_payment_form_filtered">
+        <field name="name">view.account.payment.form.filtered</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="payment_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="payment_type" position="before">
+                <field name="payement_method_id" required="1" widget='selection'/>
+            </field>
+            <field name="partner_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>-->
+
+    <record model="ir.actions.act_window" id="action_view_external_supplier_tree">
+        <field name="name">Opérations avec fournisseurs étrangers</field>
+        <field name="res_model">account.external.supplier</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Opérations avec fournisseurs étrangers"
+              id="menu_external_supplier_root_parent"
+              parent="account.menu_finance_payables"
+    />
+    <menuitem name="Opérations avec fournisseurs étrangers"
+              id="menu_external_supplier_root"
+              action="action_view_external_supplier_tree"
+              parent="menu_external_supplier_root_parent"
+    />
+</odoo>

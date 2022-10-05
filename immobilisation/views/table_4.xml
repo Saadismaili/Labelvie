@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<report
+		id="action_immobilisation_xlsx_report"
+		model="immo.financiere"
+		string="Generate XLSX Report"
+		report_type="xlsx"
+		name="immobilisation.report_immobilisation_generator"
+		file="immo_financiere"
+		attachment_use="False"/>
+
+		
+	<record id="view_immo_financiere_form" model="ir.ui.view">
+	    <field name="name">view.immo.financiere.form</field>
+	    <field name="model">immo.financiere</field>
+	    <field name="arch" type="xml">
+	        <form string="IMMOBILISATIONS AUTRES QUE FINANCIERES">
+				<header>
+					<button name="get_lines" type="object" string="Mise à jour des données"/>
+                </header>
+				<group>
+					<field name="name"/>
+					<field name="fy_n_id" required="1" domain="[('type_id.fiscal_year', '=', True)]"/>
+					<notebook colspan="4">
+						<page string="Lignes">
+							<field name="line_ids" create="false" colspan="4">
+								<tree editable="bottom" create="false" delete="false">
+									<field name="code" invisible="1"/>
+									<field name="name"/>
+									<field name="montant_start"/>
+									<field name="augmentation_acquisition"/>
+									<field name="augmentation_production"/>
+									<field name="augmentation_transaction"/>
+									<field name="diminution_cession"/>
+									<field name="diminution_withdrawal"/>
+									<field name="diminution_transaction"/>
+									<field name="montant_end"/>
+									<!--EDI  -->
+									<field name="edi_montant_start" invisible="1"/>
+									<field name="edi_augmentation_acquisition" invisible="1"/>
+									<field name="edi_augmentation_production" invisible="1"/>
+									<field name="edi_augmentation_transaction" invisible="1"/>
+									<field name="edi_diminution_cession" invisible="1"/>
+									<field name="edi_diminution_withdrawal" invisible="1"/>
+									<field name="edi_diminution_transaction" invisible="1"/>
+									<field name="edi_montant_end" invisible="1"/>
+									<field name="immo_id" invisible="1"/>
+									<field name="company_id" invisible="1"/>
+
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</group>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="view_immo_financiere_tree" model="ir.ui.view">
+	    <field name="name">view.immo.financiere.tree</field>
+	    <field name="model">immo.financiere</field>
+	    <field name="arch" type="xml">
+	        <tree string="IMMOBILISATIONS AUTRES QUE FINANCIERES">
+				<field name="name"/>
+				<field name="fy_n_id" domain="[('type_id.fiscal_year', '=', True)]"/>
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- Ruuules -->
+	<record id="immo_financiere_comp_rule" model="ir.rule">
+		<field name="name">immo financiere multi-company</field>
+		<field name="model_id" ref="model_immo_financiere" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<record id="immo_financiere_line_comp_rule" model="ir.rule">
+		<field name="name">immo financiere LINES multi-company</field>
+		<field name="model_id" ref="model_immo_financiere_line" />
+		<field name="domain_force">
+			['|',('company_id', 'in', company_ids),('company_id','=',False)]
+		</field>
+	</record>
+	<!-- ___________ -->
+
+	<!-- PDF report -->
+	<record id="action_report_immo_financiere" model="ir.actions.report">
+        <field name="name">IMMOBILISATIONS AUTRES QUE FINANCIERES</field>
+        <field name="model">immo.financiere</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">immobilisation.repport_report_immo_financiere</field>
+        <field name="report_file">immobilisation.repport_report_immo_financiere</field>
+        <field name="print_report_name"></field>
+        <field name="binding_model_id" ref="model_immo_financiere"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="repport_report_immo_financiere">
+        <t t-foreach="docs" t-as="obj">
+			<t t-call="web.basic_layout">
+				<div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.name" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span style="font-size: 10px;" class="float-right">
+								TABLEAU N°4
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<h6>TABLEAU DES IMMOBILISATIONS AUTRES QUE FINANCIERES</h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 float-left">
+							<span style="font-size: 10px;" t-field="obj.company_id.company_registry" />
+						</div>
+						<div class="col-4">
+						</div>
+						<div class="col-4 float-right">
+							<span tyle="font-size: 10px;" class="float-right">
+								<p style="font-size: 10px;">EXERCICE DU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_start"/> AU : <span style="font-size: 10px;" t-field="obj.fy_n_id.date_end"/></p>
+							</span>
+						</div>
+					</div>
+					<style type="text/css">
+						.small{
+							font-size: 15px;
+							width: 100%;
+							border: 1px solid;
+						}
+					</style>
+					<h1></h1>
+					<table class="small">
+					<!-- In case we want to repeat the header, remove "display: table-row-group" -->
+					<thead style="display: table-row-group">
+						<tr>
+							<!-- <th></th> -->
+							<th style="border: 1px solid;text-align: center;" name="th_name" >Lignes</th>
+							<th style="border: 1px solid;text-align: center;" name="montant_start" >DEBUT EXERCICE</th>
+							<th style="border: 1px solid;text-align: center;" name="augmentation_acquisition" >Acquisition</th>
+							<th style="border: 1px solid;text-align: center;" name="augmentation_production">Production</th>
+							<th style="border: 1px solid;text-align: center;" name="augmentation_transaction">Virement</th>
+							<th style="border: 1px solid;text-align: center;" name="diminution_cession">Cession</th>
+							<th style="border: 1px solid;text-align: center;" name="diminution_withdrawal">Retrait</th>
+							<th style="border: 1px solid;text-align: center;" name="diminution_transaction">Virement</th>
+							<th style="border: 1px solid;text-align: center;" name="montant_end">FIN EXERCICE</th>
+						</tr>
+					</thead>
+					<tbody class="sale_tbody">
+						<t t-foreach="obj.line_ids" t-as="line">
+							<tr>
+								<td style="height: 50px;border: 1px solid" name="td_name">
+									<span t-field="line.name"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="montant_start">
+									<span t-field="line.montant_start"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="augmentation_acquisition">
+									<span t-field="line.augmentation_acquisition"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="augmentation_production">
+									<span t-field="line.augmentation_production"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="augmentation_transaction">
+									<span t-field="line.augmentation_transaction"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="diminution_cession">
+									<span t-field="line.diminution_cession"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="diminution_withdrawal">
+									<span t-field="line.diminution_withdrawal"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="diminution_transaction">
+									<span t-field="line.diminution_transaction"/>
+								</td>
+								<td style="height: 50px;border: 1px solid;text-align: right;" name="montant_end">
+									<span t-field="line.montant_end"/>
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+            	</div>
+			</t>
+        </t>
+    </template>
+</odoo>

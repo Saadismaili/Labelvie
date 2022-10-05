@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_tax_prorata" model="ir.ui.view">
+            <field name="name">account.tax.prorata</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]/group[2]" position="inside">
+                    <label for="prorata" />
+                    <div >
+                        <field name="prorata" class="oe_inline"/>
+                        <span class="o_form_label oe_inline">%
+                        </span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="decimal_uom_vitrage" model="decimal.precision">
+            <field name="name">Vitrage unite</field>
+            <field name="digits">4</field>
+        </record>
+
+    </data>
+</odoo>
